@@ -1,3 +1,4 @@
+import 'package:Tempo/views/main_content.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -11,18 +12,17 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: Text('Tempo'),
+          leading: IconButton(
+            icon: Icon(Icons.menu),
+            tooltip: 'Navigation menu',
+            onPressed: null,
+          ),
         ),
-        body: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text('1st column'),
-                Text('2nd column'),
-                Text('3rd column'),
-              ],
-            )
-          ],
+        body: MainContent(),
+        floatingActionButton: FloatingActionButton(
+          tooltip: 'Add',
+          child: Icon(Icons.add),
+          onPressed: null,
         ),
       ),
     );
