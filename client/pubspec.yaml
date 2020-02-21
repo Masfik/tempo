@@ -9,9 +9,12 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^0.1.2
+  # QR Scanning
   qrscan: ^0.2.17
+  # SQLite
   sqflite: ^1.2.0
-
+  # Built Value provides: Immutable value types, EnumClass and JSON serialization
+  built_value: ^7.0.9
 
 dev_dependencies:
   flutter_test:

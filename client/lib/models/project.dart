@@ -19,6 +19,8 @@ class Project {
 
   DateTime get dueDate => _dueDate;
 
+  List<Task> get tasks => _tasks;
+
   set name(String value) {
     if (value.isNotEmpty) this._name = value;
     else throw InputException('Cannot create a project without a name!', 'name');
@@ -33,6 +35,4 @@ class Project {
     if (date != null) this._dueDate = date;
     else throw InputException('Cannot create a project without a due date!', 'dueDate');
   }
-
-  addTask(Task task) => _tasks.add(task);
 }
