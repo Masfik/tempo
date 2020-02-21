@@ -45,6 +45,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             onTap: () {
               Navigator.pop(context);
             },
+          ),
+          ListTile(
+            leading: Icon(Icons.plus_one),
+            title: Text('ADD PROJECT'),
+            onTap: () {
+              Navigator.pop(context);
+            },
           )
         ],
       ),

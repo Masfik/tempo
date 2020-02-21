@@ -1,5 +1,5 @@
-import 'package:Tempo/views/main_content.dart';
-import 'package:Tempo/widgets/navigation_drawer.dart';
+import 'package:Tempo/pages/add_project.dart';
+import 'package:Tempo/pages/main_content.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(Tempo());
@@ -17,18 +17,11 @@ class _TempoState extends State<Tempo> {
       theme: ThemeData(
         primaryColor: Colors.blue,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Tempo')
-        ),
-        drawer: NavigationDrawer(),
-        body: MainContent(),
-        floatingActionButton: FloatingActionButton(
-          tooltip: 'Add',
-          child: Icon(Icons.add),
-          onPressed: null,
-        ),
-      ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => MainContentScreen(),
+        '/addproject': (context) => AddProjectScreen()
+      },
     );
   }
 }
