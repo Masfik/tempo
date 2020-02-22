@@ -1,3 +1,4 @@
+import 'package:Tempo/utils/style.dart';
 import 'package:Tempo/widgets/navigation_drawer.dart';
 import 'package:Tempo/widgets/task/add_task.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class _MainContentScreenState extends State<MainContentScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
+            shape: kRoundedRectangleShape,
             builder: (context) => AddTask()
           );
         },

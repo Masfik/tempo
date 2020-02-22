@@ -13,8 +13,10 @@ dependencies:
   qrscan: ^0.2.17
   # SQLite
   sqflite: ^1.2.0
-  # Built Value provides: Immutable value types, EnumClass and JSON serialization
-  built_value: ^7.0.9
+  # HTTP requests
+  http: ^0.12.0+4
+  # Geolocation
+  location: ^2.4.0
 
 dev_dependencies:
   flutter_test:
