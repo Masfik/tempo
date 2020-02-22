@@ -1,4 +1,5 @@
 import 'package:Tempo/widgets/navigation_drawer.dart';
+import 'package:Tempo/widgets/task/add_task.dart';
 import 'package:flutter/material.dart';
 
 class MainContentScreen extends StatefulWidget {
@@ -29,9 +30,14 @@ class _MainContentScreenState extends State<MainContentScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: 'Add',
+        tooltip: 'Add Task',
         child: Icon(Icons.add),
-        onPressed: null,
+        onPressed: () {
+          showModalBottomSheet(
+            context: context,
+            builder: (context) => AddTask()
+          );
+        },
       ),
     );
   }

@@ -8,8 +8,13 @@ class AddProjectScreen extends StatefulWidget {
 class _AddProjectScreenState extends State<AddProjectScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text('Add project screen'),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Add a project"),
+      ),
+      body: Center(
+        child: Text('Add a project'),
+      ),
     );
   }
 }

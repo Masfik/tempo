@@ -51,6 +51,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             title: Text('ADD PROJECT'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/addproject');
             },
           )
         ],
