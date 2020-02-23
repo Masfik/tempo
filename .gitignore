@@ -35,3 +35,19 @@ lib/generated_plugin_registrant.dart
 
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
+
+node_modules/
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.next
+dependency-reduced-pom.xml
+release.properties
+.idea/
+*.pem
+*.py[co]
+
+**/.vagrant
+**/.vagrant*
+**/.terraform
+**/terraform.tfstate*
