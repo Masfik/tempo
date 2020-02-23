@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>tempo-service</artifactId>
+        <groupId>tempo</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>tempo-db</artifactId>
+
+    <name>Tempo Core Database Schema</name>
+
+    <properties>
+        <!-- Database dependencies -->
+        <schema.name>core</schema.name>
+        <jdbc.url>jdbc:postgresql:tempo</jdbc.url>
+        <jdbc.driver>org.postgresql.Driver</jdbc.driver>
+        <jdbc.user>${user.name}</jdbc.user>
+        <jdbc.pass>postgres</jdbc.pass>
+        <jooq.package.name>com.tempo.service.core.db</jooq.package.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>jsr250-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jooq</groupId>
+            <artifactId>jooq</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
