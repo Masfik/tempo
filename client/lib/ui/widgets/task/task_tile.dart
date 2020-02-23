@@ -22,22 +22,6 @@ class _TaskTileState extends State<TaskTile> {
   // Required to disable the START button when the task is marked as completed
   bool canBeStarted = true;
 
-  // Method triggered when the START button has been tapped
-  void start() {
-    setState(() {
-      task.stopwatch.start();
-      subtitle = '🚀 Started counting...';
-    });
-  }
-
-  // Method triggered when the STOP/PAUSE button has been tapped
-  void stop() {
-    setState(() {
-      task.stopwatch.stop();
-      subtitle = '⏱️ ' + task.formattedDuration;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     task = widget.task;
@@ -56,7 +40,7 @@ class _TaskTileState extends State<TaskTile> {
         value: task.isDone,
         onChanged: (bool value) {
           // Stops the Stopwatch when the box gets checked
-          if (started) stop();
+          if (started) _stop();
 
           setState(() {
             if (value) canBeStarted = false; // When the checkbox is ticked off, mark the START button as disabled
@@ -68,8 +52,8 @@ class _TaskTileState extends State<TaskTile> {
       ),
       trailing: StartButton(
         started: started,
-        onStart: () => start(),
-        onStop: () => stop(),
+        onStart: () => _start(),
+        onStop: () => _stop(),
         enabled: canBeStarted,
       ),
       onTap: () {
@@ -77,6 +61,22 @@ class _TaskTileState extends State<TaskTile> {
         // TODO
       },
     );
+  }
+
+  // Method triggered when the START button has been tapped
+  void _start() {
+    setState(() {
+      task.stopwatch.start();
+      subtitle = '🚀 Started counting...';
+    });
+  }
+
+  // Method triggered when the STOP/PAUSE button has been tapped
+  void _stop() {
+    setState(() {
+      task.stopwatch.stop();
+      subtitle = '⏱️ ' + task.formattedDuration;
+    });
   }
 }
 
