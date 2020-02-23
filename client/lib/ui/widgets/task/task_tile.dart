@@ -1,21 +1,24 @@
+import 'dart:ui';
+
 import 'package:Tempo/models/task.dart';
+import 'package:Tempo/ui/style.dart';
 import 'package:flutter/material.dart';
 
 class TaskTile extends StatefulWidget {
-  final String title;
+  final Task task;
 
-  TaskTile({@required this.title});
+  TaskTile({@required this.task});
 
   @override
   _TaskTileState createState() => _TaskTileState();
 }
 
 class _TaskTileState extends State<TaskTile> {
-  Task task = Task();
+  Task task;
   // Stopwatch status (running or stopped/paused)
   bool started = false;
   // Initial starting time
-  String subtitle = '00:00:00';
+  String subtitle = 'Not started yet';
   // Required to disable the START button when the task is marked as completed
   bool canBeStarted = true;
 
@@ -31,27 +34,26 @@ class _TaskTileState extends State<TaskTile> {
   void stop() {
     setState(() {
       task.stopwatch.stop();
-      subtitle = task.formattedDuration;
+      subtitle = '⏱️ ' + task.formattedDuration;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    task.name = widget.title;
+    task = widget.task;
     // Obtains the start status directly from the stopwatch
     started = task.stopwatch.isRunning;
 
     return ListTile(
-      title: Text(task.name),
-      subtitle: Text(subtitle),
-      trailing: StartButton(
-        started: started,
-        onStart: () => start(),
-        onStop: () => stop(),
-        enabled: canBeStarted,
+      title: Text(
+        task.name,
+        style: TextStyle(
+          decoration: task.isDone ? TextDecoration.lineThrough : TextDecoration.none
+        ),
       ),
+      subtitle: Text(subtitle),
       leading: Checkbox(
-        value: task.done,
+        value: task.isDone,
         onChanged: (bool value) {
           // Stops the Stopwatch when the box gets checked
           if (started) stop();
@@ -60,9 +62,15 @@ class _TaskTileState extends State<TaskTile> {
             if (value) canBeStarted = false; // When the checkbox is ticked off, mark the START button as disabled
             else canBeStarted = true;
 
-            task.done = value ? true : false;
+            task.isDone = value ? true : false;
           });
         },
+      ),
+      trailing: StartButton(
+        started: started,
+        onStart: () => start(),
+        onStop: () => stop(),
+        enabled: canBeStarted,
       ),
       onTap: () {
         print('Tile tapped');
@@ -85,7 +93,7 @@ class StartButton extends StatelessWidget {
     return IconButton(
       icon: Icon(
         started ? Icons.pause : Icons.play_arrow,
-        color: enabled ? Colors.blue : Colors.grey,
+        color: enabled ? kTempoThemeData.accentColor : Colors.grey,
       ),
       onPressed: enabled
           ? () {

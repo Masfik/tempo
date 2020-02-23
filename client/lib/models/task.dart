@@ -2,21 +2,20 @@ import 'package:Tempo/utils/input_exception.dart';
 
 class Task {
   String _name;
-  bool _done = false;
-
+  bool _isDone = false;
   final Stopwatch stopwatch = new Stopwatch();
 
   String get name => _name;
 
-  bool get done => _done;
+  bool get isDone => _isDone;
 
   set name(String value) {
     if (value.isNotEmpty) this._name = value;
     else throw InputException('Cannot create a task without a name!', 'name');
   }
 
-  set done(bool value) {
-    _done = value;
+  set isDone(bool value) {
+    _isDone = value;
   }
 
   String get formattedDuration {

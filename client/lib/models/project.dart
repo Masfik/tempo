@@ -5,7 +5,7 @@ class Project {
   String _name;
   DateTime _startDate;
   DateTime _dueDate;
-  List<Task> _tasks;
+  List<Task> _tasks = [];
 
   Project(String name, DateTime startDate, DateTime dueDate) {
     this.name = name;

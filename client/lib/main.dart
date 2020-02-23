@@ -1,5 +1,6 @@
-import 'package:Tempo/pages/add_project.dart';
-import 'package:Tempo/pages/main_content.dart';
+import 'package:Tempo/ui/pages/add_project.dart';
+import 'package:Tempo/ui/pages/main_content.dart';
+import 'package:Tempo/ui/style.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(Tempo());
@@ -14,9 +15,7 @@ class _TempoState extends State<Tempo> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Tempo',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-      ),
+      theme: kTempoThemeData,
       initialRoute: '/',
       routes: {
         '/': (context) => MainContentScreen(),

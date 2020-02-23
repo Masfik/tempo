@@ -1,13 +1,35 @@
+import 'package:Tempo/models/project.dart';
+import 'package:Tempo/models/task.dart';
+import 'package:Tempo/ui/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 
 class AddTask extends StatelessWidget {
-  const AddTask({
-    Key key,
-  }) : super(key: key);
+  final Project project;
+  final Function callback;
+
+  AddTask({@required this.project, @required this.callback});
+
+  void submit(BuildContext context, String value) {
+    if (value == null || value.isEmpty) return;
+
+    Task task = Task();
+    task.name = value;
+
+    // Always inserts new task in the first position of the List
+    project.tasks.add(task);
+
+    // Closes BottomSheet (and keyboard)
+    Navigator.pop(context);
+    // Calls #updateTask() from previous page
+    callback();
+  }
 
   @override
   Widget build(BuildContext context) {
+    String value;
+
     return SingleChildScrollView(
       child: Container(
         // Adjusts padding whenever the the virtual keyboard is opened/closed
@@ -19,26 +41,25 @@ class AddTask extends StatelessWidget {
               Expanded(
                 child: TextField(
                   autofocus: true,
-                  textInputAction: TextInputAction.newline,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: InputDecoration(
                     labelText: 'Name of the task',
+                    counterText: '', // Disables characters counter label
                     border: UnderlineInputBorder(
                       borderSide: BorderSide.none
                     ),
                   ),
-                  onSubmitted: (value) {
-                    print(value);
-                  },
+                  maxLines: 1,
+                  maxLength: 30,
+                  onChanged: (newValue) => value = newValue,
+                  onSubmitted: (value) => submit(context, value),
                 ),
               ),
               SizedBox(width: 10),
               IconButton(
-                icon: Icon(Icons.send),
-                color: Colors.blue,
-                onPressed: () {
-                  // TODO
-                },
+                icon: Icon(Icons.add_circle),
+                color: kTempoThemeData.accentColor,
+                onPressed: () => submit(context, value),
               )
             ],
           ),
