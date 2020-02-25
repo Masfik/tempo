@@ -16,11 +16,11 @@ class ActionsMenu extends StatelessWidget {
       itemBuilder: (BuildContext context) => <PopupMenuEntry<Item>>[
         const PopupMenuItem<Item>(
           value: Item.qr_code,
-          child: Text('Scan QR code'),
+          child: Text('Scan QR Code'),
         ),
         const PopupMenuItem<Item>(
           value: Item.show_team,
-          child: Text('Show team'),
+          child: Text('Show Team'),
         ),
       ],
       onSelected: (Item item) {

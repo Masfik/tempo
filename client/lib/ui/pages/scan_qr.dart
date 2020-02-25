@@ -1,6 +1,5 @@
-import 'dart:typed_data' show Uint8List;
+import 'package:Tempo/models/qr.dart';
 import 'package:flutter/material.dart';
-import 'package:qrscan/qrscan.dart' as scanner;
 
 class ScanQrScreen extends StatefulWidget {
   @override
@@ -8,8 +7,8 @@ class ScanQrScreen extends StatefulWidget {
 }
 
 class _ScanQrScreenState extends State<ScanQrScreen> {
-  String qrData = '';
-  Uint8List bytes;
+  QR qr = QR();
+  bool isValid;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +20,19 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(qrData),
+            Text(qr.data),
             RaisedButton(
               child: Text("Scan QR Code"),
-              onPressed: _scan
+              onPressed: () async {
+                if (await qr.scan())
+                  setState(() => isValid = true);
+                else
+                  setState(() => isValid = false);
+              }
             ),
           ],
         ),
       ),
     );
-  }
-
-  Future _scan() async {
-    String code = await scanner.scan();
-    setState(() => this.qrData = code);
   }
 }
