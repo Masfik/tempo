@@ -1,7 +1,5 @@
-import 'dart:ui';
-
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/ui/style.dart';
+import 'package:Tempo/ui/widgets/task/start_button.dart';
 import 'package:flutter/material.dart';
 
 class TaskTile extends StatefulWidget {
@@ -43,7 +41,8 @@ class _TaskTileState extends State<TaskTile> {
           if (started) _stop();
 
           setState(() {
-            if (value) canBeStarted = false; // When the checkbox is ticked off, mark the START button as disabled
+            // When the checkbox is ticked off, mark the START button as disabled
+            if (value) canBeStarted = false;
             else canBeStarted = true;
 
             task.isDone = value ? true : false;
@@ -77,30 +76,5 @@ class _TaskTileState extends State<TaskTile> {
       task.stopwatch.stop();
       subtitle = '⏱️ ' + task.formattedDuration;
     });
-  }
-}
-
-class StartButton extends StatelessWidget {
-  final bool started;
-  final Function onStart;
-  final Function onStop;
-  final enabled;
-
-  StartButton({@required this.started, @required this.onStart, @required this.onStop, @required this.enabled});
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: Icon(
-        started ? Icons.pause : Icons.play_arrow,
-        color: enabled ? kTempoThemeData.accentColor : Colors.grey,
-      ),
-      onPressed: enabled
-          ? () {
-              if (!started) onStart();
-              else onStop();
-            }
-          : null
-    );
   }
 }
