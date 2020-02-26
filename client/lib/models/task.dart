@@ -1,9 +1,12 @@
 import 'package:Tempo/utils/input_exception.dart';
 
 class Task {
+  int _id;
   String _name;
   bool _isDone = false;
   final Stopwatch stopwatch = new Stopwatch();
+
+  int get id => _id;
 
   String get name => _name;
 
