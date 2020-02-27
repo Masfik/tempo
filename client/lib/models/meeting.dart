@@ -13,6 +13,6 @@ class Meeting {
 
   set name(String value) {
     if(value.isNotEmpty) _name = value;
-    else throw InputException("Cannot create a Team without a name!", "name");
+    else throw InputException("Cannot create a meeting without a name!", "name");
   }
 }

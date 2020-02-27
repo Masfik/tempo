@@ -29,6 +29,6 @@ class Team {
 
   set name(String value) {
     if(value.isNotEmpty) _name = value;
-    else throw InputException("Cannot create a Team without a name!", "name");
+    else throw InputException("Cannot create a team without a name!", "name");
   }
 }

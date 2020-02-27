@@ -7,12 +7,6 @@ class Project {
   DateTime _dueDate;
   List<Task> _tasks = [];
 
-  Project(String name, DateTime startDate, DateTime dueDate) {
-    this.name = name;
-    this.startDate = startDate;
-    this.dueDate = dueDate;
-  }
-
   String get name => _name;
 
   DateTime get startDate => _startDate;
