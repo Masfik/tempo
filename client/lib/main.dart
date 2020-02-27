@@ -6,12 +6,7 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(Tempo());
 
-class Tempo extends StatefulWidget {
-  @override
-  _TempoState createState() => _TempoState();
-}
-
-class _TempoState extends State<Tempo> {
+class Tempo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

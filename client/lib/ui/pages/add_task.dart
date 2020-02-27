@@ -11,20 +11,6 @@ class AddTask extends StatelessWidget {
 
   AddTask({@required this.project, @required this.callback});
 
-  void submit(BuildContext context, String value) {
-    if (value == null || value.isEmpty) return;
-
-    Task task = Task();
-    task.name = value;
-
-    project.tasks.add(task);
-
-    // Closes BottomSheet (and keyboard)
-    Navigator.pop(context);
-    // Calls #updateTask() from previous page
-    callback();
-  }
-
   @override
   Widget build(BuildContext context) {
     String value;
@@ -65,5 +51,19 @@ class AddTask extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void submit(BuildContext context, String value) {
+    if (value == null || value.isEmpty) return;
+
+    Task task = Task();
+    task.name = value;
+
+    project.tasks.add(task);
+
+    // Closes BottomSheet (and keyboard)
+    Navigator.pop(context);
+    // Calls #updateTask() from previous page
+    callback();
   }
 }
