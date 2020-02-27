@@ -1,3 +1,7 @@
+import 'package:Tempo/models/meeting.dart';
+import 'package:Tempo/models/project.dart';
+import 'package:Tempo/models/team.dart';
+
 class User {
   String _firstName;
   String _surname;
@@ -8,5 +12,5 @@ class User {
 
   User(this._firstName, this._surname, this._email);
   addProject(Project project) => _project.add(project);
-  addMeeting(Meeting meeting) => _Meeting.add(meeting);
+  addMeeting(Meeting meeting) => _meetings.add(meeting);
 }

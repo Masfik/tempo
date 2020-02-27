@@ -6,9 +6,7 @@ class Team {
   List<User> _members;
   User _creator;
 
-  Team(String name) {
-
-  }
+  Team(this._name);
 
   // Getter
   List<User> get members => _members;
@@ -25,12 +23,12 @@ class Team {
       throw ("Cannot set creator more than once!");
   }
 
-  set members(User member) {
-    if (member != null && members.contains(member)) _members.add(member);
+  addMember(User member) {
+    if (member != null && _members.contains(member)) _members.add(member);
   }
 
   set name(String value) {
-    if(name.isNotEmpty) _name = value;
+    if(value.isNotEmpty) _name = value;
     else throw InputException("Cannot create a Team without a name!", "name");
   }
 }
