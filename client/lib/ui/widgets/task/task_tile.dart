@@ -51,8 +51,8 @@ class _TaskTileState extends State<TaskTile> {
       ),
       trailing: StartButton(
         started: started,
-        onStart: () => _start(),
-        onStop: () => _stop(),
+        onStart: _start,
+        onStop: _stop,
         enabled: canBeStarted,
       ),
       onTap: () {

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:Tempo/ui/pages/add_people.dart';
+import 'package:Tempo/ui/style.dart';
 import 'package:flutter/material.dart';
 
 class ShowTeamScreen extends StatefulWidget {
@@ -13,7 +14,7 @@ class _ShowTeamScreenState extends State<ShowTeamScreen> {
       appBar: AppBar(
         title: Text('Team Members')
       ),
-      body: ListView(
+      body: Column(
         children: <Widget>[
           FlatButton(
             child: Row(
@@ -24,31 +25,41 @@ class _ShowTeamScreenState extends State<ShowTeamScreen> {
               ],
             ),
             onPressed: () {
-              // TODO
+              showModalBottomSheet(
+                  context: context,
+                  shape: kRoundedRectangleShape,
+                  builder: (context) => AddPeopleScreen()
+              );
             },
           ),
-          ListTile(
-            title: Text('Name Surname'),
-            subtitle: Text('@Username'),
-            leading: Image.asset('images/user.png', width: 40),
-            trailing: Text('Creator'),
+          Expanded(
+            child: ListView(
+              children: <Widget>[
+                ListTile(
+                  title: Text('Name Surname'),
+                  subtitle: Text('@Username'),
+                  leading: Image.asset('images/user.png', width: 40),
+                  trailing: Text('Creator'),
+                ),
+                ListTile(
+                  title: Text('Name Surname'),
+                  subtitle: Text('@Username'),
+                  leading: Image.asset('images/user.png', width: 40),
+                  trailing: Text('Admin'),
+                ),
+                ListTile(
+                  title: Text('Name Surname'),
+                  subtitle: Text('@Username'),
+                  leading: Image.asset('images/user.png', width: 40)
+                ),
+                ListTile(
+                  title: Text('Name Surname'),
+                  subtitle: Text('@Username'),
+                  leading: Image.asset('images/user.png', width: 40)
+                )
+              ],
+            ),
           ),
-          ListTile(
-            title: Text('Name Surname'),
-            subtitle: Text('@Username'),
-            leading: Image.asset('images/user.png', width: 40),
-            trailing: Text('Admin'),
-          ),
-          ListTile(
-            title: Text('Name Surname'),
-            subtitle: Text('@Username'),
-            leading: Image.asset('images/user.png', width: 40)
-          ),
-          ListTile(
-            title: Text('Name Surname'),
-            subtitle: Text('@Username'),
-            leading: Image.asset('images/user.png', width: 40)
-          )
         ],
       ),
     );

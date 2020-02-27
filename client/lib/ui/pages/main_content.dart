@@ -14,13 +14,13 @@ class MainContentScreen extends StatefulWidget {
 
 class _MainContentScreenState extends State<MainContentScreen> {
   int taskCounter = 0;
-  // TODO: Remove this sample project
   Project project = Project();
 
   @override
   void initState() {
     super.initState();
 
+    // TODO: Remove this sample project
     project.name = 'General';
     project.startDate = DateTime(2020);
     project.dueDate = DateTime(2020);
