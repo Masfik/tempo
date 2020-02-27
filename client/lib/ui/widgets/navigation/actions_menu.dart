@@ -1,3 +1,4 @@
+import 'package:Tempo/ui/pages/show_team.dart';
 import 'package:flutter/material.dart';
 
 enum Item {
@@ -27,7 +28,12 @@ class ActionsMenu extends StatelessWidget {
         if (item == Item.qr_code)
           Navigator.pushNamed(context, '/scan');
         else if (item == Item.show_team)
-          print('Show Team'); // TODO
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ShowTeamScreen()
+            )
+          );
       },
     );
   }

@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 
 final kTempoThemeData = ThemeData(
   brightness: Brightness.dark,
+
+  primaryColor: Colors.blueGrey[900],
+  canvasColor: Colors.blueGrey[800],
+  cardColor: Colors.blueGrey[800],
   accentColor: Color(0xFF29a19c),
   toggleableActiveColor: Color(0xFF29a19c)
 );

@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 class TaskDetailsScreen extends StatelessWidget {
   final Project project;
   final Task task;
+  final Function onStart;
+  final Function onStop;
 
-  TaskDetailsScreen({@required this.project, @required this.task});
+  TaskDetailsScreen({
+    @required this.project,
+    @required this.task,
+    @required this.onStart,
+    @required this.onStop
+  });
 
   @override
   Widget build(BuildContext context) {
