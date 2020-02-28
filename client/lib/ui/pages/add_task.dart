@@ -7,9 +7,9 @@ import 'package:flutter/services.dart';
 
 class AddTask extends StatelessWidget {
   final Project project;
-  final Function callback;
+  final Function onSubmit;
 
-  AddTask({@required this.project, @required this.callback});
+  AddTask({@required this.project, @required this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +64,6 @@ class AddTask extends StatelessWidget {
     // Closes BottomSheet (and keyboard)
     Navigator.pop(context);
     // Calls #updateTask() from previous page
-    callback();
+    onSubmit();
   }
 }

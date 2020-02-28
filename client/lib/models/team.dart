@@ -1,6 +1,12 @@
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/utils/input_exception.dart';
 
+enum MemberRank {
+  creator,
+  admin,
+  none
+}
+
 class Team {
   String _name;
   List<User> _members;

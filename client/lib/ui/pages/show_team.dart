@@ -1,5 +1,7 @@
+import 'package:Tempo/models/team.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/style.dart';
+import 'package:Tempo/ui/widgets/team/member_tile.dart';
 import 'package:flutter/material.dart';
 
 class ShowTeamScreen extends StatefulWidget {
@@ -26,36 +28,32 @@ class _ShowTeamScreenState extends State<ShowTeamScreen> {
             ),
             onPressed: () {
               showModalBottomSheet(
-                  context: context,
-                  shape: kRoundedRectangleShape,
-                  builder: (context) => AddPeopleScreen()
+                context: context,
+                shape: kRoundedRectangleShape,
+                builder: (context) => AddPeopleScreen()
               );
             },
           ),
           Expanded(
             child: ListView(
               children: <Widget>[
-                ListTile(
-                  title: Text('Name Surname'),
-                  subtitle: Text('@Username'),
-                  leading: Image.asset('images/user.png', width: 40),
-                  trailing: Text('Creator'),
+                MemberTile(
+                  fullName: 'Name Surname',
+                  identifier: 'Username',
+                  memberType: MemberRank.creator
                 ),
-                ListTile(
-                  title: Text('Name Surname'),
-                  subtitle: Text('@Username'),
-                  leading: Image.asset('images/user.png', width: 40),
-                  trailing: Text('Admin'),
+                MemberTile(
+                  fullName: 'Name Surname',
+                  identifier: 'Username',
+                  memberType: MemberRank.admin
                 ),
-                ListTile(
-                  title: Text('Name Surname'),
-                  subtitle: Text('@Username'),
-                  leading: Image.asset('images/user.png', width: 40)
+                MemberTile(
+                  fullName: 'Name Surname',
+                  identifier: 'Username',
                 ),
-                ListTile(
-                  title: Text('Name Surname'),
-                  subtitle: Text('@Username'),
-                  leading: Image.asset('images/user.png', width: 40)
+                MemberTile(
+                  fullName: 'Name Surname',
+                  identifier: 'Username',
                 )
               ],
             ),

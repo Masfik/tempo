@@ -34,7 +34,7 @@ class _MainContentScreenState extends State<MainContentScreen> {
         actions: [ ActionsMenu() ],
       ),
       drawer: NavigationDrawer(),
-      body: taskCounter == 0 ? NoTasks() : TastListView(taskCounter: taskCounter, project: project),
+      body: taskCounter == 0 ? NoTasks() : TaskListView(taskCounter: taskCounter, project: project),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Task',
         isExtended: true,
@@ -45,7 +45,7 @@ class _MainContentScreenState extends State<MainContentScreen> {
             shape: kRoundedRectangleShape,
             builder: (context) => AddTask(
               project: project,
-              callback: _updateTasks,
+              onSubmit: _updateTasks,
             )
           );
         },

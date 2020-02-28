@@ -7,19 +7,8 @@ class Task {
   final Stopwatch stopwatch = new Stopwatch();
 
   int get id => _id;
-
   String get name => _name;
-
   bool get isDone => _isDone;
-
-  set name(String value) {
-    if (value.isNotEmpty) this._name = value;
-    else throw InputException('Cannot create a task without a name!', 'name');
-  }
-
-  set isDone(bool value) {
-    _isDone = value;
-  }
 
   String get formattedDuration {
     final Duration duration = this.stopwatch.elapsed;
@@ -31,7 +20,16 @@ class Task {
     }
 
     return  '${twoDigits(duration.inHours)}:'
-            '${twoDigits(duration.inMinutes.remainder(60))}:'
-            '${twoDigits(duration.inSeconds.remainder(60))}';
+        '${twoDigits(duration.inMinutes.remainder(60))}:'
+        '${twoDigits(duration.inSeconds.remainder(60))}';
+  }
+
+  set name(String value) {
+    if (value.isNotEmpty) this._name = value;
+    else throw InputException('Cannot create a task without a name!', 'name');
+  }
+
+  set isDone(bool value) {
+    _isDone = value;
   }
 }
