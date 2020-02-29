@@ -1,6 +1,8 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
+import 'package:Tempo/ui/pages/add_people.dart';
+import 'package:Tempo/ui/style.dart';
 import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -55,19 +57,25 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         key: _formKey,
         child: Column(
           children: <Widget>[
+            SizedBox(
+              height: 10,
+            ),
             TextFormField(
               onChanged: (value) => name = value,
               decoration: InputDecoration(
-                  labelText: 'Project Name',
-                  contentPadding: EdgeInsets.only(
-                      left: 20,
-                      right: 20
-                  )
+                labelText: 'Project Name',
+                contentPadding: EdgeInsets.only(
+                  left: 20,
+                  right: 20
+                )
               ),
               validator: (value) {
                 if (value.isEmpty) return 'Please enter some text';
                 return null;
               }
+            ),
+            SizedBox(
+              height: 10,
             ),
             Expanded(
               child: ListView(
@@ -88,6 +96,11 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                       Icons.group_add,
                     ),
                     title: Text('Add People'),
+                    onTap: () => showModalBottomSheet(
+                      context: context,
+                      shape: kRoundedRectangleShape,
+                      builder: (context) => AddPeopleScreen()
+                    ),
                   )
                 ],
               ),
