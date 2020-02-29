@@ -61,6 +61,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               height: 10,
             ),
             TextFormField(
+              autofocus: true,
               onChanged: (value) => name = value,
               decoration: InputDecoration(
                 labelText: 'Project Name',

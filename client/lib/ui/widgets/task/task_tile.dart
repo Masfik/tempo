@@ -64,12 +64,8 @@ class _TaskTileState extends State<TaskTile> {
   }
 
   // Method triggered when the START button is tapped
-  void _start() {
-    setState(() => task.stopwatch.start());
-  }
+  void _start() => setState(() => task.stopwatch.start());
 
   // Method triggered when the STOP/PAUSE button is tapped
-  void _stop() {
-    setState(() => task.stopwatch.stop());
-  }
+  void _stop() => setState(() => task.stopwatch.stop());
 }

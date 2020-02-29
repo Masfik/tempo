@@ -5,8 +5,8 @@ import 'package:Tempo/utils/input_exception.dart';
 
 class Project {
   String _name;
-  DateTime _startDate = null;
-  DateTime _dueDate = null;
+  DateTime _startDate;
+  DateTime _dueDate;
   List<Task> _tasks = [];
   List<User> _people = [];
   List<Team> _team = [];
