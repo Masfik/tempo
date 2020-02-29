@@ -56,18 +56,18 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         child: Column(
           children: <Widget>[
             TextFormField(
-                onChanged: (value) => name = value,
-                decoration: InputDecoration(
-                    labelText: 'Project Name',
-                    contentPadding: EdgeInsets.only(
-                        left: 20,
-                        right: 20
-                    )
-                ),
-                validator: (value) {
-                  if (value.isEmpty) return 'Please enter some text';
-                  return null;
-                }
+              onChanged: (value) => name = value,
+              decoration: InputDecoration(
+                  labelText: 'Project Name',
+                  contentPadding: EdgeInsets.only(
+                      left: 20,
+                      right: 20
+                  )
+              ),
+              validator: (value) {
+                if (value.isEmpty) return 'Please enter some text';
+                return null;
+              }
             ),
             Expanded(
               child: ListView(
@@ -119,10 +119,12 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
       }
     );
     if (calendarStartType) setState(() {
-      startDate = date;
+      if (date != null) {
+        startDate = date;
 
-      if (dueDate != null && dueDate.compareTo(startDate) <= 0)
-        dueDate = null;
+        if (dueDate != null && dueDate.compareTo(startDate) <= 0)
+          dueDate = null;
+      }
     });
     else setState(() => dueDate = date);
   }
