@@ -108,10 +108,9 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
       firstDate: DateTime(DateTime.now().year),
       lastDate: DateTime(DateTime.now().year + 20),
       selectableDayPredicate: (DateTime dateTime) {
-        String tmpNow = DateTime.now().toString().substring(0, 10);
-        String tmpDate = dateTime.toString().substring(0, 10);
+        DateTime now = DateTime.now();
 
-        if (DateTime.parse(tmpDate).compareTo(DateTime.parse(tmpNow)) >= 0)
+        if (dateTime.isAfter(DateTime(now.year, now.month, now.day)))
           return true;
         return false;
       }
