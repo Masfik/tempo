@@ -59,7 +59,8 @@ class AddTask extends StatelessWidget {
     Task task = Task();
     task.name = value;
 
-    project.tasks.add(task);
+    // Add newest item as first in the list
+    project.tasks.insert(0, task);
 
     // Closes BottomSheet (and keyboard)
     Navigator.pop(context);

@@ -34,7 +34,7 @@ class _MainContentScreenState extends State<MainContentScreen> {
         actions: [ ActionsMenu() ],
       ),
       drawer: NavigationDrawer(),
-      body: taskCounter == 0 ? NoTasks() : TaskListView(taskCounter: taskCounter, project: project),
+      body: taskCounter == 0 ? NoTasks() : TaskListView(taskCounter: taskCounter, tasks: project.tasks),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Task',
         isExtended: true,
