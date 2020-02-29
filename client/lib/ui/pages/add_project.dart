@@ -1,8 +1,14 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
+import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+enum CalendarType {
+  start,
+  due
+}
 
 class AddProjectScreen extends StatefulWidget {
   @override
@@ -35,7 +41,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                 project.people = people;
                 project.team = team;
               } catch(e) {
-
+                print(e);
               }
             }
           },
@@ -66,25 +72,16 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  ListTile(
-                    leading: Icon(
-                      Icons.calendar_today,
-                    ),
-                    title: Text('Start Date'),
-                    subtitle: Text(
-                        startDate != null ? DateFormat('E d MMM, y').format(startDate) : 'Select date'
-                    ),
-                    onTap: () => showCalendar(start: true),
+                  CalendarTile(
+                    title: 'Start Date',
+                    date: startDate,
+                    onTap: () => showCalendar(calendarType: CalendarType.start)
                   ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.calendar_today,
-                    ),
-                    title: Text('Due Date'),
-                    subtitle: Text(
-                        dueDate != null ? DateFormat('E d MMM, y').format(dueDate) : 'Select date'
-                    ),
-                    onTap: () => showCalendar(start: false),
+                  CalendarTile(
+                    title: 'Due Date',
+                    date: dueDate,
+                    onTap: () => showCalendar(calendarType: CalendarType.due),
+                    enabled: startDate != null ? true : false,
                   ),
                   ListTile(
                     leading: Icon(
@@ -101,21 +98,32 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
     );
   }
 
-  Future showCalendar({@required bool start}) async {
+  Future showCalendar({@required CalendarType calendarType}) async {
+    bool calendarStartType = calendarType == CalendarType.start;
+
+    DateTime now = DateTime.now();
+    now = DateTime(now.year, now.month, now.day);
+    DateTime initialDate = calendarStartType ? now : startDate;
+
     DateTime date = await showDatePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(DateTime.now().year),
-      lastDate: DateTime(DateTime.now().year + 20),
+      initialDate: initialDate,
+      firstDate: DateTime(initialDate.year),
+      lastDate: DateTime(initialDate.year + 20),
       selectableDayPredicate: (DateTime dateTime) {
-        DateTime now = DateTime.now();
+        DateTime sanitisedNow = calendarStartType ? now : startDate;
 
-        if (dateTime.isAfter(DateTime(now.year, now.month, now.day)))
+        if (dateTime.compareTo(sanitisedNow) >= 0)
           return true;
         return false;
       }
     );
-    if (start == true) setState(() => startDate = date);
+    if (calendarStartType) setState(() {
+      startDate = date;
+
+      if (dueDate != null && dueDate.compareTo(startDate) <= 0)
+        dueDate = null;
+    });
     else setState(() => dueDate = date);
   }
 }
