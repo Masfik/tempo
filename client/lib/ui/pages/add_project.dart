@@ -11,11 +11,13 @@ class AddProjectScreen extends StatefulWidget {
 
 class _AddProjectScreenState extends State<AddProjectScreen> {
   Project project = Project();
-  String _name;
-  DateTime _startDate;
-  DateTime _dueDate;
-  List<User> _people = [];
-  List<Team> _team = [];
+  String name;
+  DateTime startDate;
+  DateTime dueDate;
+  List<User> people = [];
+  List<Team> team = [];
+  // Key for identifying the form itself
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +27,17 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         leading: IconButton(
           icon: Icon(Icons.check),
           onPressed: () {
-            project.name = _name;
-            project.startDate = _startDate;
-            project.dueDate = _dueDate;
-            project.people = _people;
-            project.team = _team;
+            if (_formKey.currentState.validate()) {
+              try {
+                project.name = name;
+                project.startDate = startDate;
+                project.dueDate = dueDate;
+                project.people = people;
+                project.team = team;
+              } catch(e) {
+
+              }
+            }
           },
         ),
         actions: <Widget>[ IconButton(
@@ -37,45 +45,58 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
           onPressed: () => Navigator.pop(context),
         )],
       ),
-      body: ListView(
-        children: <Widget>[
-          TextField(
-            onChanged: (value) => _name = value,
-            decoration: InputDecoration(
-              labelText: 'Project Name',
-              contentPadding: EdgeInsets.only(
-                left: 20,
-                right: 20
-              )
-            )
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.calendar_today,
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            TextFormField(
+                onChanged: (value) => name = value,
+                decoration: InputDecoration(
+                    labelText: 'Project Name',
+                    contentPadding: EdgeInsets.only(
+                        left: 20,
+                        right: 20
+                    )
+                ),
+                validator: (value) {
+                  if (value.isEmpty) return 'Please enter some text';
+                  return null;
+                }
             ),
-            title: Text('Start Date'),
-            subtitle: Text(
-                _startDate != null ? DateFormat('E d MMM, y').format(_startDate) : 'Select date'
+            Expanded(
+              child: ListView(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(
+                      Icons.calendar_today,
+                    ),
+                    title: Text('Start Date'),
+                    subtitle: Text(
+                        startDate != null ? DateFormat('E d MMM, y').format(startDate) : 'Select date'
+                    ),
+                    onTap: () => showCalendar(start: true),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.calendar_today,
+                    ),
+                    title: Text('Due Date'),
+                    subtitle: Text(
+                        dueDate != null ? DateFormat('E d MMM, y').format(dueDate) : 'Select date'
+                    ),
+                    onTap: () => showCalendar(start: false),
+                  ),
+                  ListTile(
+                    leading: Icon(
+                      Icons.group_add,
+                    ),
+                    title: Text('Add People'),
+                  )
+                ],
+              ),
             ),
-            onTap: () => showCalendar(start: true),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.calendar_today,
-            ),
-            title: Text('Due Date'),
-            subtitle: Text(
-                _dueDate != null ? DateFormat('E d MMM, y').format(_dueDate) : 'Select date'
-            ),
-            onTap: () => showCalendar(start: false),
-          ),
-          ListTile(
-            leading: Icon(
-              Icons.group_add,
-            ),
-            title: Text('Add People'),
-          )
-        ],
+          ],
+        ),
       )
     );
   }
@@ -85,9 +106,17 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
       context: context,
       initialDate: DateTime.now(),
       firstDate: DateTime(DateTime.now().year),
-      lastDate: DateTime(DateTime.now().year + 20)
+      lastDate: DateTime(DateTime.now().year + 20),
+      selectableDayPredicate: (DateTime dateTime) {
+        String tmpNow = DateTime.now().toString().substring(0, 10);
+        String tmpDate = dateTime.toString().substring(0, 10);
+
+        if (DateTime.parse(tmpDate).compareTo(DateTime.parse(tmpNow)) >= 0)
+          return true;
+        return false;
+      }
     );
-    if (start == true) setState(() => _startDate = date);
-    else setState(() => _dueDate = date);
+    if (start == true) setState(() => startDate = date);
+    else setState(() => dueDate = date);
   }
 }

@@ -5,8 +5,8 @@ import 'package:Tempo/utils/input_exception.dart';
 
 class Project {
   String _name;
-  DateTime _startDate;
-  DateTime _dueDate;
+  DateTime _startDate = null;
+  DateTime _dueDate = null;
   List<Task> _tasks = [];
   List<User> _people = [];
   List<Team> _team = [];
@@ -26,7 +26,7 @@ class Project {
   List<Task> get tasks => _tasks;
 
   set name(String value) {
-    if (value.isNotEmpty) this._name = value;
+    if (value != null && value.isNotEmpty) this._name = value;
     else throw InputException('Cannot create a project without a name!', 'name');
   }
 

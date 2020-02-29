@@ -1,4 +1,5 @@
 import 'package:Tempo/models/task.dart';
+import 'package:Tempo/ui/pages/task_details.dart';
 import 'package:Tempo/ui/widgets/task/start_button.dart';
 import 'package:flutter/material.dart';
 
@@ -58,6 +59,10 @@ class _TaskTileState extends State<TaskTile> {
       onTap: () {
         print('Tile tapped');
         // TODO
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TaskDetailsScreen())
+        );
       },
     );
   }

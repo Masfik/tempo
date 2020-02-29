@@ -25,7 +25,7 @@ class Task {
   }
 
   set name(String value) {
-    if (value.isNotEmpty) this._name = value;
+    if (value != null && value.isNotEmpty) this._name = value;
     else throw InputException('Cannot create a task without a name!', 'name');
   }
 
