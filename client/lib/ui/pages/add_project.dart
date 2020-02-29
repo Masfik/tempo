@@ -4,8 +4,8 @@ import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/style.dart';
 import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
+import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 enum CalendarType {
   start,
@@ -69,10 +69,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                   right: 20
                 )
               ),
-              validator: (value) {
-                if (value.isEmpty) return 'Please enter some text';
-                return null;
-              }
+              validator: kValidator
             ),
             SizedBox(
               height: 10,
