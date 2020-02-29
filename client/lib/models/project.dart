@@ -17,6 +17,10 @@ class Project {
     _people = value;
   }
 
+  set startDate(DateTime value) {
+    _startDate = value;
+  }
+
   String get name => _name;
 
   DateTime get startDate => _startDate;
@@ -30,19 +34,17 @@ class Project {
     else throw InputException('Cannot create a project without a name!', 'name');
   }
 
-  set startDate(DateTime date) {
-    if (date != null) this._startDate = date;
-    else throw InputException('Cannot create a project without a start date!', 'startDate');
-  }
-
-  set dueDate(DateTime date) {
-    if (date != null) this._dueDate = date;
-    else throw InputException('Cannot create a project without a due date!', 'dueDate');
-  }
-
   List<Team> get team => _team;
 
   set team(List<Team> value) {
     _team = value;
+  }
+
+  set dueDate(DateTime value) {
+    _dueDate = value;
+  }
+
+  set tasks(List<Task> value) {
+    _tasks = value;
   }
 }

@@ -20,13 +20,54 @@ class TaskDetailsScreen extends StatefulWidget {
 }
 
 class _TaskDetailsScreen extends State<TaskDetailsScreen> {
+  Task task;
+  String name;
+
+  // Key for identifying the form itself
+  final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Apollo 13'),
+        leading: IconButton(
+          icon: Icon(Icons.check),
+          onPressed: () {
+            if (_formKey.currentState.validate()) {
+              try {
+                task.name = name;
+              } catch(e) {
+                print(e);
+              }
+            }
+          },
+        ),
+        actions: <Widget>[ IconButton(
+        icon: Icon(Icons.close),
+        onPressed: () => Navigator.pop(context),
+      )],
       ),
-      body: Text('Dickbutt'),
+      body: Form(
+        key: _formKey,
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: 10,
+            ),
+            TextFormField(
+              onChanged: (value) => name = value,
+              onFieldSubmitted: (value) => name = value,
+              decoration: InputDecoration(
+                labelText: 'Task Name',
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
+      )
     );
   }
 }

@@ -31,7 +31,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Add a project"),
+        title: Text('Add a project'),
         leading: IconButton(
           icon: Icon(Icons.check),
           onPressed: () {
