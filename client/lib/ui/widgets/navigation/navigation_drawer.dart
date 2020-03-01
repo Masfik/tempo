@@ -14,40 +14,66 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           UserAccountsDrawerHeader(
-              currentAccountPicture: GestureDetector(
-                child: Icon(
-                  Icons.add_a_photo,
-                  size: 50,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  // TODO: set avatar
-                  Navigator.pop(context);
-                },
+            currentAccountPicture: GestureDetector(
+              child: CircleAvatar(
+                child: Image.asset('images/user.png'),
               ),
-              accountName: Text('Placeholder'),
-              accountEmail: Text('name@domain.tld')),
+              onTap: () {
+                // TODO: set avatar
+                Navigator.pop(context);
+              },
+            ),
+            accountName: Text('Placeholder'),
+            accountEmail: Text('name@domain.tld'),
+            otherAccountsPictures: <Widget>[
+              IconButton(
+                icon: Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.pop(context);
+                } ,
+              )
+            ],
+          ),
           ListTile(
-            leading: Icon(Icons.ac_unit),
-            title: Text('Item 1'),
+            leading: Icon(Icons.folder),
+            title: Text('General'),
             onTap: () {
-              // TODO: open page
               Navigator.pop(context);
+              // TODO open general tasks
             },
           ),
           ListTile(
-            leading: Icon(Icons.accessibility),
-            title: Text('Item 2'),
+            leading: Icon(Icons.group),
+            title: Text('Teams'),
             onTap: () {
               Navigator.pop(context);
+              Navigator.pushNamed(context, '/team');
             },
           ),
+          Divider(color: Colors.black),
+          Expanded(
+            child: ListView(
+              padding: EdgeInsets.all(0),
+              children: <Widget>[
+                ListTile(
+                  leading: Icon(Icons.account_balance_wallet),
+                  title: Text('Sample project name'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: Icon(Icons.account_balance_wallet),
+                  title: Text('Sample project name'),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
           ListTile(
-            leading: Icon(Icons.plus_one),
+            leading: Icon(Icons.playlist_add),
             title: Text('ADD PROJECT'),
             onTap: () {
               Navigator.pop(context);

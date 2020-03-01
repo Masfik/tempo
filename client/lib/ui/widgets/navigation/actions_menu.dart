@@ -1,4 +1,4 @@
-import 'package:Tempo/ui/pages/show_team.dart';
+import 'package:Tempo/ui/pages/show_current_team.dart';
 import 'package:flutter/material.dart';
 
 enum Item {
@@ -31,7 +31,7 @@ class ActionsMenu extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ShowTeamScreen()
+              builder: (context) => ShowCurrentTeam()
             )
           );
       },

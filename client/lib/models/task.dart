@@ -20,8 +20,8 @@ class Task {
     }
 
     return  '${twoDigits(duration.inHours)}:'
-        '${twoDigits(duration.inMinutes.remainder(60))}:'
-        '${twoDigits(duration.inSeconds.remainder(60))}';
+            '${twoDigits(duration.inMinutes.remainder(60))}:'
+            '${twoDigits(duration.inSeconds.remainder(60))}';
   }
 
   set name(String value) {

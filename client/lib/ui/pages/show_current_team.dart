@@ -4,12 +4,12 @@ import 'package:Tempo/ui/style.dart';
 import 'package:Tempo/ui/widgets/team/member_tile.dart';
 import 'package:flutter/material.dart';
 
-class ShowTeamScreen extends StatefulWidget {
+class ShowCurrentTeam extends StatefulWidget {
   @override
-  _ShowTeamScreenState createState() => _ShowTeamScreenState();
+  _ShowCurrentTeamState createState() => _ShowCurrentTeamState();
 }
 
-class _ShowTeamScreenState extends State<ShowTeamScreen> {
+class _ShowCurrentTeamState extends State<ShowCurrentTeam> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
