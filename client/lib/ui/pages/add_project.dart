@@ -4,6 +4,7 @@ import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/style.dart';
 import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
+import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 
@@ -34,19 +35,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         title: Text('Add a project'),
         leading: IconButton(
           icon: Icon(Icons.check),
-          onPressed: () {
-            if (_formKey.currentState.validate()) {
-              try {
-                project.name = name;
-                project.startDate = startDate;
-                project.dueDate = dueDate;
-                project.people = people;
-                project.team = team;
-              } catch(e) {
-                print(e);
-              }
-            }
-          },
+          onPressed: submit,
         ),
         actions: <Widget>[ IconButton(
           icon: Icon(Icons.close),
@@ -109,6 +98,33 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
     );
   }
 
+  void submit() {
+    if (_formKey.currentState.validate()) {
+      try {
+        if (startDate != null && dueDate == null) {
+          showDialog(
+            context: context,
+            builder: (context) => SimpleErrorDialog(
+              title: 'Please, specify due date',
+              message: 'When a start date is given, a due date must also be specified.'
+            )
+          );
+          return;
+        }
+
+        project.name = name;
+        project.startDate = startDate;
+        project.dueDate = dueDate;
+        project.people = people;
+        project.team = team;
+
+        Navigator.pop(context);
+      } catch(e) {
+        showDialog(context: context, child: Text(e.message));
+      }
+    }
+  }
+
   Future showCalendar({@required CalendarType calendarType}) async {
     bool calendarStartType = calendarType == CalendarType.start;
 
@@ -129,7 +145,9 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         return false;
       }
     );
+
     if (calendarStartType) setState(() {
+      // When the cancel button is pressed, the DateTime returned is null
       if (date != null) {
         startDate = date;
 
@@ -137,6 +155,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
           dueDate = null;
       }
     });
-    else setState(() => dueDate = date);
+    else setState(() {
+      if (date != null) dueDate = date;
+    });
   }
 }

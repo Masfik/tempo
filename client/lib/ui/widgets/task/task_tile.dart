@@ -26,6 +26,7 @@ class _TaskTileState extends State<TaskTile> {
     started = task.stopwatch.isRunning;
 
     return Card(
+      elevation: 3,
       child: ListTile(
         title: Text(
           task.name,
