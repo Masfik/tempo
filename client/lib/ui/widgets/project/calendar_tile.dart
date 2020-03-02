@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class CalendarTile extends StatefulWidget {
+class CalendarTile extends StatelessWidget {
   final String title;
   final DateTime date;
   final Function onTap;
@@ -15,22 +15,17 @@ class CalendarTile extends StatefulWidget {
   });
 
   @override
-  _CalendarTileState createState() => _CalendarTileState();
-}
-
-class _CalendarTileState extends State<CalendarTile> {
-  @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(
+      leading: const Icon(
         Icons.calendar_today,
       ),
-      title: Text(widget.title),
+      title: Text(title),
       subtitle: Text(
-          widget.date != null ? DateFormat('E d MMM, y').format(widget.date) : 'Select date'
+          date != null ? DateFormat('E d MMM, y').format(date) : 'Select date'
       ),
-      onTap: widget.onTap,
-      enabled: widget.enabled,
+      onTap: onTap,
+      enabled: enabled,
     );
   }
 }

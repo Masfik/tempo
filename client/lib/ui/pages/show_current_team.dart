@@ -14,16 +14,16 @@ class _ShowCurrentTeamState extends State<ShowCurrentTeam> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Team Members')
+        title: const Text('Team Members')
       ),
       body: Column(
         children: <Widget>[
           FlatButton(
             child: Row(
-              children: <Widget>[
-                Icon(Icons.person_add),
-                SizedBox(width: 10),
-                Text('Add people')
+              children: const <Widget>[
+                const Icon(Icons.person_add),
+                const SizedBox(width: 10),
+                const Text('Add people')
               ],
             ),
             onPressed: () {

@@ -31,7 +31,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             accountEmail: Text('name@domain.tld'),
             otherAccountsPictures: <Widget>[
               IconButton(
-                icon: Icon(Icons.settings),
+                icon: const Icon(Icons.settings),
                 onPressed: () {
                   Navigator.pop(context);
                 } ,
@@ -39,22 +39,22 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             ],
           ),
           ListTile(
-            leading: Icon(Icons.folder),
-            title: Text('General'),
+            leading: const Icon(Icons.folder),
+            title: const Text('General'),
             onTap: () {
               Navigator.pop(context);
               // TODO open general tasks
             },
           ),
           ListTile(
-            leading: Icon(Icons.group),
-            title: Text('Teams'),
+            leading: const Icon(Icons.group),
+            title: const Text('Teams'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/team');
             },
           ),
-          Divider(color: Colors.black),
+          const Divider(color: Colors.black),
           Expanded(
             child: ListView(
               padding: EdgeInsets.all(0),
@@ -73,8 +73,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             ),
           ),
           ListTile(
-            leading: Icon(Icons.playlist_add),
-            title: Text('ADD PROJECT'),
+            leading: const Icon(Icons.playlist_add),
+            title: const Text('ADD PROJECT'),
             onTap: () {
               Navigator.pop(context);
               Navigator.pushNamed(context, '/addproject');

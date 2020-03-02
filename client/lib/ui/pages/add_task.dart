@@ -27,7 +27,7 @@ class AddTask extends StatelessWidget {
                 child: TextField(
                   autofocus: true,
                   textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     labelText: 'Name of the task',
                     counterText: '', // Disables characters counter label
                     border: UnderlineInputBorder(
@@ -42,7 +42,7 @@ class AddTask extends StatelessWidget {
               ),
               SizedBox(width: 10),
               IconButton(
-                icon: Icon(Icons.add_circle),
+                icon: const Icon(Icons.add_circle),
                 color: kTempoThemeData.accentColor,
                 onPressed: () => submit(context, value),
               )

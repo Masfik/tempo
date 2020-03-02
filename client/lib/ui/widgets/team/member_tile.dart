@@ -6,7 +6,7 @@ class MemberTile extends StatefulWidget {
   final String identifier;
   final MemberRank memberType;
   final Function onTap;
-  bool selectable = false;
+  final bool selectable;
 
   MemberTile({
     Key key,
@@ -33,7 +33,9 @@ class _MemberTileState extends State<MemberTile> {
         widget.memberType == MemberRank.admin ? 'Admin' :
         ''
       ),
-      onTap: widget.onTap,
+      onTap: () {
+        //if (widget.selectable)
+      },
     );
   }
 }

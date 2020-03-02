@@ -7,7 +7,12 @@ class StartButton extends StatelessWidget {
   final Function onStop;
   final enabled;
 
-  StartButton({@required this.started, @required this.onStart, @required this.onStop, @required this.enabled});
+  StartButton({
+    @required this.started,
+    @required this.onStart,
+    @required this.onStop,
+    @required this.enabled
+  });
 
   @override
   Widget build(BuildContext context) {

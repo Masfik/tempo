@@ -18,9 +18,10 @@ class _AddPeopleScreenState extends State<AddPeopleScreen> {
             child: TextField(
               textInputAction: TextInputAction.search,
               enableSuggestions: false,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Search people or teams'
               ),
+              onChanged: search,
             ),
           ),
           Expanded(
@@ -36,5 +37,13 @@ class _AddPeopleScreenState extends State<AddPeopleScreen> {
         ],
       ),
     );
+  }
+
+  Future search(value) async {
+    // TODO: search functionality
+
+    setState(() {
+
+    });
   }
 }

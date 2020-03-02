@@ -7,10 +7,6 @@ enum Item {
 }
 
 class ActionsMenu extends StatelessWidget {
-  const ActionsMenu({
-    Key key,
-  }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(

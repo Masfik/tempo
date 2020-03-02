@@ -32,27 +32,27 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add a project'),
+        title: const Text('Add a project'),
         leading: IconButton(
-          icon: Icon(Icons.check),
+          icon: const Icon(Icons.check),
           onPressed: submit,
         ),
-        actions: <Widget>[ IconButton(
-          icon: Icon(Icons.close),
-          onPressed: () => Navigator.pop(context),
-        )],
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.pop(context)
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             TextFormField(
               autofocus: true,
               onChanged: (value) => name = value,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Project Name',
                 contentPadding: EdgeInsets.only(
                   left: 20,
@@ -61,9 +61,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               ),
               validator: kValidator
             ),
-            SizedBox(
-              height: 10,
-            ),
+            const SizedBox(height: 10),
             Expanded(
               child: ListView(
                 children: <Widget>[
@@ -79,10 +77,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
                     enabled: startDate != null ? true : false,
                   ),
                   ListTile(
-                    leading: Icon(
-                      Icons.group_add,
-                    ),
-                    title: Text('Add People'),
+                    leading: const Icon(Icons.group_add),
+                    title: const Text('Add People'),
                     onTap: () => showModalBottomSheet(
                       context: context,
                       shape: kRoundedRectangleShape,
@@ -120,7 +116,13 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
 
         Navigator.pop(context);
       } catch(e) {
-        showDialog(context: context, child: Text(e.message));
+        showDialog(
+          context: context,
+          builder: (context) => SimpleErrorDialog(
+            title: 'Error!',
+            message: e.message
+          )
+        );
       }
     }
   }

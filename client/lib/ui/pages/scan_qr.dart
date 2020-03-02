@@ -17,7 +17,7 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(''),
+        title: const Text(''),
         elevation: 0,
         backgroundColor: kTempoThemeData.canvasColor,
       ),
@@ -31,12 +31,12 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
                 color: Colors.white,
                 width: 250,
               ),
-              SizedBox(height: 10),
-              Text(
+              const SizedBox(height: 10),
+              const Text(
                 'Scan QR Code',
                 style: kTextTitle,
               ),
-              Text(
+              const Text(
                 'Have an invitation from a colleague? 🤝\n'
                 'Scan their QR code to quickly add them.\n\n'
                 'You can also scan codes of a certain location and\n'
@@ -44,9 +44,9 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
                 textAlign: TextAlign.center,
                 style: kTextNormal,
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               RaisedButton(
-                child: Text("Scan QR Code"),
+                child: const Text("Scan QR Code"),
                 color: kTempoThemeData.accentColor,
                 onPressed: () async {
                   if (await qr.scan())

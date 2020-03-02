@@ -33,12 +33,12 @@ class _MainContentScreenState extends State<MainContentScreen> {
         title: Text(project.name),
         actions: [ ActionsMenu() ],
       ),
-      drawer: NavigationDrawer(),
+      drawer: const NavigationDrawer(),
       body: taskCounter == 0 ? NoTasks() : TaskListView(taskCounter: taskCounter, tasks: project.tasks),
       floatingActionButton: FloatingActionButton(
         tooltip: 'Add Task',
         isExtended: true,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
             context: context,

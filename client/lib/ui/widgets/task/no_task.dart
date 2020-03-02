@@ -10,9 +10,9 @@ class NoTasks extends StatelessWidget {
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(Icons.check, size: 150, color: Colors.grey),
-          Text('No tasks', style: TextStyle(
+        children: const <Widget>[
+          const Icon(Icons.check, size: 150, color: Colors.grey),
+          const Text('No tasks', style: const TextStyle(
               color: Colors.grey,
               fontSize: 30
           ))

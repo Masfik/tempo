@@ -10,7 +10,7 @@ class _TeamsScreenState extends State<TeamsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Teams'),
+        title: const Text('Teams'),
       ),
       body: Center(
         child: Text('List of teams here'),
