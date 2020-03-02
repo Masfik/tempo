@@ -21,6 +21,8 @@ dependencies:
   flutter_svg: ^0.17.1
   # DateFormat
   intl: ^0.16.1
+  # A mixture between dependency injection (DI) and state management
+  provider: ^4.0.4
 
 dev_dependencies:
   flutter_test:
