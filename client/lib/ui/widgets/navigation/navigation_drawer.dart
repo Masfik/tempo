@@ -57,7 +57,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           const Divider(color: Colors.black),
           Expanded(
             child: ListView(
-              padding: EdgeInsets.all(0),
+              padding: const EdgeInsets.all(0),
               children: <Widget>[
                 ListTile(
                   leading: Icon(Icons.account_balance_wallet),

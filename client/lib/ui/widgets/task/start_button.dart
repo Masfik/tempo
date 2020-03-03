@@ -17,16 +17,15 @@ class StartButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        icon: Icon(
-          started ? Icons.pause : Icons.play_arrow,
-          color: enabled ? kTempoThemeData.accentColor : Colors.grey,
-        ),
-        onPressed: enabled
-            ? () {
-                if (!started) onStart();
-                else onStop();
-              }
-            : null
+      color: kTempoThemeData.accentColor,
+      disabledColor: kTempoThemeData.disabledColor,
+      icon: Icon(started ? Icons.pause : Icons.play_arrow),
+      onPressed: enabled
+          ? () {
+              if (!started) onStart();
+              else onStop();
+            }
+          : null
     );
   }
 }

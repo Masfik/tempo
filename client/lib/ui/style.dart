@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 final kTempoThemeData = ThemeData(
   brightness: Brightness.dark,
-
-  primaryColor: Colors.blueGrey[900],
-  canvasColor: Colors.blueGrey[800],
-  cardColor: Colors.blueGrey[800],
-  accentColor: Color(0xFF29a19c),
-  toggleableActiveColor: Color(0xFF29a19c)
+  primaryColor: Color(0xFF3b4252),
+  canvasColor: Color(0xFF434c5e),
+  cardColor: Color(0xFF434c5e),
+  accentColor: Color(0xFF5E81AC),
+  toggleableActiveColor: Color(0xFF5E81AC),
+  disabledColor: Color(0xFF767b86)
 );
 
 const kRoundedRectangleShape = RoundedRectangleBorder(
