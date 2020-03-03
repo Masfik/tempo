@@ -13,7 +13,7 @@ class SimpleErrorDialog extends StatelessWidget {
       content: Text(message),
       actions: <Widget>[
         FlatButton(
-          child: const Text('Close'),
+          child: const Text('CLOSE'),
           onPressed: () => Navigator.pop(context),
         )
       ],
