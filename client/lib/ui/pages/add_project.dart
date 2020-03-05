@@ -111,8 +111,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         project.name = name;
         project.startDate = startDate;
         project.dueDate = dueDate;
-        project.people = people;
-        project.team = team;
+        /*project.people = people;
+        project.team = team;*/
 
         Navigator.pop(context);
       } catch(e) {
