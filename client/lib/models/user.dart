@@ -23,20 +23,26 @@ class User with ChangeNotifier {
   set fromJSON(Map<String, dynamic> json) {
     _firstName = json['first_name'];
     _surname = json['surname'];
-    for (dynamic project in json['projects'])
-      _projects.add(Project.fromJson(project));
+    for (dynamic project in json['projects']) _projects.add(Project.fromJSON(project));
     // Sets the first project as default active (General)
     _activeProject = _projects.first;
     _team = json['team'];
   }
 
   String get id => _id;
+
   String get firstName => _firstName;
+
   String get surname => _surname;
+
   String get email => _email;
+
   UnmodifiableListView<Project> get projects => UnmodifiableListView(_projects);
+
   Project get activeProject => _activeProject;
+
   Team get team => _team;
+
   List<Meeting> get meetings => _meetings;
 
   /// Set first name

@@ -19,16 +19,8 @@ class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tempo'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Form(
         key: _formKey,
         child: Center(
@@ -110,9 +102,9 @@ class _LoginState extends State<Login> {
       ),
     );
   }
-}
 
-_fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
-  currentFocus.unfocus();
-  FocusScope.of(context).requestFocus(nextFocus);
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
 }

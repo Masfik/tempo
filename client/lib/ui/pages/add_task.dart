@@ -3,16 +3,13 @@ import 'package:Tempo/models/task.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 class AddTask extends StatelessWidget {
-  final Project project;
-  final Function onSubmit;
-
-  AddTask({@required this.project, @required this.onSubmit});
-
   @override
   Widget build(BuildContext context) {
     String value;
+    Project project = Provider.of<Project>(context);
 
     return SingleChildScrollView(
       child: Container(
@@ -29,21 +26,19 @@ class AddTask extends StatelessWidget {
                   decoration: const InputDecoration(
                     hintText: 'Name of the task',
                     counterText: '', // Disables characters counter label
-                    border: UnderlineInputBorder(
-                      borderSide: BorderSide.none
-                    ),
+                    border: UnderlineInputBorder(borderSide: BorderSide.none),
                   ),
                   maxLines: 1,
                   maxLength: 30,
                   onChanged: (newValue) => value = newValue,
-                  onSubmitted: (value) => submit(context, value),
+                  onSubmitted: (value) => submit(context, project, value),
                 ),
               ),
               SizedBox(width: 10),
               IconButton(
                 icon: const Icon(Icons.add_circle),
                 color: Theme.of(context).accentColor,
-                onPressed: () => submit(context, value),
+                onPressed: () => submit(context, project, value),
               )
             ],
           ),
@@ -52,18 +47,15 @@ class AddTask extends StatelessWidget {
     );
   }
 
-  void submit(BuildContext context, String value) {
+  void submit(BuildContext context, Project project, String value) {
     if (value == null || value.isEmpty) return;
 
     Task task = Task();
     task.name = value;
 
-    // Add newest item as first in the list
-    project.tasks.insert(0, task);
+    project.addTask(task);
 
     // Closes BottomSheet (and keyboard)
     Navigator.pop(context);
-    // Calls #updateTask() from previous page
-    onSubmit();
   }
 }

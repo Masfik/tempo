@@ -14,13 +14,6 @@ class MainContentScreen extends StatefulWidget {
 }
 
 class _MainContentScreenState extends State<MainContentScreen> {
-  int taskCounter = 0;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<Project>(
@@ -30,7 +23,9 @@ class _MainContentScreenState extends State<MainContentScreen> {
           actions: [ ActionsMenu() ],
         ),
         drawer: const NavigationDrawer(),
-        body: project.tasks.length == 0 ? NoTasks() : TaskListView(taskCounter: project.tasks.length, tasks: project.tasks),
+        body: project.tasks.length == 0
+            ? NoTasks()
+            : TaskListView(taskCounter: project.tasks.length, tasks: project.tasks),
         floatingActionButton: FloatingActionButton(
           tooltip: 'Add Task',
           isExtended: true,
@@ -45,9 +40,5 @@ class _MainContentScreenState extends State<MainContentScreen> {
         ),
       ),
     );
-  }
-
-  void _updateTasks() {
-    setState(() => taskCounter++);
   }
 }
