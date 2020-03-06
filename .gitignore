@@ -36,6 +36,9 @@ lib/generated_plugin_registrant.dart
 # Exceptions to above rules.
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
+
+
+# Backend
 node_modules/
 target/
 pom.xml.tag
@@ -43,7 +46,6 @@ pom.xml.releaseBackup
 pom.xml.next
 dependency-reduced-pom.xml
 release.properties
-.idea/
 *.pem
 *.py[co]
 
@@ -51,3 +53,6 @@ release.properties
 **/.vagrant*
 **/.terraform
 **/terraform.tfstate*
+
+# Android Google Services file
+google-services.json
