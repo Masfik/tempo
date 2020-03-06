@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../style.dart';
-
 class NoTasks extends StatelessWidget {
   const NoTasks({
     Key key,
@@ -13,9 +11,9 @@ class NoTasks extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Icon(Icons.check, size: 150, color: kTempoThemeData.disabledColor),
+          Icon(Icons.check, size: 150, color: Theme.of(context).disabledColor),
           Text('No tasks', style: TextStyle(
-            color: kTempoThemeData.disabledColor,
+            color: Theme.of(context).disabledColor,
             fontSize: 30
           ))
         ],

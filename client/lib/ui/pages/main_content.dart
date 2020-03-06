@@ -1,5 +1,5 @@
 import 'package:Tempo/models/project.dart';
-import 'package:Tempo/ui/style.dart';
+import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/navigation/actions_menu.dart';
 import 'package:Tempo/ui/widgets/navigation/navigation_drawer.dart';
 import 'package:Tempo/ui/pages/add_task.dart';

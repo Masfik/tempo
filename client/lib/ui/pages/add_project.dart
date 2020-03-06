@@ -2,7 +2,7 @@ import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
-import 'package:Tempo/ui/style.dart';
+import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
 import 'package:Tempo/utils/constants.dart';

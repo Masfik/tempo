@@ -1,5 +1,5 @@
 import 'package:Tempo/models/qr.dart';
-import 'package:Tempo/ui/style.dart';
+import 'package:Tempo/ui/misc/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,7 +19,7 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
       appBar: AppBar(
         title: const Text(''),
         elevation: 0,
-        backgroundColor: kTempoThemeData.canvasColor,
+        backgroundColor: Theme.of(context).canvasColor,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -47,7 +47,7 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
               const SizedBox(height: 50),
               RaisedButton(
                 child: const Text("Scan QR Code"),
-                color: kTempoThemeData.accentColor,
+                color: Theme.of(context).accentColor,
                 onPressed: () async {
                   if (await qr.scan())
                     setState(() => isValid = true);
