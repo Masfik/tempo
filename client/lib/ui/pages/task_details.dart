@@ -16,10 +16,10 @@ class TaskDetailsScreen extends StatefulWidget {
   }); */
 
   @override
-  _TaskDetailsScreen createState() => _TaskDetailsScreen();
+  _TaskDetailsScreenState createState() => _TaskDetailsScreenState();
 }
 
-class _TaskDetailsScreen extends State<TaskDetailsScreen> {
+class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   Task task;
   String name;
 

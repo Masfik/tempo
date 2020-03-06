@@ -34,6 +34,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 icon: const Icon(Icons.settings),
                 onPressed: () {
                   Navigator.pop(context);
+                  Navigator.pushNamed(context, '/login');
                 } ,
               )
             ],
