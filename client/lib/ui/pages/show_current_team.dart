@@ -1,6 +1,6 @@
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
-import 'package:Tempo/ui/style.dart';
+import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/team/member_tile.dart';
 import 'package:flutter/material.dart';
 

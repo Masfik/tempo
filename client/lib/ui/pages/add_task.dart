@@ -1,6 +1,5 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/ui/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +27,7 @@ class AddTask extends StatelessWidget {
                   autofocus: true,
                   textCapitalization: TextCapitalization.sentences,
                   decoration: const InputDecoration(
-                    labelText: 'Name of the task',
+                    hintText: 'Name of the task',
                     counterText: '', // Disables characters counter label
                     border: UnderlineInputBorder(
                       borderSide: BorderSide.none
@@ -43,7 +42,7 @@ class AddTask extends StatelessWidget {
               SizedBox(width: 10),
               IconButton(
                 icon: const Icon(Icons.add_circle),
-                color: kTempoThemeData.accentColor,
+                color: Theme.of(context).accentColor,
                 onPressed: () => submit(context, value),
               )
             ],

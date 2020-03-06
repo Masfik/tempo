@@ -1,4 +1,3 @@
-import 'package:Tempo/ui/style.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 
