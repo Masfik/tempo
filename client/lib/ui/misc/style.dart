@@ -10,6 +10,7 @@ final kTempoThemeData = ThemeData(
   dialogBackgroundColor: Color(0xFF3b4252),
   accentColor: Color(0xFF5E81AC),
   toggleableActiveColor: Color(0xFF5E81AC),
+  buttonColor: Color(0xFF5E81AC),
 
   errorColor: Color(0xFFBF616A),
   disabledColor: Color(0xFF767b86),

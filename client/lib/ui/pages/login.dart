@@ -80,7 +80,6 @@ class _LoginState extends State<Login> {
                 ),
                 const SizedBox(height: 10),
                 RaisedButton(
-                  color: Theme.of(context).accentColor,
                   onPressed: () {
 
                   },
