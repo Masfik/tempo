@@ -47,7 +47,6 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
               const SizedBox(height: 50),
               RaisedButton(
                 child: const Text("Scan QR Code"),
-                color: Theme.of(context).accentColor,
                 onPressed: () async {
                   if (await qr.scan())
                     setState(() => isValid = true);
