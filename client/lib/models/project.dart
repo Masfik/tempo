@@ -26,8 +26,8 @@ class Project with ChangeNotifier {
 
   Project.fromJSON(Map<String, dynamic> json) {
     _name = json['name'];
-    _startDate = DateTime.parse(json['startDate']);
-    _dueDate = DateTime.parse(json['dueDate']);
+    _startDate = json['startDate'] != null ? DateTime.parse(json['startDate']) : null;
+    _dueDate = json['dueDate'] != null ? DateTime.parse(json['dueDate']) : null;
   }
 
   String get name => _name;

@@ -28,7 +28,7 @@ class User with ChangeNotifier {
     this._email = firebaseUser.email;
   }
 
-  set fromJSON(Map<String, dynamic> json) {
+  loadFromJSON(Map<String, dynamic> json) {
     _firstName = json['first_name'];
     _surname = json['surname'];
     for (dynamic project in json['projects']) _projects.add(Project.fromJSON(project));
@@ -45,6 +45,8 @@ class User with ChangeNotifier {
   String get firstName => _firstName;
 
   String get surname => _surname;
+
+  String get fullName => '$_firstName $_surname';
 
   String get email => _email;
 
@@ -64,6 +66,15 @@ class User with ChangeNotifier {
 
   /// Alias of the #firstName setter
   set name(String name) => firstName = name;
+
+  /// Set surname
+  set surname(String surname) {
+    _surname = surname;
+    notifyListeners();
+  }
+
+  /// Alias of the #surname setter
+  set lastName(String lastName) => surname = lastName;
 
   addProject(Project project) {
     _projects.add(project);
