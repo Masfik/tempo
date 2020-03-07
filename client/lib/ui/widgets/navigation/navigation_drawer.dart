@@ -1,5 +1,7 @@
+import 'package:Tempo/models/user.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({
@@ -11,8 +13,12 @@ class NavigationDrawer extends StatefulWidget {
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
+  User user;
+
   @override
   Widget build(BuildContext context) {
+    user = Provider.of<User>(context);
+
     return Drawer(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +34,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               },
             ),
             accountName: Text('Placeholder'),
-            accountEmail: Text('name@domain.tld'),
+            accountEmail: Text(user.email),
             otherAccountsPictures: <Widget>[
               IconButton(
                 icon: const Icon(Icons.settings),

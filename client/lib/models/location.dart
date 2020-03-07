@@ -15,6 +15,4 @@ class Location {
   set latitude(double value) {
     _latitude = value;
   }
-
-
 }

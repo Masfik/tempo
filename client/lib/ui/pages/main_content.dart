@@ -8,12 +8,12 @@ import 'package:Tempo/ui/widgets/task/task_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MainContentScreen extends StatefulWidget {
+class TasksScreen extends StatefulWidget {
   @override
-  _MainContentScreenState createState() => _MainContentScreenState();
+  _TasksScreenState createState() => _TasksScreenState();
 }
 
-class _MainContentScreenState extends State<MainContentScreen> {
+class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
     return Consumer<Project>(

@@ -1,14 +1,16 @@
+import 'package:Tempo/models/user.dart';
+import 'package:Tempo/services/firebase_auth.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
-
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
-  String username;
+  String email;
   String password;
 
   // FocusNode listeners -> changing the focus to next input field
@@ -36,7 +38,7 @@ class _LoginState extends State<Login> {
                     onFieldSubmitted: (term) {
                       _fieldFocusChange(context, _emailFocus, _passFocus);
                     },
-                    onChanged: (value) => username = value,
+                    onChanged: (value) => email = value,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide(width: 0, style: BorderStyle.none),
@@ -54,7 +56,7 @@ class _LoginState extends State<Login> {
                 const SizedBox(height: 10),
                 TextFormField(
                     focusNode: _passFocus,
-                    onChanged: (value) => username = value,
+                    onChanged: (value) => password = value,
                     obscureText: true,
                     decoration: const InputDecoration(
                       fillColor: Color(0xFF4c566a),
@@ -73,9 +75,6 @@ class _LoginState extends State<Login> {
                 const SizedBox(height: 10),
                 RaisedButton(
                   color: Theme.of(context).accentColor,
-                  onPressed: () {
-
-                  },
                   child: Container(
                     child: Center(child: Text('Login')),
                   ),
@@ -83,6 +82,16 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                   ),
                   elevation: 0,
+                  onPressed: () async {
+                    User user = await FirebaseAuthService().signIn(email, password);
+                    if (user == null) {
+                      print('Error!');
+                    } else {
+                      Provider.of<User>(context).token = user.token;
+
+                      Navigator.pushReplacementNamed(context, '/tasks');
+                    }
+                  }
                 ),
                 FlatButton(
                   onPressed: () {

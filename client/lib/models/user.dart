@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:collection';
 import 'package:Tempo/models/project.dart';
@@ -5,7 +6,9 @@ import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/meeting.dart';
 
 class User with ChangeNotifier {
+  FirebaseUser _firebaseUser;
   String _id;
+  String token;
   String _firstName;
   String _surname;
   String _email;
@@ -14,10 +17,15 @@ class User with ChangeNotifier {
   Team _team;
   List<Meeting> _meetings;
 
-  User({@required String firstName, @required String surname, @required String email}) {
-    _firstName = firstName;
-    _surname = surname;
-    _email = email;
+  User({@required String id, @required String email}) {
+    this._id = id;
+    this._email = email;
+  }
+
+  User.fromFirebase(FirebaseUser firebaseUser) {
+    this._firebaseUser = firebaseUser;
+    this._id = firebaseUser.uid;
+    this._email = firebaseUser.email;
   }
 
   set fromJSON(Map<String, dynamic> json) {
@@ -27,7 +35,10 @@ class User with ChangeNotifier {
     // Sets the first project as default active (General)
     _activeProject = _projects.first;
     _team = json['team'];
+    notifyListeners();
   }
+
+  FirebaseUser get firebaseUser => _firebaseUser;
 
   String get id => _id;
 
@@ -64,7 +75,8 @@ class User with ChangeNotifier {
     notifyListeners();
   }
 
-  setActiveProjectByIndex(int index) => activeProject = _projects[index];
+  // Might be unnecessary (will cause issues if sorting is ever implemented)
+  set activeProjectByIndex(int index) => activeProject = _projects[index];
 
   addMeeting(Meeting meeting) => _meetings.add(meeting);
 }
