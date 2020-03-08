@@ -1,13 +1,12 @@
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-
+class LoginScreen extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   String username;
   String password;
 

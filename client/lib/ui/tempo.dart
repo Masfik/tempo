@@ -18,7 +18,7 @@ class Tempo extends StatelessWidget {
         '/addproject': (context) => AddProjectScreen(),
         '/team': (context) => TeamsScreen(),
         '/scan': (context) => ScanQrScreen(),
-        '/login': (context) => Login()
+        '/login': (context) => LoginScreen()
       },
     );
   }
