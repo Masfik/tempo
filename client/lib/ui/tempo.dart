@@ -19,8 +19,9 @@ class Tempo extends StatelessWidget {
         StreamProvider<User>.value(
           value: FirebaseAuthService().onAuthStateChanged,
         ),
-        ChangeNotifierProvider<Project>(
-          create: (context) => Project(name: 'General'),
+        ChangeNotifierProxyProvider<User, Project>(
+          create: (context) => Project(name: 'Active Project'),
+          update: (context, user, project) => project.updateWith = user.activeProject
         )
       ],
       child: MaterialApp(
@@ -32,7 +33,7 @@ class Tempo extends StatelessWidget {
           '/addproject': (context) => AddProjectScreen(),
           '/team': (context) => TeamsScreen(),
           '/scan': (context) => ScanQrScreen(),
-          '/login': (context) => Login()
+          '/login': (context) => LoginScreen()
         },
       ),
     );

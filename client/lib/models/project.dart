@@ -15,7 +15,7 @@ class Project with ChangeNotifier {
   List<Team> _team = [];
 
   Project({
-    @required String name,
+    String name,
     DateTime startDate,
     DateTime dueDate
   }) {
@@ -69,6 +69,17 @@ class Project with ChangeNotifier {
 
   void addTeams(List<Team> teams) {
     _team.addAll(teams);
+    notifyListeners();
+  }
+
+  set updateWith(Project project) {
+    if (project == null) return;
+    _name = project.name;
+    _startDate = project.startDate;
+    _dueDate = project.dueDate;
+    _tasks = project.tasks;
+    _people = project.people;
+    _team = project.team;
     notifyListeners();
   }
 }

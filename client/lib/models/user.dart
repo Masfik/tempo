@@ -31,7 +31,12 @@ class User with ChangeNotifier {
   loadFromJSON(Map<String, dynamic> json) {
     _firstName = json['first_name'];
     _surname = json['surname'];
-    for (dynamic project in json['projects']) _projects.add(Project.fromJSON(project));
+
+    List<Project> projects = [];
+    for (dynamic project in json['projects']) projects.add(Project.fromJSON(project));
+    _projects = projects;
+    print(_projects.first);
+
     // Sets the first project as default active (General)
     _activeProject = _projects.first;
     _team = json['team'];

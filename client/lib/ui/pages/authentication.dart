@@ -23,27 +23,28 @@ class _AuthenticationScreenState extends State<AuthenticationScreen> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
-    if (user == null) return Login();
+    if (user == null) return LoginScreen();
 
     return FutureBuilder<Map<String, dynamic>>(
       future: userData,
       builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
         LoadingIndicator child;
-        if (snapshot.hasData && snapshot.data != null) {
+        if (snapshot.hasData) {
           user.loadFromJSON(snapshot.data);
-          print(user.firstName);
           return TasksScreen();
-        } else if (snapshot.hasError || snapshot.data == null) {
+        } else if (snapshot.hasError || (snapshot.connectionState == ConnectionState.done && snapshot.data == null)) {
           child = LoadingIndicator(
             type: LoadingType.error,
             message: 'Failed to fetch user data.',
-            onRetry: () => print('retry'),
+            onRetry: () => setState(() {
+              userData = ApiService().fetchUserData();
+            }),
           );
         } else child = LoadingIndicator(type: LoadingType.loading, message: 'Loading user data...');
 
         return Scaffold(
           body: Center(
-            child: child
+              child: child
           ),
         );
       },

@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart';
 
 class ApiService {
-  final _endpoint = 'https://tempoop.free.beeceptor.com/';
+  final _endpoint = 'https://lalala.free.beeceptor.com';
 
   Future<Map<String, dynamic>> fetchUserData() async {
     Response response = await get(

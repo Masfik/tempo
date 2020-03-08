@@ -4,12 +4,12 @@ import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class Login extends StatefulWidget {
+class LoginScreen extends StatefulWidget {
   @override
-  _LoginState createState() => _LoginState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginScreenState extends State<LoginScreen> {
   String email;
   String password;
 
