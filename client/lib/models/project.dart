@@ -7,7 +7,7 @@ import 'package:Tempo/utils/input_exception.dart';
 import 'package:flutter/foundation.dart';
 
 class Project with ChangeNotifier {
-  String _name;
+  String _name = 'None';
   DateTime _startDate;
   DateTime _dueDate;
   List<Task> _tasks = [];
@@ -15,7 +15,7 @@ class Project with ChangeNotifier {
   List<Team> _team = [];
 
   Project({
-    String name,
+    String name = 'None',
     DateTime startDate,
     DateTime dueDate
   }) {
@@ -28,6 +28,17 @@ class Project with ChangeNotifier {
     _name = json['name'];
     _startDate = json['startDate'] != null ? DateTime.parse(json['startDate']) : null;
     _dueDate = json['dueDate'] != null ? DateTime.parse(json['dueDate']) : null;
+  }
+
+  updateWith(Project project) {
+    if (project == null) return;
+    _name = project.name;
+    _startDate = project.startDate;
+    _dueDate = project.dueDate;
+    _tasks = project.tasks;
+    _people = project.people;
+    _team = project.team;
+    notifyListeners();
   }
 
   String get name => _name;
@@ -69,17 +80,6 @@ class Project with ChangeNotifier {
 
   void addTeams(List<Team> teams) {
     _team.addAll(teams);
-    notifyListeners();
-  }
-
-  set updateWith(Project project) {
-    if (project == null) return;
-    _name = project.name;
-    _startDate = project.startDate;
-    _dueDate = project.dueDate;
-    _tasks = project.tasks;
-    _people = project.people;
-    _team = project.team;
     notifyListeners();
   }
 }

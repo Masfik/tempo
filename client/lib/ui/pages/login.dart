@@ -1,8 +1,7 @@
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/services/firebase_auth.dart';
+import 'package:Tempo/services/user_auth_adapter.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -83,14 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   elevation: 0,
                   onPressed: () async {
-                    User user = await FirebaseAuthService().signIn(email, password);
-                    if (user == null) {
-                      print('Error!');
-                    } else {
-                      Provider.of<User>(context).token = user.token;
+                    User user = await UserAuthAdapter().signIn(email, password);
 
-                      Navigator.pushReplacementNamed(context, '/tasks');
-                    }
+                    if (user != null) Navigator.pushReplacementNamed(context, '/tasks');
+                    else print('Error!');// TODO
                   }
                 ),
                 FlatButton(

@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,8 +17,6 @@ class NavigationDrawer extends StatefulWidget {
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
-
-
   @override
   Widget build(BuildContext context) {
     return Consumer<User>(
@@ -30,7 +31,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 ),
                 onTap: () {
                   // TODO: set avatar
-                  user.activeProject = user.projects.first;
                   Navigator.pop(context);
                 },
               ),
@@ -41,7 +41,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   icon: const Icon(Icons.settings),
                   onPressed: () {
                     Navigator.pop(context);
-                    Navigator.pushNamed(context, '/login');
                   } ,
                 )
               ],
@@ -74,8 +73,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     title: Text(project.name),
                     onTap: () {
                       user.activeProject = project;
-                      print(Provider.of<Project>(context, listen: false).name);
-                      print(user.activeProject.name);
                       Navigator.pop(context);
                     }
                   );

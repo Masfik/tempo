@@ -1,6 +1,6 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/services/firebase_auth.dart';
+import 'package:Tempo/services/user_auth_adapter.dart';
 import 'package:Tempo/ui/pages/add_project.dart';
 import 'package:Tempo/ui/pages/authentication.dart';
 import 'package:Tempo/ui/pages/login.dart';
@@ -17,11 +17,13 @@ class Tempo extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<User>.value(
-          value: FirebaseAuthService().onAuthStateChanged,
+          value: UserAuthAdapter().user,
+          updateShouldNotify: (_, __) => true
         ),
         ChangeNotifierProxyProvider<User, Project>(
           create: (context) => Project(name: 'Active Project'),
-          update: (context, user, project) => project.updateWith = user.activeProject
+          update: (context, user, project) => project.updateWith(user.activeProject) ?? Project(),
+          lazy: true,
         )
       ],
       child: MaterialApp(

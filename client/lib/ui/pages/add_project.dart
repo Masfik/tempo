@@ -7,6 +7,7 @@ import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 enum CalendarType {
   start,

@@ -1,4 +1,5 @@
 import 'package:Tempo/models/project.dart';
+import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/navigation/actions_menu.dart';
 import 'package:Tempo/ui/widgets/navigation/navigation_drawer.dart';
@@ -16,28 +17,27 @@ class TasksScreen extends StatefulWidget {
 class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<Project>(
-      builder: (context, project, child) => Scaffold(
-        appBar: AppBar(
-          title: Text(project.name),
-          actions: [ ActionsMenu() ],
-        ),
-        drawer: const NavigationDrawer(),
-        body: project.tasks.length == 0
-            ? NoTasks()
-            : TaskListView(taskCounter: project.tasks.length, tasks: project.tasks),
-        floatingActionButton: FloatingActionButton(
-          tooltip: 'Add Task',
-          isExtended: true,
-          child: const Icon(Icons.add),
-          onPressed: () {
-            showModalBottomSheet(
+    Project project = Provider.of<Project>(context);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(project.name),
+        actions: [ ActionsMenu() ],
+      ),
+      drawer: const NavigationDrawer(),
+      body: project.tasks.length == 0
+          ? NoTasks()
+          : TaskListView(taskCounter: project.tasks.length, tasks: project.tasks),
+      floatingActionButton: FloatingActionButton(
+        tooltip: 'Add Task',
+        isExtended: true,
+        child: const Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
               context: context,
               shape: kRoundedRectangleShape,
               builder: (context) => AddTask()
-            );
-          },
-        ),
+          );
+        },
       ),
     );
   }
