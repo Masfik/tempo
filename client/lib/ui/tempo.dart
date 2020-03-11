@@ -1,6 +1,8 @@
-import 'package:Tempo/models/project.dart';
-import 'package:Tempo/models/user.dart';
-import 'package:Tempo/services/user_auth_adapter.dart';
+import 'package:Tempo/services/api/api.dart';
+import 'package:Tempo/services/api/user_data_adapter.dart';
+import 'package:Tempo/services/authentication/auth_adapter.dart';
+import 'package:Tempo/services/authentication/authentication.dart';
+import 'package:Tempo/ui/misc/auth_stream_builder.dart';
 import 'package:Tempo/ui/pages/add_project.dart';
 import 'package:Tempo/ui/pages/authentication.dart';
 import 'package:Tempo/ui/pages/login.dart';
@@ -16,28 +18,25 @@ class Tempo extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        StreamProvider<User>.value(
-          value: UserAuthAdapter().user,
-          updateShouldNotify: (_, __) => true
-        ),
-        ChangeNotifierProxyProvider<User, Project>(
-          create: (context) => Project(name: 'Active Project'),
-          update: (context, user, project) => project.updateWith(user.activeProject) ?? Project(),
-          lazy: true,
-        )
+        Provider<AuthService>(create: (context) => AuthServiceAdapter()),
+        Provider<ApiService>(create:  (context) => UserDataServiceAdapter())
       ],
-      child: MaterialApp(
-        title: 'Tempo',
-        theme: kTempoThemeData,
-        home: AuthenticationScreen(),
-        routes: {
-          '/tasks': (context) => TasksScreen(),
-          '/addproject': (context) => AddProjectScreen(),
-          '/team': (context) => TeamsScreen(),
-          '/scan': (context) => ScanQrScreen(),
-          '/login': (context) => LoginScreen()
+      child: AuthStreamBuilder(
+        builder: (context, snapshot) {
+          return MaterialApp(
+            title: 'Tempo',
+            theme: kTempoThemeData,
+            home: AuthenticationScreen(authUserSnapshot: snapshot),
+            routes: {
+              '/tasks': (context) => HomeScreen(),
+              '/addproject': (context) => AddProjectScreen(),
+              '/team': (context) => TeamsScreen(),
+              '/scan': (context) => ScanQrScreen(),
+              '/login': (context) => LoginScreen()
+            },
+          );
         },
-      ),
+      )
     );
   }
 }

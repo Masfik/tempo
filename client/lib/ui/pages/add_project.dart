@@ -115,6 +115,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         /*project.people = people;
         project.team = team;*/
 
+        Provider.of<User>(context, listen: false).addProject(project);
         Navigator.pop(context);
       } catch(e) {
         showDialog(

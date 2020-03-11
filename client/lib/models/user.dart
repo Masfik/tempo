@@ -6,9 +6,9 @@ import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/meeting.dart';
 
-class User {
+class User with ChangeNotifier {
+  // Authentication-related related fields
   AuthUser _authUser;
-  ApiService _service;
   String _token;
 
   String _id;
@@ -26,30 +26,21 @@ class User {
   }) {
     this._id = id;
     this._email = email;
-    _loadUserData();
   }
 
-  User.fromAuthService({@required AuthUser authUser, @required ApiService userDataService}) {
+  User.fromAuthUser({@required AuthUser authUser}) {
     this._authUser = authUser;
     this._id = authUser.id;
     this._email = authUser.email;
-    this._service = userDataService;
-
-    _loadUserData();
   }
 
-  User fromApiService(ApiService service) {
-    _service = service;
-    return this;
-  }
-
-  _loadUserData() async {
-    if (_authUser == null || _service == null) return;
+  fromJSON(Map<String, dynamic> json) async {
+    /*if (_authUser == null || _service == null) return;
 
     // Obtains the authentication token and assigns it to the token variable of both the User and Service
-    _token = _service.token = await authUser.token;
+    _token = await authUser.token;
 
-    Map<String, dynamic> json = await _service.fetchData();
+    Map<String, dynamic> json = await _service.fetchData();*/
 
     _firstName = json['first_name'];
     _surname = json['surname'];
@@ -61,6 +52,7 @@ class User {
     // Sets the first project as default active (General)
     _activeProject = _projects.first;
     _team = json['team'];
+    notifyListeners();
   }
 
   AuthUser get authUser => _authUser;
@@ -90,6 +82,7 @@ class User {
   /// Set first name
   set firstName(String name) {
     _firstName = name;
+    notifyListeners();
   }
 
   /// Alias of the #firstName setter
@@ -98,6 +91,7 @@ class User {
   /// Set surname
   set surname(String surname) {
     _surname = surname;
+    notifyListeners();
   }
 
   /// Alias of the #surname setter
@@ -107,6 +101,7 @@ class User {
 
   set activeProject(Project project) {
     _activeProject = project;
+    notifyListeners();
   }
 
   // Might be unnecessary (will cause issues if sorting is ever implemented)

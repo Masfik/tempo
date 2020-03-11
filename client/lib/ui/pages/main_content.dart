@@ -9,12 +9,12 @@ import 'package:Tempo/ui/widgets/task/task_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TasksScreen extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
   @override
-  _TasksScreenState createState() => _TasksScreenState();
+  _HomeScreenState createState() => _HomeScreenState();
 }
 
-class _TasksScreenState extends State<TasksScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     Project project = Provider.of<Project>(context);

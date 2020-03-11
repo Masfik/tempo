@@ -1,14 +1,26 @@
-import 'package:Tempo/models/user.dart';
+import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/ui/pages/login.dart';
 import 'package:Tempo/ui/widgets/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'main_content.dart';
 
 class AuthenticationScreen extends StatelessWidget {
+  final AsyncSnapshot<AuthUser> authUserSnapshot;
+
+  AuthenticationScreen({@required this.authUserSnapshot});
+
   @override
   Widget build(BuildContext context) {
-    User user = Provider.of<User>(context);
+    if (authUserSnapshot.connectionState == ConnectionState.active)
+      return authUserSnapshot.hasData ? HomeScreen() : LoginScreen();
+
+    return Scaffold(
+      body: Center(
+        child: LoadingIndicator(type: LoadingType.loading, message: 'Loading...')
+      ),
+    );
+
+    /*User user = Provider.of<User>(context);
     if (user == null) return LoginScreen();
 
     LoadingIndicator child;
@@ -18,9 +30,8 @@ class AuthenticationScreen extends StatelessWidget {
 
     return Scaffold(
       body: Center(child: child),
-    );
+    );*/
 
-    //user.updateWith();
     /*return FutureBuilder<Map<String, dynamic>>(
       future: userData,
       builder: (BuildContext context, AsyncSnapshot<Map<String, dynamic>> snapshot) {
