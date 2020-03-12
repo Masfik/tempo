@@ -1,4 +1,3 @@
-import 'package:Tempo/models/user.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -83,10 +82,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   elevation: 0,
                   onPressed: () async {
-                    User user = await Provider.of<AuthService>(context).signIn(email, password);
+                    var user = await Provider.of<AuthService>(context, listen: false).signIn(email, password);
 
                     if (user != null) Navigator.pushReplacementNamed(context, '/tasks');
-                    else print('Error!');// TODO
+                    else print('Error!'); // TODO
                   }
                 ),
                 FlatButton(

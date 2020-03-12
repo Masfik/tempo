@@ -5,12 +5,16 @@ final kTempoThemeData = ThemeData(
 
   primaryColor: Color(0xFF3b4252),
   canvasColor: Color(0xFF434c5e),
-  cardColor: Color(0xFF434c5e),
   backgroundColor: Color(0xFF434c5e),
   dialogBackgroundColor: Color(0xFF3b4252),
   accentColor: Color(0xFF5E81AC),
   toggleableActiveColor: Color(0xFF5E81AC),
   buttonColor: Color(0xFF5E81AC),
+
+  cardColor: Color(0xFF434c5e),
+  cardTheme: CardTheme(
+    elevation: 6
+  ),
 
   errorColor: Color(0xFFBF616A),
   disabledColor: Color(0xFF767b86),

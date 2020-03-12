@@ -33,10 +33,7 @@ class FirebaseAuthService implements AuthService<AuthUser> {
   }
 
   @override
-  Future<void> logout() {
-    // TODO: implement logout
-    return null;
-  }
+  Future<void> logout() => _auth.signOut();
 
   AuthUser _toAuthUserModel(FirebaseUser firebaseUser) {
     if (firebaseUser == null) return null;

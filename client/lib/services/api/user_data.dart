@@ -9,7 +9,7 @@ class UserDataService implements ApiService<Map<String, dynamic>> {
   UserDataService({this.token});
 
   Future<Map<String, dynamic>> fetchData() async {
-    if (token == null) return null;
+    if (token == null) throw 'A token is required to perform this request!';
 
     Response response = await get(
       _endpoint,

@@ -1,4 +1,3 @@
-import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:flutter/material.dart';
 

@@ -32,12 +32,12 @@ class Project with ChangeNotifier {
 
   updateWith(Project project) {
     if (project == null) return;
-    _name = project.name;
-    _startDate = project.startDate;
-    _dueDate = project.dueDate;
-    _tasks = project.tasks;
-    _people = project.people;
-    _team = project.team;
+    _name = project._name;
+    _startDate = project._startDate;
+    _dueDate = project._dueDate;
+    _tasks = project._tasks;
+    _people = project._people;
+    _team = project._team;
     notifyListeners();
   }
 

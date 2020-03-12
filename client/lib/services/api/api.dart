@@ -1,4 +1,5 @@
 abstract class ApiService<T> {
-  String token;
+  String get token;
+  set token(String token);
   Future<T> fetchData();
 }

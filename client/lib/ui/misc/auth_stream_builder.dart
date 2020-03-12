@@ -28,8 +28,7 @@ class AuthStreamBuilder extends StatelessWidget {
             ),
             ChangeNotifierProxyProvider<User, Project>(
               create: (context) => Project(name: 'Active Project'),
-              update: (context, user, project) => project..updateWith(user.activeProject),
-              lazy: true,
+              update: (context, user, project) => project..updateWith(user.activeProject)
             )
           ],
           child: builder(context, snapshot),

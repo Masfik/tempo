@@ -1,5 +1,4 @@
 import 'package:Tempo/models/auth_user.dart';
-import 'package:Tempo/services/api/api.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:collection';
 import 'package:Tempo/models/project.dart';
@@ -7,7 +6,7 @@ import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/meeting.dart';
 
 class User with ChangeNotifier {
-  // Authentication-related related fields
+  // Authentication-related fields
   AuthUser _authUser;
   String _token;
 
@@ -15,7 +14,7 @@ class User with ChangeNotifier {
   String _firstName = 'Anonymous';
   String _surname = 'User';
   String _email = 'Not logged in';
-  List<Project> _projects = [ Project(name: 'None') ];
+  List<Project> _projects = [];
   Project _activeProject = Project(name: 'None');
   Team _team;
   List<Meeting> _meetings = [];
@@ -32,15 +31,16 @@ class User with ChangeNotifier {
     this._authUser = authUser;
     this._id = authUser.id;
     this._email = authUser.email;
+
+    // Performs the Future to obtain the token
+    authUser.token.then((token) {
+      _token = token;
+      notifyListeners();
+    });
   }
 
-  fromJSON(Map<String, dynamic> json) async {
-    /*if (_authUser == null || _service == null) return;
-
-    // Obtains the authentication token and assigns it to the token variable of both the User and Service
-    _token = await authUser.token;
-
-    Map<String, dynamic> json = await _service.fetchData();*/
+  loadFromJSON(Map<String, dynamic> json, {bool forceUpdate = false}) {
+    if (!forceUpdate && _projects.isNotEmpty) return;
 
     _firstName = json['first_name'];
     _surname = json['surname'];
@@ -48,11 +48,9 @@ class User with ChangeNotifier {
     List<Project> projects = [];
     for (dynamic project in json['projects']) projects.add(Project.fromJSON(project));
     _projects = projects;
-
     // Sets the first project as default active (General)
     _activeProject = _projects.first;
     _team = json['team'];
-    notifyListeners();
   }
 
   AuthUser get authUser => _authUser;
@@ -97,7 +95,10 @@ class User with ChangeNotifier {
   /// Alias of the #surname setter
   set lastName(String lastName) => surname = lastName;
 
-  addProject(Project project) => _projects.add(project);
+  addProject(Project project) {
+    _projects.add(project);
+    notifyListeners();
+  }
 
   set activeProject(Project project) {
     _activeProject = project;

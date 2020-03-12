@@ -3,14 +3,14 @@ import 'package:Tempo/services/api/user_data.dart';
 
 class UserDataServiceAdapter implements ApiService {
   ApiService service;
-  String token;
+  String _token;
 
-  UserDataServiceAdapter() : service = UserDataService();
+  UserDataServiceAdapter({String token}) : _token = token, service = UserDataService(token: token);
+
+  get token => _token;
+
+  set token(String token) => _token = service.token = token;
 
   @override
-  Future fetchData() {
-    // TODO: implement fetchData
-    return null;
-  }
-
+  Future fetchData() => service.fetchData();
 }

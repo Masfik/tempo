@@ -17,7 +17,6 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(Provider.of<User>(context, listen: false).name);
     return Scaffold(
       appBar: AppBar(
         title: const Text(''),

@@ -27,7 +27,7 @@ class _MemberTileState extends State<MemberTile> {
     return ListTile(
       title: Text(widget.fullName),
       subtitle: Text('@${widget.identifier}'),
-      leading: Image.asset('images/user.png', width: 40),
+      leading: CircleAvatar(child: Image.asset('images/user.png')),
       trailing: Text(
         widget.memberType == MemberRank.creator ? 'Creator' :
         widget.memberType == MemberRank.admin ? 'Admin' :

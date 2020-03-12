@@ -1,5 +1,4 @@
 import 'package:Tempo/models/project.dart';
-import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/navigation/actions_menu.dart';
 import 'package:Tempo/ui/widgets/navigation/navigation_drawer.dart';
@@ -9,12 +8,7 @@ import 'package:Tempo/ui/widgets/task/task_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class HomeScreen extends StatefulWidget {
-  @override
-  _HomeScreenState createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Project project = Provider.of<Project>(context);
