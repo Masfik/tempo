@@ -1,5 +1,7 @@
+import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -7,7 +9,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String username;
+  String email;
   String password;
 
   // FocusNode listeners -> changing the focus to next input field
@@ -18,16 +20,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
 
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Tempo'),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
-        ),
-      ),
       body: Form(
         key: _formKey,
         child: Center(
@@ -43,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onFieldSubmitted: (term) {
                       _fieldFocusChange(context, _emailFocus, _passFocus);
                     },
-                    onChanged: (value) => username = value,
+                    onChanged: (value) => email = value,
                     decoration: const InputDecoration(
                       border: OutlineInputBorder(
                         borderSide: BorderSide(width: 0, style: BorderStyle.none),
@@ -61,7 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 const SizedBox(height: 10),
                 TextFormField(
                     focusNode: _passFocus,
-                    onChanged: (value) => username = value,
+                    onChanged: (value) => password = value,
                     obscureText: true,
                     decoration: const InputDecoration(
                       fillColor: Color(0xFF4c566a),
@@ -79,9 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 10),
                 RaisedButton(
-                  onPressed: () {
-
-                  },
+                  color: Theme.of(context).accentColor,
                   child: Container(
                     child: Center(child: Text('Login')),
                   ),
@@ -89,6 +81,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                   ),
                   elevation: 0,
+                  onPressed: () async {
+                    var user = await Provider.of<AuthService>(context, listen: false).signIn(email, password);
+
+                    if (user != null) Navigator.pushReplacementNamed(context, '/tasks');
+                    else print('Error!'); // TODO
+                  }
                 ),
                 FlatButton(
                   onPressed: () {
@@ -108,9 +106,9 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-}
 
-_fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
-  currentFocus.unfocus();
-  FocusScope.of(context).requestFocus(nextFocus);
+  _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
+    currentFocus.unfocus();
+    FocusScope.of(context).requestFocus(nextFocus);
+  }
 }

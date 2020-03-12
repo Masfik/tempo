@@ -23,6 +23,8 @@ dependencies:
   intl: ^0.16.1
   # A mixture between dependency injection (DI) and state management
   provider: ^4.0.4
+  # Firebase Authentication
+  firebase_auth: ^0.15.5+2
 
 dev_dependencies:
   flutter_test:

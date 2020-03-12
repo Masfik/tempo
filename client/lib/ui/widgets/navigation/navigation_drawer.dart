@@ -1,5 +1,11 @@
+import 'dart:math';
+
+import 'package:Tempo/models/project.dart';
+import 'package:Tempo/models/user.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class NavigationDrawer extends StatefulWidget {
   const NavigationDrawer({
@@ -13,75 +19,77 @@ class NavigationDrawer extends StatefulWidget {
 class _NavigationDrawerState extends State<NavigationDrawer> {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          UserAccountsDrawerHeader(
-            currentAccountPicture: GestureDetector(
-              child: CircleAvatar(
-                child: Image.asset('images/user.png'),
+    return Consumer<User>(
+      builder: (context, user, child) => Drawer(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              currentAccountPicture: GestureDetector(
+                child: CircleAvatar(
+                  child: Image.asset('images/user.png'),
+                ),
+                onTap: () {
+                  // TODO: set avatar
+                  Navigator.pop(context);
+                },
               ),
+              accountName: Text(user.fullName),
+              accountEmail: Text(user.email),
+              otherAccountsPictures: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.pushNamed(context, '/settings');
+                  } ,
+                )
+              ],
+            ),
+            ListTile(
+              leading: const Icon(Icons.folder),
+              title: const Text('General'),
               onTap: () {
-                // TODO: set avatar
+                user.activeProject = user.projects.first;
                 Navigator.pop(context);
               },
             ),
-            accountName: Text('Placeholder'),
-            accountEmail: Text('name@domain.tld'),
-            otherAccountsPictures: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, '/login');
-                } ,
-              )
-            ],
-          ),
-          ListTile(
-            leading: const Icon(Icons.folder),
-            title: const Text('General'),
-            onTap: () {
-              Navigator.pop(context);
-              // TODO open general tasks
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.group),
-            title: const Text('Teams'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/team');
-            },
-          ),
-          const Divider(color: Colors.black),
-          Expanded(
-            child: ListView(
-              padding: const EdgeInsets.all(0),
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.account_balance_wallet),
-                  title: Text('Sample project name'),
-                  onTap: () {},
-                ),
-                ListTile(
-                  leading: Icon(Icons.account_balance_wallet),
-                  title: Text('Sample project name'),
-                  onTap: () {},
-                ),
-              ],
+            ListTile(
+              leading: const Icon(Icons.group),
+              title: const Text('Teams'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/team');
+              },
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.playlist_add),
-            title: const Text('ADD PROJECT'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, '/addproject');
-            },
-          )
-        ],
+            const Divider(color: Colors.black),
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(0),
+                itemCount: user.projects.length - 1,
+                itemBuilder: (context, index) {
+                  Project project = user.projects[index + 1];
+                  return ListTile(
+                    leading: Icon(Icons.layers),
+                    title: Text(project.name),
+                    onTap: () {
+                      user.activeProject = project;
+                      Navigator.pop(context);
+                    }
+                  );
+                }
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.playlist_add),
+              title: const Text('ADD PROJECT'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/addproject');
+              },
+            )
+          ],
+        ),
       ),
     );
   }

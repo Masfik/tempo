@@ -1,8 +1,10 @@
 import 'package:Tempo/models/qr.dart';
+import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class ScanQrScreen extends StatefulWidget {
   @override
