@@ -1,14 +1,15 @@
 import 'package:flutter/foundation.dart';
 
-@immutable
 class AuthUser {
   final String id;
   final String email;
-  final Future<String> token;
+  String token;
 
   AuthUser({
     @required this.id,
     @required this.email,
-    @required this.token
-  });
+    @required Future<String> token
+  }) {
+    token.then((value) => this.token = value); // Performs the Future to obtain the token
+  }
 }

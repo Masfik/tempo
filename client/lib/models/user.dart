@@ -6,10 +6,9 @@ import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/meeting.dart';
 
 class User with ChangeNotifier {
-  // Authentication-related fields
+  // Authentication-related field
   AuthUser _authUser;
-  String _token;
-
+  // General ser-related fields
   String _id;
   String _firstName = 'Anonymous';
   String _surname = 'User';
@@ -31,12 +30,6 @@ class User with ChangeNotifier {
     this._authUser = authUser;
     this._id = authUser.id;
     this._email = authUser.email;
-
-    // Performs the Future to obtain the token
-    authUser.token.then((token) {
-      _token = token;
-      notifyListeners();
-    });
   }
 
   loadFromJSON(Map<String, dynamic> json, {bool forceUpdate = false}) {
@@ -54,8 +47,6 @@ class User with ChangeNotifier {
   }
 
   AuthUser get authUser => _authUser;
-
-  String get token => _token;
 
   String get id => _id;
 

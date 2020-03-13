@@ -1,5 +1,4 @@
 import 'package:Tempo/models/auth_user.dart';
-import 'package:Tempo/models/user.dart';
 import 'package:Tempo/services/api/api.dart';
 import 'package:Tempo/ui/misc/fetch_user_builder.dart';
 import 'package:Tempo/ui/pages/login.dart';
@@ -16,12 +15,13 @@ class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (authUserSnapshot.connectionState == ConnectionState.active) {
-      User user;
+      AuthUser authUser;
       if (!authUserSnapshot.hasData)
         return LoginScreen();
-      else if ((user = Provider.of<User>(context)).token != null) /* Awaits token fetching */ {
+      else if ((authUser = authUserSnapshot.data).token != null) /* "Awaits" token fetching */ {
         ApiService service = Provider.of<ApiService>(context);
-        service.token = user.token;
+        service.token = authUser.token;
+
         return FetchUserDataBuilder(
           service: service,
           renderChild: HomeScreen(),
@@ -31,7 +31,7 @@ class AuthenticationScreen extends StatelessWidget {
 
     return Scaffold(
       body: Center(
-        child: LoadingIndicator(type: LoadingType.loading, message: 'Loading user...')
+          child: LoadingIndicator(type: LoadingType.loading, message: 'Loading user...')
       ),
     );
   }

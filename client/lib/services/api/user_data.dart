@@ -16,8 +16,6 @@ class UserDataService implements ApiService<Map<String, dynamic>> {
       //headers: <String, String>{}
     );
 
-    await Future.delayed(Duration(seconds: 2));
-
     return {"first_name":"Masfik","surname":"Test","projects":[{"name":"General"},{"name":"Project Name"}]};
     if (response.statusCode != 200) return null;
 
