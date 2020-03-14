@@ -1,18 +1,13 @@
+import 'package:location/location.dart';
+
 class Location {
-  double _longitude;
-  double _latitude;
+  double latitude;
+  double longitude;
 
-  Location(this._longitude, this._latitude);
+  Location({this.latitude, this.longitude});
 
-  double get longitude => _longitude;
-
-  set longitude(double value) {
-    _longitude = value;
-  }
-
-  double get latitude => _latitude;
-
-  set latitude(double value) {
-    _latitude = value;
+  Location.fromLocationData(LocationData locationData) {
+    this.latitude = locationData.latitude;
+    this.longitude = locationData.longitude;
   }
 }

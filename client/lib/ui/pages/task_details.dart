@@ -1,72 +1,82 @@
+import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/task.dart';
+import 'package:Tempo/services/location/location_service.dart';
+import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
-  /* final Project project;
   final Task task;
-  final Function onStart;
-  final Function onStop;
 
-  TaskDetailsScreen({
-    this.project,
-    this.task,
-    this.onStart,
-    this.onStop
-  }); */
+  TaskDetailsScreen({@required this.task});
 
   @override
   _TaskDetailsScreenState createState() => _TaskDetailsScreenState();
 }
 
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
-  Task task;
-  String name;
+  BuildContext context;
+  Location location;
+  String taskName;
 
   // Key for identifying the form itself
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    this.context = context;
+    this.location = widget.task.location;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Apollo 13'),
+        title: Text(widget.task.name),
         leading: IconButton(
           icon: Icon(Icons.check),
-          onPressed: () {
-            if (_formKey.currentState.validate()) {
-              try {
-                task.name = name;
-              } catch(e) {
-                print(e);
-              }
-            }
-          },
+          onPressed: submitChanges,
         ),
-        actions: <Widget>[ IconButton(
-        icon: Icon(Icons.close),
-        onPressed: () => Navigator.pop(context),
-      )],
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.close),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
       ),
       body: Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
-            SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             TextFormField(
-              onChanged: (value) => name = value,
-              onFieldSubmitted: (value) => name = value,
+              initialValue: widget.task.name,
+              onChanged: (value) => taskName = value,
+              onFieldSubmitted: (value) => taskName = value,
               decoration: InputDecoration(
                 labelText: 'Task Name',
+                contentPadding: EdgeInsets.only(left: 20, right: 20),
+                counterText: '', // Disables characters counter label
               ),
+              maxLines: 1,
+              maxLength: 30,
+              validator: kValidator,
             ),
-            SizedBox(
-              height: 10,
+            SizedBox(height: 10),
+            RaisedButton(
+              child: Text('Update location'),
+              onPressed: () async => print((await LocationService.getLocation(context)).longitude)
             ),
           ],
         ),
       )
     );
+  }
+
+  submitChanges() {
+    if (_formKey.currentState.validate()) {
+      try {
+        widget.task.name = taskName;
+        Navigator.pop(context);
+      } catch(e) {
+        Navigator.pop(context);
+      }
+    }
   }
 }

@@ -56,7 +56,7 @@ class _TaskTileState extends State<TaskTile> {
           // TODO
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TaskDetailsScreen())
+            MaterialPageRoute(builder: (context) => TaskDetailsScreen(task: task))
           );
         },
       ),
