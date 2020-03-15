@@ -1,8 +1,5 @@
-import 'dart:math';
-
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -80,20 +77,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 }
               ),
             ),
+            const Divider(color: Colors.black),
+            ListTile(
+              leading: const Icon(Icons.playlist_add),
+              title: const Text('ADD PROJECT'),
+              onTap: () => Navigator.pushNamed(context, '/addproject'),
+            ),
             ListTile(
               leading: const Icon(Icons.schedule),
               title: const Text('ADD MEETING'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, '/addmeeting');
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.playlist_add),
-              title: const Text('ADD PROJECT'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/addproject');
               },
             )
           ],

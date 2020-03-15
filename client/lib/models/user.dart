@@ -96,8 +96,5 @@ class User with ChangeNotifier {
     notifyListeners();
   }
 
-  // Might be unnecessary (will cause issues if sorting is ever implemented)
-  set activeProjectByIndex(int index) => activeProject = _projects[index];
-
   addMeeting(Meeting meeting) => _meetings.add(meeting);
 }

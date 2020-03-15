@@ -51,14 +51,10 @@ class _TaskTileState extends State<TaskTile> {
           onStop: _stop,
           enabled: task.isDone ? false : true,
         ),
-        onTap: () {
-          print('Tile tapped');
-          // TODO
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => TaskDetailsScreen(task: task))
-          );
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => TaskDetailsScreen(task: task))
+        )
       ),
     );
   }

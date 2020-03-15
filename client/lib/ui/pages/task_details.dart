@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/services/location/location_service.dart';
 import 'package:Tempo/ui/misc/style.dart';
+import 'package:Tempo/ui/widgets/loading.dart';
 import 'package:Tempo/ui/widgets/task/no_location.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   BuildContext context;
   String taskName;
   LatLng location;
+  bool isLoading = false;
   // Key for identifying the form itself
   final _formKey = GlobalKey<FormState>();
   // Google Maps variables
@@ -50,7 +52,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.task.name),
+        title: Text(taskName),
         leading: IconButton(
           icon: Icon(Icons.check),
           onPressed: submitChanges,
@@ -74,7 +76,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   SizedBox(height: 10),
                   TextFormField(
                     initialValue: widget.task.name,
-                    onChanged: (value) => taskName = value,
+                    onChanged: (value) => setState(() => taskName = value),
                     onFieldSubmitted: (value) => taskName = value,
                     decoration: InputDecoration(
                       labelText: 'Task Name',
@@ -95,20 +97,20 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   Container(
                     height: 250,
                     child: location == null
-                        ? NoLocation()
-                        : GoogleMap(
-                            mapType: MapType.normal,
-                            markers: markers,
-                            indoorViewEnabled: true,
-                            initialCameraPosition: CameraPosition(
-                              target: location,
-                              zoom: 18,
-                              tilt: 50
-                            ),
-                            onMapCreated: (GoogleMapController controller) {
-                              _controller.complete(controller);
-                            }
+                      ? !isLoading ? NoLocation() : LoadingIndicator(type: LoadingType.loading)
+                      : GoogleMap(
+                          mapType: MapType.normal,
+                          markers: markers,
+                          indoorViewEnabled: true,
+                          initialCameraPosition: CameraPosition(
+                            target: location,
+                            zoom: 18,
+                            tilt: 50
                           ),
+                          onMapCreated: (GoogleMapController controller) {
+                            _controller.complete(controller);
+                          }
+                        ),
                   ),
                   Text(
                     'Location',
@@ -137,17 +139,21 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   }
 
   submitChanges() {
-    if (_formKey.currentState.validate())
-      widget.task.name = taskName;
+    if (!_formKey.currentState.validate()) return;
 
+    widget.task.name = taskName;
     widget.task.location = location;
     Navigator.pop(context);
   }
 
   updateLocation() async {
+    setState(() => isLoading = true);
     LatLng newLocation = await LocationService.getLocation(context);
+    setState(() => isLoading = false);
 
-    if (this.location != null) {
+    if (this.location == null) /* Simply assigns a value if the location hasn't been set */
+      this.location = newLocation;
+    else /* Updates the position of the camera since a location exists already */ {
       final GoogleMapController controller = await _controller.future;
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
@@ -157,7 +163,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           tilt: 50
         )
       ));
-    } else this.location = newLocation;
+    }
 
     markers.clear();
     setState(() {
