@@ -1,14 +1,16 @@
 import 'package:Tempo/utils/input_exception.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Task {
   int _id;
   String _name;
-  bool _isDone = false;
+  bool isDone = false;
   final Stopwatch stopwatch = new Stopwatch();
+  LatLng location;
 
   int get id => _id;
+
   String get name => _name;
-  bool get isDone => _isDone;
 
   String get formattedDuration {
     final Duration duration = this.stopwatch.elapsed;
@@ -25,11 +27,9 @@ class Task {
   }
 
   set name(String value) {
-    if (value != null && value.isNotEmpty) this._name = value;
-    else throw InputException('Cannot create a task without a name!', 'name');
-  }
-
-  set isDone(bool value) {
-    _isDone = value;
+    if (value != null && value.isNotEmpty)
+      this._name = value;
+    else
+      throw InputException('Cannot create a task without a name!', 'name');
   }
 }

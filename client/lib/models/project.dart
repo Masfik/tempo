@@ -19,9 +19,9 @@ class Project with ChangeNotifier {
     DateTime startDate,
     DateTime dueDate
   }) {
-    _name = name;
-    _startDate = startDate;
-    _dueDate = dueDate;
+    this._name = name;
+    this._startDate = startDate;
+    this._dueDate = dueDate;
   }
 
   Project.fromJSON(Map<String, dynamic> json) {
@@ -49,9 +49,10 @@ class Project with ChangeNotifier {
   List<Team> get team => UnmodifiableListView(_team);
 
   set name(String value) {
-    if (_name == 'General')
-      throw InputException('Cannot rename default "General" project.', 'name');
-    else if (value != null && value.isNotEmpty)  {
+    if (value != null && value.isNotEmpty)  {
+      if (_name == 'General')
+        throw InputException('Cannot rename default "General" project.', 'name');
+
       this._name = value;
       notifyListeners();
     } else throw InputException('Cannot create a project without a name!', 'name');

@@ -56,3 +56,4 @@ release.properties
 
 # Android Google Services file
 google-services.json
+client/android/app/src/main/res/values/secretkeys.xml
