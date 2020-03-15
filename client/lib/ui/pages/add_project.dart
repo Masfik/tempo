@@ -53,14 +53,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
             TextFormField(
               autofocus: true,
               onChanged: (value) => name = value,
-              decoration: const InputDecoration(
-                labelText: 'Project Name',
-                contentPadding: EdgeInsets.only(
-                  left: 20,
-                  right: 20
-                )
-              ),
-              validator: kValidator
+              decoration: kInputAddDecoration,
+              validator: kValidator,
             ),
             const SizedBox(height: 10),
             Expanded(

@@ -25,6 +25,8 @@ dependencies:
   provider: ^4.0.4
   # Firebase Authentication
   firebase_auth: ^0.15.5+2
+  # Google Fonts
+  google_fonts: ^0.3.9
 
 dev_dependencies:
   flutter_test:

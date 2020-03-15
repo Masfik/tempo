@@ -1,4 +1,3 @@
-import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/utils/input_exception.dart';
 
@@ -7,9 +6,21 @@ class Meeting {
   DateTime _date;
   DateTime _to;
   User _creator;
-  List<Team> _guests;
+  List<User> _guests;
 
-  Meeting(this._name, this._date, this._to, this._creator, this._guests);
+  Meeting({
+    String name,
+    DateTime date,
+    DateTime to,
+    User creator,
+    List<User> guests
+  }) {
+    _name = name;
+    _date = date;
+    _to = to;
+    _creator = creator;
+    _guests = guests;
+  }
 
   set name(String value) {
     if(value.isNotEmpty) _name = value;

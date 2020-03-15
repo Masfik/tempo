@@ -81,6 +81,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ),
             ),
             ListTile(
+              leading: const Icon(Icons.schedule),
+              title: const Text('ADD MEETING'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/addmeeting');
+              },
+            ),
+            ListTile(
               leading: const Icon(Icons.playlist_add),
               title: const Text('ADD PROJECT'),
               onTap: () {

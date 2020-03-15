@@ -36,3 +36,22 @@ const kTextTitle = TextStyle(
 const kTextNormal = TextStyle(
   height: 1.5
 );
+
+const kInputLoginDecoration = InputDecoration(
+  border: OutlineInputBorder(
+    borderSide: BorderSide(width: 0, style: BorderStyle.none),
+      borderRadius: BorderRadius.all(
+        Radius.circular(30)
+      )
+  ),
+  fillColor: Color(0xFF4c566a),
+  filled: true,
+);
+
+const kInputAddDecoration = InputDecoration(
+    labelText: 'Project Name',
+    contentPadding: EdgeInsets.only(
+        left: 20,
+        right: 20
+    )
+);

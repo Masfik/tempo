@@ -3,6 +3,7 @@ import 'package:Tempo/services/api/user_data_adapter.dart';
 import 'package:Tempo/services/authentication/auth_adapter.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/ui/misc/auth_stream_builder.dart';
+import 'package:Tempo/ui/pages/add_meeting.dart';
 import 'package:Tempo/ui/pages/add_project.dart';
 import 'package:Tempo/ui/pages/authentication.dart';
 import 'package:Tempo/ui/pages/login.dart';
@@ -34,7 +35,8 @@ class Tempo extends StatelessWidget {
               '/team':        (context) => TeamsScreen(),
               '/scan':        (context) => ScanQrScreen(),
               '/login':       (context) => LoginScreen(),
-              '/settings':    (context) => SettingsScreen()
+              '/settings':    (context) => SettingsScreen(),
+              '/addmeeting':  (context) => AddMeetingScreen()
             },
           );
         },

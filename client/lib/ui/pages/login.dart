@@ -1,7 +1,9 @@
 import 'package:Tempo/services/authentication/authentication.dart';
+import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -30,46 +32,36 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const SizedBox(height: 10),
-                TextFormField(
-                    textInputAction: TextInputAction.next,
-                    focusNode: _emailFocus,
-                    onFieldSubmitted: (term) {
-                      _fieldFocusChange(context, _emailFocus, _passFocus);
-                    },
-                    onChanged: (value) => email = value,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 0, style: BorderStyle.none),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30)
-                        )
-                      ),
-                      fillColor: Color(0xFF4c566a),
-                      filled: true,
-                      prefixIcon: Icon(Icons.person, color: Colors.white70),
-                      hintText: 'Email'
-                    ),
-                    validator: kValidator
+                Text(
+                  'Tempo',
+                  style: GoogleFonts.firaSans(
+                    fontSize: 72,
+                  ),
                 ),
                 const SizedBox(height: 10),
                 TextFormField(
-                    focusNode: _passFocus,
-                    onChanged: (value) => password = value,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      fillColor: Color(0xFF4c566a),
-                      filled: true,
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(width: 0, style: BorderStyle.none),
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(30)
-                        )
-                      ),
-                      prefixIcon: Icon(Icons.vpn_key, color: Colors.white70),
-                      hintText: 'Password',
-                    ),
-                    validator: kValidator
+                  textInputAction: TextInputAction.next,
+                  focusNode: _emailFocus,
+                  onFieldSubmitted: (term) {
+                    _fieldFocusChange(context, _emailFocus, _passFocus);
+                  },
+                  onChanged: (value) => email = value,
+                  decoration: kInputLoginDecoration.copyWith(
+                    hintText: 'Email',
+                    prefixIcon: Icon(Icons.person, color: Colors.white70)
+                  ),
+                  validator: kValidator
+                ),
+                const SizedBox(height: 10),
+                TextFormField(
+                  focusNode: _passFocus,
+                  onChanged: (value) => password = value,
+                  obscureText: true,
+                  decoration: kInputLoginDecoration.copyWith(
+                    hintText: 'Password',
+                    prefixIcon: Icon(Icons.vpn_key, color: Colors.white70)
+                  ),
+                  validator: kValidator
                 ),
                 const SizedBox(height: 10),
                 RaisedButton(
