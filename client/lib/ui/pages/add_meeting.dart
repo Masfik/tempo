@@ -1,4 +1,3 @@
-import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
@@ -18,7 +17,7 @@ class _AddMeetingState extends State<AddMeetingScreen> {
   DateTime dateFrom;
   DateTime endTime;
   List<User> guests = [];
-  Location location;
+  /// TODO: Location or Room object for meeting
   // Key fo/r identifying the form itself
   final _formKey = GlobalKey<FormState>();
 
