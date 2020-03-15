@@ -13,7 +13,10 @@ final kTempoThemeData = ThemeData(
 
   cardColor: Color(0xFF434c5e),
   cardTheme: CardTheme(
-    elevation: 6
+    elevation: 6,
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(20))
+    )
   ),
 
   errorColor: Color(0xFFBF616A),
