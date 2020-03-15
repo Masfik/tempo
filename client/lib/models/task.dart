@@ -1,12 +1,12 @@
-import 'package:Tempo/models/location.dart';
 import 'package:Tempo/utils/input_exception.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Task {
   int _id;
   String _name;
   bool isDone = false;
   final Stopwatch stopwatch = new Stopwatch();
-  Location location;
+  LatLng location;
 
   int get id => _id;
 

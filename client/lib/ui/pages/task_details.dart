@@ -1,9 +1,11 @@
 import 'dart:async';
-import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/services/location/location_service.dart';
+import 'package:Tempo/ui/misc/style.dart';
+import 'package:Tempo/ui/widgets/task/no_location.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
@@ -17,30 +19,34 @@ class TaskDetailsScreen extends StatefulWidget {
 
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   BuildContext context;
-  Location location;
   String taskName;
-
+  LatLng location;
   // Key for identifying the form itself
   final _formKey = GlobalKey<FormState>();
-
   // Google Maps variables
   Completer<GoogleMapController> _controller = Completer();
+  Set<Marker> markers = Set<Marker>();
 
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  @override
+  void initState() {
+    super.initState();
+    taskName = widget.task.name;
 
-  static final CameraPosition _kLake = CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+    if (widget.task.location != null) {
+      location = widget.task.location;
+      markers.add(
+        Marker(
+          markerId: MarkerId(widget.task.name),
+          icon: BitmapDescriptor.defaultMarker,
+          position: location
+        )
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     this.context = context;
-    this.location = widget.task.location;
 
     return Scaffold(
       appBar: AppBar(
@@ -57,62 +63,111 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              SizedBox(height: 10),
-              TextFormField(
-                initialValue: widget.task.name,
-                onChanged: (value) => taskName = value,
-                onFieldSubmitted: (value) => taskName = value,
-                decoration: InputDecoration(
-                  labelText: 'Task Name',
-                  contentPadding: EdgeInsets.only(left: 20, right: 20),
-                  counterText: '', // Disables characters counter label
-                ),
-                maxLines: 1,
-                maxLength: 30,
-                validator: kValidator,
-              ),
-              SizedBox(height: 10),
-              RaisedButton(
-                child: Text('Update location'),
-                onPressed: () async => print((await LocationService.getLocation(context)))
-              ),
-              SizedBox(height: 10),
-              Card(
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      height: 250,
-                      child: GoogleMap(
-                        mapType: MapType.normal,
-                        initialCameraPosition: _kGooglePlex,
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                        }
-                      ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget> [
+            Form(
+              key: _formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  SizedBox(height: 10),
+                  TextFormField(
+                    initialValue: widget.task.name,
+                    onChanged: (value) => taskName = value,
+                    onFieldSubmitted: (value) => taskName = value,
+                    decoration: InputDecoration(
+                      labelText: 'Task Name',
+                      contentPadding: EdgeInsets.only(left: 20, right: 20),
+                      counterText: '', // Disables characters counter label
                     ),
-                    Text('Location', )
-                  ],
-                ),
-              )
-            ],
-          ),
+                    maxLines: 1,
+                    maxLength: 30,
+                    validator: kValidator,
+                  )
+                ],
+              ),
+            ),
+            SizedBox(height: 10),
+            Card(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    height: 250,
+                    child: location == null
+                        ? NoLocation()
+                        : GoogleMap(
+                            mapType: MapType.normal,
+                            markers: markers,
+                            indoorViewEnabled: true,
+                            initialCameraPosition: CameraPosition(
+                              target: location,
+                              zoom: 18,
+                              tilt: 50
+                            ),
+                            onMapCreated: (GoogleMapController controller) {
+                              _controller.complete(controller);
+                            }
+                          ),
+                  ),
+                  Text(
+                    'Location',
+                    style: kTextTitle.copyWith(
+                      fontSize: 30
+                    ),
+                  ),
+                  RaisedButton(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(Icons.map),
+                        SizedBox(width: 10),
+                        Text('Update location')
+                      ],
+                    ),
+                    onPressed: updateLocation
+                  ),
+                ],
+              ),
+            )
+          ]
         ),
       )
     );
   }
 
   submitChanges() {
-    if (_formKey.currentState.validate()) {
-      try {
-        widget.task.name = taskName;
-        Navigator.pop(context);
-      } catch(e) {
-        Navigator.pop(context);
-      }
-    }
+    if (_formKey.currentState.validate())
+      widget.task.name = taskName;
+
+    widget.task.location = location;
+    Navigator.pop(context);
+  }
+
+  updateLocation() async {
+    LatLng newLocation = await LocationService.getLocation(context);
+
+    if (this.location != null) {
+      final GoogleMapController controller = await _controller.future;
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: this.location = newLocation,
+          zoom: 18,
+          tilt: 50
+        )
+      ));
+    } else this.location = newLocation;
+
+    markers.clear();
+    setState(() {
+      markers.add(
+        Marker(
+          markerId: MarkerId(widget.task.name),
+          icon: BitmapDescriptor.defaultMarker,
+          position: newLocation
+        )
+      );
+    });
   }
 }
