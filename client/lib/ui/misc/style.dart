@@ -52,9 +52,10 @@ const kInputLoginDecoration = InputDecoration(
 );
 
 const kInputAddDecoration = InputDecoration(
-    labelText: 'Project Name',
-    contentPadding: EdgeInsets.only(
-        left: 20,
-        right: 20
-    )
+  labelText: 'Project Name',
+  contentPadding: EdgeInsets.only(
+    left: 20,
+    right: 20
+  ),
+  counterText: '', // Disables characters counter label
 );

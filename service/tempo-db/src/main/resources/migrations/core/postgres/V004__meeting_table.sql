@@ -1,9 +1,9 @@
-CREATE TABLE MEETING (
+CREATE TABLE IF NOT EXISTS MEETING (
     guest_email    VARCHAR(64) REFERENCES APP_USER,
     room_fid       INT REFERENCES ROOM,
     date_from      TIMESTAMP,
     end_time       TIME,
-    organiser      VARCHAR(64) NOT NULL REFERENCES APP_USER,
+    organiser      INT NOT NULL REFERENCES APP_USER,
     qr_hash        TEXT NOT NULL,
     is_present     BOOLEAN DEFAULT FALSE,
     PRIMARY KEY(guest_email, room_fid, date_from, end_time)

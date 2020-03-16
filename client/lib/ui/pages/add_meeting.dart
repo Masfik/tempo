@@ -1,10 +1,17 @@
 import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
-import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
+import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
+import 'package:Tempo/ui/widgets/misc/time_tile.dart';
 import 'package:Tempo/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'add_people.dart';
+
+enum TimeType {
+  start,
+  end
+}
 
 class AddMeetingScreen extends StatefulWidget {
   @override
@@ -15,7 +22,8 @@ class _AddMeetingState extends State<AddMeetingScreen> {
   Meeting meeting = Meeting();
   String name;
   DateTime dateFrom;
-  DateTime endTime;
+  TimeOfDay startTime;
+  TimeOfDay endTime;
   List<User> guests = [];
   /// TODO: Location or Room object for meeting
   // Key fo/r identifying the form itself
@@ -52,21 +60,31 @@ class _AddMeetingState extends State<AddMeetingScreen> {
             Expanded(
               child: ListView(
                 children: <Widget>[
-                  /* CalendarTile(
-                      title: 'Start Date',
-                      date: dateFrom,
-                      onTap: () => showCalendar(calendarType: CalendarType.start)
+                  CalendarTile(
+                    title: 'Date of the meeting',
+                    date: dateFrom,
+                    onTap: () => showCalendar()
                   ),
-                  /// TODO: ClockTile to select the endTime for the meeting
+                  TimeTile(
+                    title: 'Start Time',
+                    time: startTime,
+                    onTap: () => showClock(timeType: TimeType.start),
+                  ),
+                  TimeTile(
+                    title: 'End Time',
+                    time: endTime,
+                    onTap: () => showClock(timeType: TimeType.end),
+                    enabled: startTime != null ? true : false,
+                  ),
                   ListTile(
                     leading: const Icon(Icons.group_add),
                     title: const Text('Add Guests'),
                     onTap: () => showModalBottomSheet(
-                        context: context,
-                        shape: kRoundedRectangleShape,
-                        builder: (context) => AddPeopleScreen()
+                      context: context,
+                      shape: kRoundedRectangleShape,
+                      builder: (context) => AddPeopleScreen()
                     ),
-                  )*/
+                  )
                 ],
               ),
             ),
@@ -74,6 +92,48 @@ class _AddMeetingState extends State<AddMeetingScreen> {
         ),
       ),
     );
+  }
+
+  Future showCalendar() async {
+
+    DateTime now = DateTime.now();
+    now = DateTime(now.year, now.month, now.day);
+    DateTime initialDate = now;
+
+    DateTime date = await showDatePicker(
+        context: context,
+        initialDate: initialDate,
+        firstDate: DateTime(initialDate.year),
+        lastDate: DateTime(initialDate.year + 20),
+        selectableDayPredicate: (DateTime dateTime) {
+
+          if (dateTime.compareTo(initialDate) >= 0)
+            return true;
+          return false;
+        }
+    );
+    // When the cancel button is pressed, the DateTime returned is null
+    if (date != null) setState(() {
+       dateFrom = date;
+    });
+  }
+
+  Future showClock({@required TimeType timeType}) async {
+    bool timeStartType = timeType == TimeType.start;
+
+    TimeOfDay initialTime = timeStartType ? TimeOfDay.now() : startTime;
+
+    TimeOfDay time = await showTimePicker(
+      context: context,
+      initialTime: initialTime,
+    );
+    if (timeStartType) setState(() {
+      // When the cancel button is pressed, the TimeOfDay returned is null
+      if (time != null) startTime = time;
+    });
+    else setState(() {
+      if (time != null) endTime = time;
+    });
   }
 
    /* void submit() {

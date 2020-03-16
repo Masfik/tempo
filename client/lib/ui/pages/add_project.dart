@@ -3,7 +3,7 @@ import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/misc/style.dart';
-import 'package:Tempo/ui/widgets/project/calendar_tile.dart';
+import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +54,8 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
               autofocus: true,
               onChanged: (value) => name = value,
               decoration: kInputAddDecoration,
+              maxLines: 1,
+              maxLength: 30,
               validator: kValidator,
             ),
             const SizedBox(height: 10),

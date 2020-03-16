@@ -1,7 +1,7 @@
-CREATE TABLE ROOM (
+CREATE TABLE IF NOT EXISTS ROOM (
     room_id        SERIAL PRIMARY KEY,
-    building       VARCHAR(32) NOT NULL,
-    room           VARCHAR(32) NOT NULL   
+    building       VARCHAR(64) NOT NULL,
+    room           VARCHAR(64) NOT NULL   
 );
 
 INSERT INTO ROOM (building, room)
