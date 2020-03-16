@@ -1,10 +1,10 @@
+import 'package:Tempo/models/location.dart';
 import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as geo;
 
 class LocationService {
-  static Future<LatLng> getLocation(BuildContext context) async {
+  static Future<Location> getLocation(BuildContext context) async {
     geo.Location location = geo.Location();
 
     if (!await location.serviceEnabled()) /* Checks if location service is enabled */ {
@@ -33,7 +33,6 @@ class LocationService {
       }
     }
 
-    geo.LocationData locationData = await location.getLocation();
-    return LatLng(locationData.latitude, locationData.longitude);
+    return Location.fromLocationData(await location.getLocation());
   }
 }

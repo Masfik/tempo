@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/services/location/location_service.dart';
 import 'package:Tempo/ui/misc/style.dart';
@@ -21,7 +22,7 @@ class TaskDetailsScreen extends StatefulWidget {
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   BuildContext context;
   String taskName;
-  LatLng location;
+  Location location;
   bool isLoading = false;
   // Key for identifying the form itself
   final _formKey = GlobalKey<FormState>();
@@ -67,7 +68,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget> [
+          children: <Widget>[
             Form(
               key: _formKey,
               child: Column(
@@ -97,7 +98,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                   Container(
                     height: 250,
                     child: location == null
-                      ? !isLoading ? NoLocation() : LoadingIndicator(type: LoadingType.loading)
+                      ? isLoading ? LoadingIndicator(type: LoadingType.loading) : NoLocation()
                       : GoogleMap(
                           mapType: MapType.normal,
                           markers: markers,

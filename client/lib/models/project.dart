@@ -1,13 +1,21 @@
 import 'dart:collection';
-
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/utils/input_exception.dart';
 import 'package:flutter/foundation.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'project.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class Project with ChangeNotifier {
+  @JsonKey(required: true)
+  int _id;
+
+  @JsonKey(required: true)
   String _name = 'None';
+
   DateTime _startDate;
   DateTime _dueDate;
   List<Task> _tasks = [];
@@ -24,14 +32,13 @@ class Project with ChangeNotifier {
     this._dueDate = dueDate;
   }
 
-  Project.fromJSON(Map<String, dynamic> json) {
-    _name = json['name'];
-    _startDate = json['startDate'] != null ? DateTime.parse(json['startDate']) : null;
-    _dueDate = json['dueDate'] != null ? DateTime.parse(json['dueDate']) : null;
-  }
+  factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
+
+  Map<String, dynamic> toJson() => _$ProjectToJson(this);
 
   updateWith(Project project) {
     if (project == null) return;
+    _id = project._id;
     _name = project._name;
     _startDate = project._startDate;
     _dueDate = project._dueDate;
@@ -41,11 +48,18 @@ class Project with ChangeNotifier {
     notifyListeners();
   }
 
+  int get id => _id;
+
   String get name => _name;
+
   DateTime get startDate => _startDate;
+
   DateTime get dueDate => _dueDate;
+
   UnmodifiableListView<Task> get tasks => UnmodifiableListView(_tasks);
+
   UnmodifiableListView<User> get people => UnmodifiableListView(_people);
+
   List<Team> get team => UnmodifiableListView(_team);
 
   set name(String value) {

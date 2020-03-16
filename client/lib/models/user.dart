@@ -4,18 +4,36 @@ import 'dart:collection';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/meeting.dart';
+import 'package:json_annotation/json_annotation.dart';
 
+part 'user.g.dart';
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class User with ChangeNotifier {
-  // Authentication-related field
+  @JsonKey(ignore: true)
   AuthUser _authUser;
-  // General ser-related fields
+
+  @JsonKey(required: true)
   String _id;
+
+  @JsonKey(required: true)
   String _firstName = 'Anonymous';
+
+  @JsonKey(required: true)
   String _surname = 'User';
+
+  @JsonKey(required: true)
   String _email = 'Not logged in';
+
+  @JsonKey(required: true)
   List<Project> _projects = [];
+
+  @JsonKey(ignore: true)
   Project _activeProject = Project(name: 'None');
+
+  @JsonKey(includeIfNull: false)
   Team _team;
+
   List<Meeting> _meetings = [];
 
   User({
@@ -32,6 +50,10 @@ class User with ChangeNotifier {
     this._email = authUser.email;
   }
 
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
+
   loadFromJSON(Map<String, dynamic> json, {bool forceUpdate = false}) {
     if (!forceUpdate && _projects.isNotEmpty) return;
 
@@ -39,12 +61,15 @@ class User with ChangeNotifier {
     _surname = json['surname'];
 
     List<Project> projects = [];
-    for (dynamic project in json['projects']) projects.add(Project.fromJSON(project));
+    for (dynamic project in json['projects']) projects.add(Project.fromJson(project));
     _projects = projects;
     // Sets the first project as default active (General)
     _activeProject = _projects.first;
     _team = json['team'];
+    if (forceUpdate) notifyListeners();
   }
+
+  /* GETTERS */
 
   AuthUser get authUser => _authUser;
 
@@ -67,6 +92,8 @@ class User with ChangeNotifier {
   Team get team => _team;
 
   List<Meeting> get meetings => _meetings;
+
+  /* SETTERS */
 
   /// Set first name
   set firstName(String name) {
