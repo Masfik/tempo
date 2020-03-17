@@ -10,10 +10,10 @@ part 'project.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Project with ChangeNotifier {
-  @JsonKey(required: true)
+  @JsonKey(required: true, disallowNullValue: true)
   int _id;
 
-  @JsonKey(required: true)
+  @JsonKey(required: true, disallowNullValue: true)
   String _name = 'None';
 
   DateTime _startDate;

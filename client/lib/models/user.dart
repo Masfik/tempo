@@ -1,4 +1,5 @@
 import 'package:Tempo/models/auth_user.dart';
+import 'package:Tempo/models/database_model.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:collection';
 import 'package:Tempo/models/project.dart';
@@ -9,20 +10,20 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class User with ChangeNotifier {
+class User with ChangeNotifier implements DatabaseModel {
   @JsonKey(ignore: true)
   AuthUser _authUser;
 
-  @JsonKey(required: true)
+  @JsonKey(required: true, disallowNullValue: true)
   String _id;
 
-  @JsonKey(required: true)
+  @JsonKey(required: true, disallowNullValue: true)
   String _firstName = 'Anonymous';
 
-  @JsonKey(required: true)
+  @JsonKey(required: true, disallowNullValue: true)
   String _surname = 'User';
 
-  @JsonKey(required: true)
+  @JsonKey(required: true, disallowNullValue: true)
   String _email = 'Not logged in';
 
   @JsonKey(required: true)
@@ -124,4 +125,16 @@ class User with ChangeNotifier {
   }
 
   addMeeting(Meeting meeting) => _meetings.add(meeting);
+
+  @override
+  User fromDatabaseMap() {
+    // TODO: implement fromDatabaseMap
+    return null;
+  }
+
+  @override
+  Map<String, dynamic> toDatabaseMap() {
+    // TODO: implement toDatabaseMap
+    return null;
+  }
 }
