@@ -15,18 +15,23 @@ class AuthenticationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (authUserSnapshot.connectionState == ConnectionState.active) {
-      AuthUser authUser;
-      if (!authUserSnapshot.hasData)
-        return LoginScreen();
-      else if ((authUser = authUserSnapshot.data).token != null) /* "Awaits" token fetching */ {
-        ApiService service = Provider.of<ApiService>(context);
-        service.token = authUser.token;
+      if (!authUserSnapshot.hasData) return LoginScreen();
 
-        return FetchUserDataBuilder(
-          service: service,
-          renderChild: HomeScreen(),
-        );
-      }
+      // Awaiting token from AuthUser
+      return FutureBuilder<String>(
+        future: authUserSnapshot.data.token,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) return Scaffold(body: LoadingIndicator());
+
+          ApiService service = Provider.of<ApiService>(context);
+          service.token = snapshot.data;
+
+          return FetchUserDataBuilder(
+            service: service,
+            renderChild: HomeScreen(),
+          );
+        },
+      );
     }
 
     return Scaffold(

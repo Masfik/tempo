@@ -7,7 +7,7 @@ class LoadingIndicator extends StatelessWidget {
   final String message;
   final Function onRetry;
 
-  LoadingIndicator({@required this.type, this.message = '', this.onRetry});
+  LoadingIndicator({this.type = LoadingType.loading, this.message = '', this.onRetry});
 
   @override
   Widget build(BuildContext context) {
