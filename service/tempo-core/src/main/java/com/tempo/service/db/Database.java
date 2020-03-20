@@ -1,8 +1,6 @@
 package com.tempo.service.db;
 
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Result;
 import org.jooq.SQLDialect;
 import org.jooq.impl.DSL;
 
@@ -27,7 +25,7 @@ public class Database {
         }
     }
 
-    public String execute(Function<DSLContext, String> callback) {
+    public <T> T execute(Function<DSLContext, T> callback) {
         DSLContext sql = DSL.using(conn, SQLDialect.POSTGRES);
         return callback.apply(sql);
     }
