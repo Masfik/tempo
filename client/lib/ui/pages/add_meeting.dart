@@ -2,10 +2,12 @@ import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
+import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/ui/widgets/misc/time_tile.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'add_people.dart';
 
 enum TimeType {
@@ -24,9 +26,9 @@ class _AddMeetingState extends State<AddMeetingScreen> {
   DateTime dateFrom;
   TimeOfDay startTime;
   TimeOfDay endTime;
-  List<User> guests = [];
-  /// TODO: Location or Room object for meeting
-  // Key fo/r identifying the form itself
+  List<User> people = [];
+  String room;
+  // Key for identifying the form itself
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -78,7 +80,7 @@ class _AddMeetingState extends State<AddMeetingScreen> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.group_add),
-                    title: const Text('Add Guests'),
+                    title: const Text('Add People'),
                     onTap: () => showModalBottomSheet(
                       context: context,
                       shape: kRoundedRectangleShape,
@@ -136,30 +138,30 @@ class _AddMeetingState extends State<AddMeetingScreen> {
     });
   }
 
-   /* void submit() {
+   void submit() {
      if (_formKey.currentState.validate()) {
        try {
-         if (startDate != null && dueDate == null) {
+         if (startTime != null && endTime == null) {
            showDialog(
                context: context,
                builder: (context) =>
                    SimpleErrorDialog(
-                       title: 'Please, specify due date',
-                       message: 'When a start date is given, a due date must also be specified.'
+                       title: 'Please, specify end Time',
+                       message: 'When a start time is given, an end time must also be specified.'
                    )
            );
            return;
          }
-
+         
          meeting.name = name;
-         meeting.dateFrom = dateFrom;
+         meeting.date = dateFrom;
          meeting.endTime = endTime;
-         meeting.guests = guests;
-         meeting.location = location;
+         meeting.people = people;
+         meeting.room = room;
          /*project.people = people;
         project.team = team;*/
 
-         Provider.of<User>(context, listen: false).addProject(project);
+         Provider.of<User>(context, listen: false).addMeeting(meeting);
          Navigator.pop(context);
        } catch (e) {
          showDialog(
@@ -172,6 +174,6 @@ class _AddMeetingState extends State<AddMeetingScreen> {
          );
        }
      }
-   }*/
+   }
 }
 

@@ -1,25 +1,47 @@
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/utils/input_exception.dart';
+import 'package:flutter/src/material/time.dart';
+
+import 'location.dart';
 
 class Meeting {
   String _name;
   DateTime _date;
-  DateTime _to;
+  TimeOfDay _endTime;
   User _creator;
-  List<User> _guests;
+  List<User> _people;
+  String _room;
 
   Meeting({
     String name,
     DateTime date,
-    DateTime to,
+    TimeOfDay endTime,
     User creator,
-    List<User> guests
+    List<User> people,
+    String room
   }) {
-    _name = name;
-    _date = date;
-    _to = to;
-    _creator = creator;
-    _guests = guests;
+    this._name = name;
+    this._date = date;
+    this._endTime = endTime;
+    this._creator = creator;
+    this._people = people;
+    this._room = room;
+  }
+
+  set room(String value) {
+    _room = value;
+  }
+
+  set people(List<User> value) {
+    _people = value;
+  }
+
+  set endTime(TimeOfDay value) {
+    _endTime = value;
+  }
+
+  set date(DateTime value) {
+    _date = value;
   }
 
   set name(String value) {
