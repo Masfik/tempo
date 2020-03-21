@@ -76,7 +76,7 @@ class SQLiteStorageService implements Storage<Database> {
       CREATE TABLE IF NOT EXISTS TASK (
         task_id        INTEGER PRIMARY KEY,
         task_name      VARCHAR(64) NOT NULL,
-        task_time      INTEGER NOT NULL,
+        elapsed        INTEGER NOT NULL,
         is_done        BOOLEAN NOT NULL,
         project_fid    INTEGER,
         longitude      DOUBLE NOT NULL,

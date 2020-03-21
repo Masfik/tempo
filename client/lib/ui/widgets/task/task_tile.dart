@@ -34,7 +34,7 @@ class _TaskTileState extends State<TaskTile> {
           ),
         ),
         subtitle: Text(
-          started ? '🚀 Started counting...' : '⏱️ ${task.formattedDuration}'
+          started ? '🚀 Started counting...' : '⏱️ ${task.stopwatch.formattedDuration}'
         ),
         leading: Checkbox(
           value: task.isDone,

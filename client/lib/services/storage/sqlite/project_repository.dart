@@ -1,24 +1,28 @@
+import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/services/storage/base_repository.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ProjectRepository implements BaseRepository<Project> {
   final Database _db;
+  final AuthUser _user;
 
   final String _tableName       = 'PROJECT';
   final String _columnID        = 'project_id';
   final String _columnName      = 'project_name';
   final String _columnStartDate = 'start_date';
   final String _columnDueDate   = 'due_date';
-  final String _columnUserID    = 'user_email'; // TODO: check
+  final String _columnUserEmail = 'user_email';
 
-  ProjectRepository(Database database) : this._db = database;
+  ProjectRepository(Database database, AuthUser authUser) :
+        this._db = database,
+        this._user = authUser;
 
   @override
   Future<Project> getOne(id) async {
     List<Map> maps = await _db.query(
       _tableName,
-      columns: [_columnID, _columnName, _columnStartDate, _columnDueDate, _columnUserID],
+      columns: [_columnID, _columnName, _columnStartDate, _columnDueDate],
       where: '$_columnID = ?',
       whereArgs: [id]
     );
@@ -41,8 +45,10 @@ class ProjectRepository implements BaseRepository<Project> {
 
   @override
   Future<Project> add(Project project) async {
-    // TODO: user_email foreign key
-    project.id = await _db.insert(_tableName, project.toDatabaseMap());
+    Map<String, dynamic> map = project.toDatabaseMap();
+    map[_columnUserEmail] = _user.email;
+
+    project.id = await _db.insert(_tableName, map);
     return project;
   }
 
