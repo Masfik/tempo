@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'package:Tempo/models/database_model.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
@@ -9,20 +10,21 @@ import 'package:json_annotation/json_annotation.dart';
 part 'project.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Project with ChangeNotifier {
+class Project with ChangeNotifier, DatabaseModel, Identity {
   @JsonKey(required: true, disallowNullValue: true)
-  int _id;
+  int id;
 
   @JsonKey(required: true, disallowNullValue: true)
-  String _name = 'None';
+  String _name;
 
   DateTime _startDate;
   DateTime _dueDate;
   List<Task> _tasks = [];
   List<User> _people = [];
-  List<Team> _team = [];
+  List<Team> _teams = [];
 
   Project({
+    this.id,
     String name = 'None',
     DateTime startDate,
     DateTime dueDate
@@ -38,17 +40,16 @@ class Project with ChangeNotifier {
 
   updateWith(Project project) {
     if (project == null) return;
-    _id = project._id;
+    id = project.id;
     _name = project._name;
     _startDate = project._startDate;
     _dueDate = project._dueDate;
     _tasks = project._tasks;
     _people = project._people;
-    _team = project._team;
+    _teams = project._teams;
     notifyListeners();
   }
 
-  int get id => _id;
 
   String get name => _name;
 
@@ -60,7 +61,7 @@ class Project with ChangeNotifier {
 
   UnmodifiableListView<User> get people => UnmodifiableListView(_people);
 
-  List<Team> get team => UnmodifiableListView(_team);
+  List<Team> get teams => UnmodifiableListView(_teams);
 
   set name(String value) {
     if (value != null && value.isNotEmpty)  {
@@ -93,8 +94,15 @@ class Project with ChangeNotifier {
     notifyListeners();
   }
 
-  void addTeams(List<Team> teams) {
-    _team.addAll(teams);
+  void addTeam(List<Team> teams) {
+    _teams.addAll(teams);
     notifyListeners();
   }
+
+  @override
+  Map<String, dynamic> toDatabaseMap() => {
+    'name': _name,
+    'start_date': _startDate,
+    'due_date': _dueDate
+  };
 }

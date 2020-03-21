@@ -3,12 +3,12 @@ import 'package:Tempo/services/storage/base_repository.dart';
 import 'package:sqflite/sqflite.dart';
 
 class UserRepository implements BaseRepository<User> {
-  Database _db;
+  final Database _db;
 
-  final String _tableName = 'APP_USER';
-  final String _columnEmail = 'email';
+  final String _tableName       = 'APP_USER';
+  final String _columnEmail     = 'email';
   final String _columnFirstName = 'first_name';
-  final String _columnSurname = 'surname';
+  final String _columnSurname   = 'surname';
 
   UserRepository(Database database) : this._db = database;
 
@@ -29,13 +29,11 @@ class UserRepository implements BaseRepository<User> {
   Future<List<User>> getAll() async {
     final List<Map<String, dynamic>> maps = await _db.query(_tableName);
 
-    return List.generate(maps.length, (i) {
-      return User(
-        email: maps[i][_columnEmail],
-        firstName: maps[i][_columnFirstName],
-        surname: maps[i][_columnSurname]
-      );
-    });
+    return List.generate(maps.length, (i) => User(
+      email: maps[i][_columnEmail],
+      firstName: maps[i][_columnFirstName],
+      surname: maps[i][_columnSurname]
+    ));
   }
 
   @override
