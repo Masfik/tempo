@@ -38,7 +38,7 @@ class _AddMeetingState extends State<AddMeetingScreen> {
         title: const Text('Schedule a meeting'),
         leading: IconButton(
           icon: const Icon(Icons.check),
-          onPressed: () {},
+          onPressed: submit,
         ),
         actions: <Widget>[
           IconButton(
@@ -52,11 +52,17 @@ class _AddMeetingState extends State<AddMeetingScreen> {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 10),
-            TextFormField(
-              autofocus: true,
-              onChanged: (value) => name = value,
-              decoration: kInputAddDecoration,
-              validator: kValidator,
+            Padding(
+              padding: const EdgeInsets.all(5),
+              child: TextFormField(
+                autofocus: true,
+                onChanged: (value) => name = value,
+                decoration: kInputAddDecoration.copyWith(
+                  labelText: 'Subject of the Meeting',
+                  prefixIcon: Icon(Icons.local_offer)
+                ),
+                validator: kValidator,
+              ),
             ),
             const SizedBox(height: 10),
             Expanded(
@@ -77,6 +83,17 @@ class _AddMeetingState extends State<AddMeetingScreen> {
                     time: endTime,
                     onTap: () => showClock(timeType: TimeType.end),
                     enabled: startTime != null ? true : false,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: TextFormField(
+                      onChanged: (value) => room = value,
+                      decoration: kInputAddDecoration.copyWith(
+                          labelText: 'Meeting Room',
+                          prefixIcon: Icon(Icons.room)
+                      ),
+                      validator: kValidator,
+                    ),
                   ),
                   ListTile(
                     leading: const Icon(Icons.group_add),
@@ -158,8 +175,7 @@ class _AddMeetingState extends State<AddMeetingScreen> {
          meeting.endTime = endTime;
          meeting.people = people;
          meeting.room = room;
-         /*project.people = people;
-        project.team = team;*/
+         meeting.people = people;
 
          Provider.of<User>(context, listen: false).addMeeting(meeting);
          Navigator.pop(context);

@@ -53,7 +53,10 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
             TextFormField(
               autofocus: true,
               onChanged: (value) => name = value,
-              decoration: kInputAddDecoration,
+              decoration: kInputAddDecoration.copyWith(
+                labelText: 'Project Name',
+                prefixIcon: Icon(Icons.local_offer)
+              ),
               maxLines: 1,
               maxLength: 30,
               validator: kValidator,

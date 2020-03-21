@@ -52,7 +52,8 @@ const kInputLoginDecoration = InputDecoration(
 );
 
 const kInputAddDecoration = InputDecoration(
-  labelText: 'Project Name',
+  border: OutlineInputBorder(),
+
   contentPadding: EdgeInsets.only(
     left: 20,
     right: 20
