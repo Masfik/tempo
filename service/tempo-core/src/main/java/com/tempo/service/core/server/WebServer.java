@@ -1,6 +1,9 @@
 package com.tempo.service.core.server;
 
-import com.tempo.service.core.services.TestService;
+import com.tempo.service.core.services.AssignmentService;
+import com.tempo.service.core.services.CheckinService;
+import com.tempo.service.core.services.MeetingService;
+import com.tempo.service.core.services.UserService;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
@@ -13,7 +16,10 @@ public class WebServer {
 
     public Handler getServer() {
         var handler = new ServletHandler();
-        handler.addServletWithMapping(TestService.class, "/api/v1/test");
+        handler.addServletWithMapping(MeetingService.class, "/meetings");
+        handler.addServletWithMapping(CheckinService.class, "/meetings/checkin");
+        handler.addServletWithMapping(UserService.class, "/users");
+        handler.addServletWithMapping(AssignmentService.class, "/meetings/assign");
         return handler;
     }
 
