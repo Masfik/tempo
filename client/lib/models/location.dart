@@ -1,3 +1,4 @@
+import 'package:Tempo/models/database_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:location/location.dart';
@@ -5,7 +6,10 @@ import 'package:location/location.dart';
 part 'location.g.dart';
 
 @JsonSerializable()
-class Location extends LatLng {
+class Location extends LatLng with DatabaseModel, Identity {
+  @override
+  int id;
+
   @JsonKey(required: true)
   double latitude;
 
@@ -19,4 +23,7 @@ class Location extends LatLng {
   factory Location.fromJson(Map<String, dynamic> json) => _$LocationFromJson(json);
 
   Map<String, dynamic> toJson() => _$LocationToJson(this);
+
+  @override
+  Map<String, dynamic> toDatabaseMap() => toJson();
 }

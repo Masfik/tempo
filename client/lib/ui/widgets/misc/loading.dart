@@ -48,7 +48,7 @@ class LoadingIndicator extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 16),
-            child: Text('Error!' + (message.isNotEmpty ? ' $message' : '')),
+            child: Text('Error!${message.isNotEmpty ? ' $message' : ''}'),
           ),
         ];
         if (onRetry != null) children.add(
@@ -63,10 +63,12 @@ class LoadingIndicator extends StatelessWidget {
         break;
     }
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: children,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: children,
+      ),
     );
   }
 }

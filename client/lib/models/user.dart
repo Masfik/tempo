@@ -10,23 +10,19 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class User with ChangeNotifier implements DatabaseModel {
+class User with ChangeNotifier, DatabaseModel {
   @JsonKey(ignore: true)
   AuthUser _authUser;
 
   @JsonKey(required: true, disallowNullValue: true)
-  String _id;
+  String _email;
 
   @JsonKey(required: true, disallowNullValue: true)
-  String _firstName = 'Anonymous';
+  String _firstName;
 
   @JsonKey(required: true, disallowNullValue: true)
-  String _surname = 'User';
+  String _surname;
 
-  @JsonKey(required: true, disallowNullValue: true)
-  String _email = 'Not logged in';
-
-  @JsonKey(required: true)
   List<Project> _projects = [];
 
   @JsonKey(ignore: true)
@@ -38,16 +34,17 @@ class User with ChangeNotifier implements DatabaseModel {
   List<Meeting> _meetings = [];
 
   User({
-    String id = '0',
+    String firstName = 'Anonymous',
+    String surname = 'User',
     String email = 'Not logged in',
   }) {
-    this._id = id;
+    this._firstName = firstName;
+    this._surname = surname;
     this._email = email;
   }
 
   User.fromAuthUser({@required AuthUser authUser}) {
     this._authUser = authUser;
-    this._id = authUser.id;
     this._email = authUser.email;
   }
 
@@ -74,8 +71,6 @@ class User with ChangeNotifier implements DatabaseModel {
 
   AuthUser get authUser => _authUser;
 
-  String get id => _id;
-
   String get firstName => _firstName;
 
   String get name => firstName;
@@ -84,7 +79,7 @@ class User with ChangeNotifier implements DatabaseModel {
 
   String get fullName => '$_firstName $_surname';
 
-  String get email => _email;
+  String get email => _email.toLowerCase();
 
   UnmodifiableListView<Project> get projects => UnmodifiableListView(_projects);
 
@@ -102,7 +97,7 @@ class User with ChangeNotifier implements DatabaseModel {
     notifyListeners();
   }
 
-  /// Alias of the #firstName setter
+  /// Alias of the [firstName] setter
   set name(String name) => firstName = name;
 
   /// Set surname
@@ -111,30 +106,32 @@ class User with ChangeNotifier implements DatabaseModel {
     notifyListeners();
   }
 
-  /// Alias of the #surname setter
+  /// Alias of the [surname] setter
   set lastName(String lastName) => surname = lastName;
 
+  /// Add a project to the [_projects] list
   addProject(Project project) {
     _projects.add(project);
     notifyListeners();
   }
 
+  /// Set the active [project] (the current one being viewed by the user)
   set activeProject(Project project) {
     _activeProject = project;
     notifyListeners();
   }
 
+  /// Add a new [Meeting] to the [meetings] list
   addMeeting(Meeting meeting) => _meetings.add(meeting);
 
-  @override
-  User fromDatabaseMap() {
-    // TODO: implement fromDatabaseMap
-    return null;
-  }
+  /// Remove an existing [Meeting] from the [meetings] list
+  removeMeeting(Meeting meeting) => _meetings.remove(meeting);
 
+  /// Converts [User] object to a [Map] for Database usage
   @override
-  Map<String, dynamic> toDatabaseMap() {
-    // TODO: implement toDatabaseMap
-    return null;
-  }
+  Map<String, dynamic> toDatabaseMap() => {
+    'email': _email,
+    'first_name': _firstName,
+    'surname': _surname
+  };
 }

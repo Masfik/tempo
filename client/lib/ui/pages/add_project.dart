@@ -4,7 +4,7 @@ import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
-import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
+import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

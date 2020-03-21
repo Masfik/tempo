@@ -1,5 +1,5 @@
 import 'package:Tempo/models/location.dart';
-import 'package:Tempo/ui/widgets/simple_error_dialog.dart';
+import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:location/location.dart' as geo;
 

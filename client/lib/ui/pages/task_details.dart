@@ -3,7 +3,7 @@ import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/services/location/location_service.dart';
 import 'package:Tempo/ui/misc/style.dart';
-import 'package:Tempo/ui/widgets/loading.dart';
+import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:Tempo/ui/widgets/task/no_location.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +21,17 @@ class TaskDetailsScreen extends StatefulWidget {
 
 class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
   BuildContext context;
+  // Task-related fields
   String taskName;
   Location location;
+  // Location service
   bool isLoading = false;
-  // Key for identifying the form itself
-  final _formKey = GlobalKey<FormState>();
   // Google Maps variables
   Completer<GoogleMapController> _controller = Completer();
   Set<Marker> markers = Set<Marker>();
+
+  // Key for identifying the form
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -108,21 +111,17 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
                             zoom: 18,
                             tilt: 50
                           ),
-                          onMapCreated: (GoogleMapController controller) {
-                            _controller.complete(controller);
-                          }
+                          onMapCreated: (controller) => _controller.complete(controller)
                         ),
                   ),
                   Text(
                     'Location',
-                    style: kTextTitle.copyWith(
-                      fontSize: 30
-                    ),
+                    style: kTextTitle.copyWith(fontSize: 30),
                   ),
                   RaisedButton(
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
+                      children: const <Widget>[
                         Icon(Icons.map),
                         SizedBox(width: 10),
                         Text('Update location')

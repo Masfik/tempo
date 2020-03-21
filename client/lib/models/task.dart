@@ -21,7 +21,7 @@ class Task {
   @JsonKey(includeIfNull: false)
   Location location;
 
-  Task({int id, String name}): this._id = id, this._name = name;
+  Task({int id, String name}) : this._id = id, this._name = name;
 
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);
 

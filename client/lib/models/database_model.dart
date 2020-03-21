@@ -1,7 +1,7 @@
-abstract class DatabaseModel {
-  get id;
-
+mixin DatabaseModel {
   Map<String, dynamic> toDatabaseMap();
+}
 
-  DatabaseModel fromDatabaseMap();
+mixin Identity on DatabaseModel {
+  dynamic get id;
 }
