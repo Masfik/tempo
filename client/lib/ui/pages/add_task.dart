@@ -34,7 +34,7 @@ class AddTask extends StatelessWidget {
                   onSubmitted: (value) => submit(context, project, value),
                 ),
               ),
-              SizedBox(width: 10),
+              const SizedBox(width: 10),
               IconButton(
                 icon: const Icon(Icons.add_circle),
                 color: Theme.of(context).accentColor,

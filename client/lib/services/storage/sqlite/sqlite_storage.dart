@@ -46,7 +46,6 @@ class SQLiteStorageService implements Storage<Database> {
   Future<void> deleteStorage() async => await deleteDatabase(path.join(await getDatabasesPath(), _databaseName));
 
   Future<void> _createTables(Database db, int version) async {
-    // TODO: Update queries
     await db.execute(
       '''
       CREATE TABLE IF NOT EXISTS APP_USER (

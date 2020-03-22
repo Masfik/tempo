@@ -2,6 +2,7 @@ import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/services/storage/base_repository.dart';
+import 'package:Tempo/utils/sqlite_functions.dart';
 import 'package:sqflite/sqflite.dart';
 
 class TaskRepository implements BaseRepository<Task> {
@@ -24,10 +25,10 @@ class TaskRepository implements BaseRepository<Task> {
   @override
   Future<Task> getOne(id) async {
     List<Map> maps = await _db.query(
-        _tableName,
-        columns: [_columnID, _columnName, _columnIsDone, _columnElapsed],
-        where: '$_columnID = ?',
-        whereArgs: [id]
+      _tableName,
+      columns: [_columnID, _columnName, _columnIsDone, _columnElapsed],
+      where: '$_columnID = ?',
+      whereArgs: [id]
     );
 
     if (maps.length > 0) return Task.fromJson(maps.first);
@@ -42,11 +43,10 @@ class TaskRepository implements BaseRepository<Task> {
       Task task = Task(
         id: maps[i][_columnID],
         name: maps[i][_columnName],
-        isDone: maps[i][_columnIsDone] == 0 ? false : true,
+        isDone: fromSqlBool(maps[i][_columnIsDone]),
+        initialDuration: Duration(milliseconds: maps[i]['elapsed']),
         location: Location(maps[i][_columnLatitude], maps[i][_columnLongitude])
       );
-
-      task.stopwatch.initialDuration = Duration(milliseconds: maps[i]['elapsed']);
 
       return task;
     });
@@ -63,16 +63,19 @@ class TaskRepository implements BaseRepository<Task> {
 
   @override
   Future<void> update(Task task) async => await _db.update(
-      _tableName,
-      task.toDatabaseMap(),
-      where: '$_columnID = ?',
-      whereArgs: [task.id]
+    _tableName,
+    {
+      ...task.toDatabaseMap(),
+      'is_done': toSqlBool(task.isDone)
+    },
+    where: '$_columnID = ?',
+    whereArgs: [task.id]
   );
 
   @override
   Future<void> delete(Task task) async => await _db.delete(
-      _tableName,
-      where: '$_columnID = ?',
-      whereArgs: [task.id]
+    _tableName,
+    where: '$_columnID = ?',
+    whereArgs: [task.id]
   );
 }

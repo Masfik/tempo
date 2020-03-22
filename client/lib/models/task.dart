@@ -2,36 +2,37 @@ import 'package:Tempo/models/database_model.dart';
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/services/stopwatch.dart';
 import 'package:Tempo/utils/input_exception.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:Tempo/utils/sqlite_functions.dart';
 
-part 'task.g.dart';
-
-@JsonSerializable(fieldRename: FieldRename.snake)
 class Task with DatabaseModel, Identity {
-  @JsonKey(required: true)
   int id;
-
-  @JsonKey(required: true)
   String _name;
-
-  @JsonKey(required: true, defaultValue: false)
-  bool isDone = false;
-
-  @JsonKey(ignore: true)
+  bool isDone;
   final TempoStopwatch stopwatch = TempoStopwatch();
-
-  @JsonKey(includeIfNull: false)
   Location location;
 
-  Task({this.id, String name, this.isDone = false, this.location}) : this._name = name;
-
-  factory Task.fromJson(Map<String, dynamic> json) {
-    Task task = _$TaskFromJson(json);
-    task.stopwatch.initialDuration = Duration(milliseconds: json['elapsed']);
-    return task;
+  Task({this.id, String name, this.isDone = false, Duration initialDuration, this.location}) {
+    this._name = name;
+    this.stopwatch.initialDuration = initialDuration ?? Duration();
   }
 
-  Map<String, dynamic> toJson() => _$TaskToJson(this);
+  factory Task.fromJson(Map<String, dynamic> json) {
+    return Task(
+      id: json['task_id'],
+      name: json['task_name'],
+      initialDuration: Duration(milliseconds: json['elapsed']),
+      isDone: fromSqlBool(json['is_done']),
+      location: json['latitude'] != null ? Location(json['latitude'], json['longitude']) : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+    'task_name': _name,
+    'is_done': isDone,
+    'elapsed': stopwatch.elapsedMilliseconds,
+    'longitude': location.longitude,
+    'latitude': location.latitude
+  };
 
   /* GETTERS */
 
@@ -43,15 +44,9 @@ class Task with DatabaseModel, Identity {
     if (value != null && value.isNotEmpty)
       this._name = value;
     else
-      throw InputException('Cannot create a task without a name!', 'name');
+      throw InputException('Cannot leave the name of the task empty!', 'name');
   }
 
   @override
-  Map<String, dynamic> toDatabaseMap() => {
-    'task_name': _name,
-    'is_done': isDone ? 1 : 0,
-    'elapsed': stopwatch.elapsedMilliseconds,
-    'longitude': location.longitude,
-    'latitude': location.latitude
-  };
+  Map<String, dynamic> toDatabaseMap() => toJson();
 }
