@@ -6,27 +6,27 @@ import 'location.dart';
 
 class Meeting {
   String _name;
-  DateTime _date;
-  TimeOfDay _endTime;
+  DateTime dateFrom;
+  TimeOfDay endTime;
   User _creator;
   List<User> _people;
   String _room;
 
   Meeting({
-    String name,
-    DateTime date,
-    TimeOfDay endTime,
+    String nme,
+    this.dateFrom,
+    this.endTime,
     User creator,
     List<User> people,
     String room
   }) {
     this._name = name;
-    this._date = date;
-    this._endTime = endTime;
     this._creator = creator;
     this._people = people;
     this._room = room;
   }
+
+  String get name => _name;
 
   set room(String value) {
     _room = value;
@@ -34,14 +34,6 @@ class Meeting {
 
   set people(List<User> value) {
     _people = value;
-  }
-
-  set endTime(TimeOfDay value) {
-    _endTime = value;
-  }
-
-  set date(DateTime value) {
-    _date = value;
   }
 
   set name(String value) {

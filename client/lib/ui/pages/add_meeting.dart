@@ -171,7 +171,7 @@ class _AddMeetingState extends State<AddMeetingScreen> {
          }
          
          meeting.name = name;
-         meeting.date = dateFrom;
+         meeting.dateFrom = dateFrom;
          meeting.endTime = endTime;
          meeting.people = people;
          meeting.room = room;
