@@ -50,10 +50,7 @@ class AddTask extends StatelessWidget {
   void submit(BuildContext context, Project project, String value) {
     if (value == null || value.isEmpty) return;
 
-    Task task = Task();
-    task.name = value;
-
-    project.addTask(task);
+    project.addTask(Task(name: value));
 
     // Closes BottomSheet (and keyboard)
     Navigator.pop(context);

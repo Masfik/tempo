@@ -7,7 +7,7 @@ import 'package:Tempo/ui/pages/add_meeting.dart';
 import 'package:Tempo/ui/pages/add_project.dart';
 import 'package:Tempo/ui/pages/authentication.dart';
 import 'package:Tempo/ui/pages/login.dart';
-import 'package:Tempo/ui/pages/main_content.dart';
+import 'package:Tempo/ui/pages/home.dart';
 import 'package:Tempo/ui/pages/meeting.dart';
 import 'package:Tempo/ui/pages/scan_qr.dart';
 import 'package:Tempo/ui/pages/settings.dart';

@@ -1,15 +1,14 @@
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/services/api/api.dart';
-import 'package:Tempo/ui/pages/main_content.dart';
+import 'package:Tempo/ui/pages/home.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class FetchUserDataBuilder extends StatefulWidget {
-  final ApiService service;
   final Widget renderChild;
 
-  FetchUserDataBuilder({@required this.service, @required this.renderChild});
+  FetchUserDataBuilder({@required this.renderChild});
 
   @override
   _FetchUserDataBuilderState createState() => _FetchUserDataBuilderState();
@@ -20,7 +19,7 @@ class _FetchUserDataBuilderState extends State<FetchUserDataBuilder> {
 
   @override
   void initState() {
-    loadUserData = widget.service.fetchData();
+    loadUserData = Provider.of<ApiService>(context, listen: false).fetchData();
     super.initState();
   }
 

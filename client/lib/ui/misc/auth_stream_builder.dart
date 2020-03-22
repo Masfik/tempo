@@ -22,9 +22,7 @@ class AuthStreamBuilder extends StatelessWidget {
           providers: [
             // Instantiates a User model based on the AuthUser obtained from the above StreamBuilder
             ChangeNotifierProvider<User>(
-              create: (context) => User.fromAuthUser(
-                authUser: authUser,
-              ),
+              create: (context) => User.fromAuthUser(authUser: authUser),
             ),
             ChangeNotifierProxyProvider<User, Project>(
               create: (context) => Project(name: 'Active Project'),

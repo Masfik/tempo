@@ -14,8 +14,6 @@ class TempoStopwatch extends Stopwatch {
 
   /// Returns a properly-formatted duration string
   String get formattedDuration {
-    if (elapsed == null) throw "The stopwatch hasn't been initialised! Make sure to start it at least once.";
-
     String twoDigits(int number) {
       if (number >= 10) return '$number';
       return '0$number';

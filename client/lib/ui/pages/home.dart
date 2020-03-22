@@ -27,9 +27,9 @@ class HomeScreen extends StatelessWidget {
         child: const Icon(Icons.add),
         onPressed: () {
           showModalBottomSheet(
-              context: context,
-              shape: kRoundedRectangleShape,
-              builder: (context) => AddTask()
+            context: context,
+            shape: kRoundedRectangleShape,
+            builder: (context) => AddTask()
           );
         },
       ),

@@ -2,7 +2,7 @@ import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/services/api/api.dart';
 import 'package:Tempo/ui/misc/fetch_user_builder.dart';
 import 'package:Tempo/ui/pages/login.dart';
-import 'package:Tempo/ui/pages/main_content.dart';
+import 'package:Tempo/ui/pages/home.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,11 +23,9 @@ class AuthenticationScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Scaffold(body: LoadingIndicator());
 
-          ApiService service = Provider.of<ApiService>(context);
-          service.token = snapshot.data;
+          Provider.of<ApiService>(context, listen: false).token = snapshot.data;
 
           return FetchUserDataBuilder(
-            service: service,
             renderChild: HomeScreen(),
           );
         },
@@ -36,7 +34,7 @@ class AuthenticationScreen extends StatelessWidget {
 
     return Scaffold(
       body: Center(
-          child: LoadingIndicator(type: LoadingType.loading, message: 'Loading user...')
+        child: LoadingIndicator(type: LoadingType.loading, message: 'Loading user...')
       ),
     );
   }

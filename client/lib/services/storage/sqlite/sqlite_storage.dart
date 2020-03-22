@@ -11,8 +11,10 @@ class SQLiteStorageService implements Storage<Database> {
   SQLiteStorageService._();
 
   factory SQLiteStorageService(String databaseName) {
-    if (_databaseName == null) _databaseName = databaseName;
-    else print('Warning! It is not possible to change the name of the database once assigned!');
+    if (_databaseName == null)
+      _databaseName = databaseName;
+    else if (databaseName != _databaseName)
+      print('Warning! It is not possible to change the name of the database once assigned!');
 
     return _instance;
   }

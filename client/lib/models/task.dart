@@ -23,7 +23,7 @@ class Task with DatabaseModel, Identity {
   @JsonKey(includeIfNull: false)
   Location location;
 
-  Task({this.id, String name, this.isDone, Location location}) : this._name = name;
+  Task({this.id, String name, this.isDone = false, this.location}) : this._name = name;
 
   factory Task.fromJson(Map<String, dynamic> json) {
     Task task = _$TaskFromJson(json);
