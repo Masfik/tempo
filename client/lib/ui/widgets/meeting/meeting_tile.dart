@@ -1,5 +1,6 @@
 import 'package:Tempo/models/meeting.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MeetingTile extends StatefulWidget {
   final Meeting meeting;
@@ -16,11 +17,14 @@ class _MeetingTileState extends State<MeetingTile> {
   @override
   Widget build(BuildContext context) {
     meeting = widget.meeting;
+    String date = DateFormat('E d MMM, y').format(meeting.dateFrom);
+    String startTime = DateFormat('Hm').format(meeting.dateFrom);
+    String endTime = meeting.endTime.format(context);
 
     return Card(
       child: ListTile(
-        title: Text(meeting.name),
-        trailing: Text(meeting.dateFrom.toString()),
+        title: Text(meeting.name + '\n' + meeting.room),
+        trailing: Text('$date \n $startTime - $endTime'),
       ),
     );
   }

@@ -32,6 +32,8 @@ class Meeting with DatabaseModel, Identity {
     else throw InputException("Cannot create a meeting without a name!", "name");
   }
 
+
+
   @override
   Map<String, dynamic> toDatabaseMap() {
     // TODO: implement toDatabaseMap

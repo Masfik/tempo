@@ -79,7 +79,7 @@ class SQLiteStorageService implements Storage<Database> {
         task_name      VARCHAR(64) NOT NULL,
         elapsed        INTEGER NOT NULL,
         is_done        BOOLEAN NOT NULL,
-        project_fid    INTEGER,
+        project_fid    INTEGER NOT NULL,
         longitude      DOUBLE NOT NULL,
         latitude       DOIBLE NOT NULL,
         FOREIGN KEY(project_fid) REFERENCES PROJECT(project_id)

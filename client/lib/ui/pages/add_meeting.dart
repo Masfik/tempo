@@ -1,6 +1,8 @@
 import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
+import 'package:Tempo/ui/pages/meeting_list.dart';
+import 'package:Tempo/ui/widgets/meeting/meeting_list_view.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/ui/widgets/misc/time_tile.dart';
@@ -42,8 +44,8 @@ class _AddMeetingState extends State<AddMeetingScreen> {
         ),
         actions: <Widget>[
           IconButton(
-              icon: const Icon(Icons.close),
-              onPressed: () => Navigator.pop(context)
+            icon: const Icon(Icons.close),
+            onPressed: () => Navigator.pop(context)
           )
         ],
       ),
@@ -169,6 +171,14 @@ class _AddMeetingState extends State<AddMeetingScreen> {
            );
            return;
          }
+
+         dateFrom = DateTime(
+             dateFrom.year,
+             dateFrom.month,
+             dateFrom.day,
+             startTime.hour,
+             startTime.minute
+         );
          
          meeting.name = name;
          meeting.dateFrom = dateFrom;
@@ -179,14 +189,20 @@ class _AddMeetingState extends State<AddMeetingScreen> {
 
          Provider.of<User>(context, listen: false).addMeeting(meeting);
          Navigator.pop(context);
+         Navigator.push(
+             context,
+             MaterialPageRoute(
+                 builder: (context) => MeetingListScreen()
+             )
+         );
        } catch (e) {
          showDialog(
-             context: context,
-             builder: (context) =>
-                 SimpleErrorDialog(
-                     title: 'Error!',
-                     message: e.message
-                 )
+           context: context,
+           builder: (context) =>
+             SimpleErrorDialog(
+                 title: 'Error!',
+                 message: e.message
+             )
          );
        }
      }

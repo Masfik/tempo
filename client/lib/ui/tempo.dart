@@ -38,7 +38,7 @@ class Tempo extends StatelessWidget {
               '/login':       (context) => LoginScreen(),
               '/settings':    (context) => SettingsScreen(),
               '/addmeeting':  (context) => AddMeetingScreen(),
-              '/meetings':    (context) => MeetingScreen()
+              '/meetings':    (context) => MeetingListScreen()
             },
           );
         },

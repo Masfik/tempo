@@ -3,12 +3,12 @@ import 'package:Tempo/ui/widgets/meeting/meeting_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MeetingScreen extends StatefulWidget {
+class MeetingListScreen extends StatefulWidget {
   @override
-  _MeetingScreenState createState() => _MeetingScreenState();
+  _MeetingListScreenState createState() => _MeetingListScreenState();
 }
 
-class _MeetingScreenState extends State<MeetingScreen> {
+class _MeetingListScreenState extends State<MeetingListScreen> {
   @override
   Widget build(BuildContext context) {
     User user = Provider.of<User>(context);
