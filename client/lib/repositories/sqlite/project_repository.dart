@@ -1,9 +1,9 @@
 import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
-import 'package:Tempo/services/storage/base_repository.dart';
+import 'package:Tempo/repositories/base_repository.dart';
 import 'package:sqflite/sqflite.dart';
 
-class ProjectRepository implements BaseRepository<Project> {
+class SQLiteProjectRepository implements BaseRepository<Project> {
   final Database _db;
   final AuthUser _user;
 
@@ -14,7 +14,7 @@ class ProjectRepository implements BaseRepository<Project> {
   final String _columnDueDate   = 'due_date';
   final String _columnUserEmail = 'user_email';
 
-  ProjectRepository(Database database, AuthUser authUser) :
+  SQLiteProjectRepository(Database database, AuthUser authUser) :
         this._db = database,
         this._user = authUser;
 

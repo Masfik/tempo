@@ -1,11 +1,11 @@
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/services/storage/base_repository.dart';
+import 'package:Tempo/repositories/base_repository.dart';
 import 'package:Tempo/utils/sqlite_functions.dart';
 import 'package:sqflite/sqflite.dart';
 
-class TaskRepository implements BaseRepository<Task> {
+class SQLiteTaskRepository implements BaseRepository<Task> {
   final Database _db;
   final Project _project;
 
@@ -18,7 +18,7 @@ class TaskRepository implements BaseRepository<Task> {
   final String _columnLongitude = 'longitude';
   final String _columnLatitude  = 'latitude';
 
-  TaskRepository(Database database, Project project) :
+  SQLiteTaskRepository(Database database, Project project) :
         this._db = database,
         this._project = project;
 
@@ -31,7 +31,10 @@ class TaskRepository implements BaseRepository<Task> {
       whereArgs: [id]
     );
 
-    if (maps.length > 0) return Task.fromJson(maps.first);
+    if (maps.length > 0) return Task.fromJson({
+      ...maps.first,
+      _columnIsDone: fromSqlBool(maps.first[_columnIsDone])
+    });
     return null;
   }
 
@@ -39,35 +42,28 @@ class TaskRepository implements BaseRepository<Task> {
   Future<List<Task>> getAll() async {
     final List<Map<String, dynamic>> maps = await _db.query(_tableName);
 
-    return List.generate(maps.length, (i) {
-      Task task = Task(
-        id: maps[i][_columnID],
-        name: maps[i][_columnName],
-        isDone: fromSqlBool(maps[i][_columnIsDone]),
-        initialDuration: Duration(milliseconds: maps[i]['elapsed']),
-        location: Location(maps[i][_columnLatitude], maps[i][_columnLongitude])
-      );
-
-      return task;
-    });
+    return List.generate(maps.length, (i) => Task(
+      id: maps[i][_columnID],
+      name: maps[i][_columnName],
+      isDone: fromSqlBool(maps[i][_columnIsDone]),
+      initialDuration: Duration(milliseconds: maps[i]['elapsed']),
+      location: Location(maps[i][_columnLatitude], maps[i][_columnLongitude])
+    ));
   }
 
   @override
   Future<Task> add(Task task) async {
-    Map<String, dynamic> map = task.toDatabaseMap();
-    map[_columnProjectID] = _project.id;
-
-    task.id = await _db.insert(_tableName, map);
+    task.id = await _db.insert(_tableName, {
+      ..._toSqlDbMap(task),
+      _columnProjectID: _project.id
+    });
     return task;
   }
 
   @override
   Future<void> update(Task task) async => await _db.update(
     _tableName,
-    {
-      ...task.toDatabaseMap(),
-      'is_done': toSqlBool(task.isDone)
-    },
+    _toSqlDbMap(task),
     where: '$_columnID = ?',
     whereArgs: [task.id]
   );
@@ -78,4 +74,9 @@ class TaskRepository implements BaseRepository<Task> {
     where: '$_columnID = ?',
     whereArgs: [task.id]
   );
+
+  Map<String, dynamic> _toSqlDbMap(Task task) => {
+    ...task.toDatabaseMap(),
+    _columnIsDone: toSqlBool(task.isDone)
+  };
 }

@@ -10,7 +10,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'project.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
-class Project with ChangeNotifier, DatabaseModel, Identity {
+class Project extends ChangeNotifier with DatabaseModel, Identity {
   @JsonKey(required: true, disallowNullValue: true)
   int id;
 

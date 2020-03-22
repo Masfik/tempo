@@ -9,8 +9,8 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class User with ChangeNotifier, DatabaseModel {
+@JsonSerializable()
+class User extends ChangeNotifier with DatabaseModel {
   @JsonKey(ignore: true)
   AuthUser _authUser;
 

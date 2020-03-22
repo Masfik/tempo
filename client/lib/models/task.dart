@@ -2,7 +2,6 @@ import 'package:Tempo/models/database_model.dart';
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/services/stopwatch.dart';
 import 'package:Tempo/utils/input_exception.dart';
-import 'package:Tempo/utils/sqlite_functions.dart';
 
 class Task with DatabaseModel, Identity {
   int id;
@@ -21,7 +20,7 @@ class Task with DatabaseModel, Identity {
       id: json['task_id'],
       name: json['task_name'],
       initialDuration: Duration(milliseconds: json['elapsed']),
-      isDone: fromSqlBool(json['is_done']),
+      isDone: json['is_done'],
       location: json['latitude'] != null ? Location(json['latitude'], json['longitude']) : null,
     );
   }

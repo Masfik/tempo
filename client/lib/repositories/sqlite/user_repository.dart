@@ -1,8 +1,8 @@
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/services/storage/base_repository.dart';
+import 'package:Tempo/repositories/base_repository.dart';
 import 'package:sqflite/sqflite.dart';
 
-class UserRepository implements BaseRepository<User> {
+class SQLiteUserRepository implements BaseRepository<User> {
   final Database _db;
 
   final String _tableName       = 'APP_USER';
@@ -10,7 +10,7 @@ class UserRepository implements BaseRepository<User> {
   final String _columnFirstName = 'first_name';
   final String _columnSurname   = 'surname';
 
-  UserRepository(Database database) : this._db = database;
+  SQLiteUserRepository(Database database) : this._db = database;
 
   @override
   Future<User> getOne(email) async {
