@@ -14,7 +14,7 @@ class MeetingRepository implements BaseRepository<Meeting> {
   }
 
   @override
-  Future<List<Meeting>> getAll() {
+  Future<List<Meeting>> getAll({id}) {
     // TODO: implement getAll
     return null;
   }

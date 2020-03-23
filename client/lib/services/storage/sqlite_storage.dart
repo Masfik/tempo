@@ -6,7 +6,7 @@ class SQLiteStorageService implements Storage<Database> {
   static final SQLiteStorageService _instance = SQLiteStorageService._();
   static String _databaseName;
 
-  Database _database;
+  static Database _database;
 
   SQLiteStorageService._();
 
@@ -22,7 +22,7 @@ class SQLiteStorageService implements Storage<Database> {
   /* GETTERS */
 
   @override
-  Database get database => database;
+  Database get database => _database;
 
   @override
   String get name => _databaseName;
@@ -53,7 +53,11 @@ class SQLiteStorageService implements Storage<Database> {
         first_name     VARCHAR(64) NOT NULL,
         surname        VARCHAR(64) NOT NULL
       );
-    
+      '''
+    );
+
+    await db.execute(
+      '''
       CREATE TABLE IF NOT EXISTS MEETING (
         meeting_name   VARCHAR(64) NOT NULL,
         room           VARCHAR(64) NOT NULL,
@@ -64,24 +68,32 @@ class SQLiteStorageService implements Storage<Database> {
         FOREIGN KEY(user_email) REFERENCES APP_USER(email),
         PRIMARY KEY (room, date_from, end_time)
       );
-      
+      '''
+    );
+
+    await db.execute(
+      '''
       CREATE TABLE IF NOT EXISTS PROJECT (
         project_id     INTEGER PRIMARY KEY,
-        project_name   VARCHAR(64) NOT NULL
+        project_name   VARCHAR(64) NOT NULL,
         start_date     INTEGER,
         due_date       INTEGER,
         user_email     INTEGER,
         FOREIGN KEY(user_email) REFERENCES APP_USER(email)
       );
+      '''
+    );
 
+    await db.execute(
+      '''
       CREATE TABLE IF NOT EXISTS TASK (
         task_id        INTEGER PRIMARY KEY,
         task_name      VARCHAR(64) NOT NULL,
         elapsed        INTEGER NOT NULL,
         is_done        BOOLEAN NOT NULL,
         project_fid    INTEGER NOT NULL,
-        longitude      DOUBLE NOT NULL,
-        latitude       DOIBLE NOT NULL,
+        longitude      DOUBLE,
+        latitude       DOUBLE,
         FOREIGN KEY(project_fid) REFERENCES PROJECT(project_id)
       );
       '''

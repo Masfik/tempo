@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/task.dart';
+import 'package:Tempo/repositories/base_repository.dart';
 import 'package:Tempo/services/location_service.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
@@ -9,6 +10,7 @@ import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 
 class TaskDetailsScreen extends StatefulWidget {
   final Task task;
@@ -143,6 +145,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 
     widget.task.name = taskName;
     widget.task.location = location;
+    Provider.of<BaseRepository<Task>>(context, listen: false).update(widget.task);
     Navigator.pop(context);
   }
 

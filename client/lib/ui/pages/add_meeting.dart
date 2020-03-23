@@ -102,7 +102,7 @@ class _AddMeetingState extends State<AddMeetingScreen> {
                     title: const Text('Add People'),
                     onTap: () => showModalBottomSheet(
                       context: context,
-                      shape: kRoundedRectangleShape,
+                      shape: kRoundedTopRectangleShape,
                       builder: (context) => AddPeopleScreen()
                     ),
                   )

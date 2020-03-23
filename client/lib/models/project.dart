@@ -11,10 +11,9 @@ part 'project.g.dart';
 
 @JsonSerializable(fieldRename: FieldRename.snake)
 class Project extends ChangeNotifier with DatabaseModel, Identity {
-  @JsonKey(required: true, disallowNullValue: true)
+  @JsonKey(required: true, disallowNullValue: true, name: 'project_id')
   int id;
 
-  @JsonKey(required: true, disallowNullValue: true)
   String _name;
 
   DateTime _startDate;
@@ -27,11 +26,13 @@ class Project extends ChangeNotifier with DatabaseModel, Identity {
     this.id,
     String name = 'None',
     DateTime startDate,
-    DateTime dueDate
+    DateTime dueDate,
+    List<Task> tasks
   }) {
     this._name = name;
     this._startDate = startDate;
     this._dueDate = dueDate;
+    this._tasks = tasks ?? [];
   }
 
   factory Project.fromJson(Map<String, dynamic> json) => _$ProjectFromJson(json);
@@ -50,7 +51,7 @@ class Project extends ChangeNotifier with DatabaseModel, Identity {
     notifyListeners();
   }
 
-
+  @JsonKey(required: true, disallowNullValue: true, name: 'project_name')
   String get name => _name;
 
   DateTime get startDate => _startDate;
@@ -83,9 +84,19 @@ class Project extends ChangeNotifier with DatabaseModel, Identity {
     notifyListeners();
   }
 
+  set tasks(List<Task> tasks) {
+    _tasks = tasks;
+    notifyListeners();
+  }
+
   void addTask(Task task) {
     // Adds newest Task as first in the list
     _tasks.insert(0, task);
+    notifyListeners();
+  }
+
+  void removeTask(Task task) {
+    _tasks.remove(task);
     notifyListeners();
   }
 
@@ -101,8 +112,8 @@ class Project extends ChangeNotifier with DatabaseModel, Identity {
 
   @override
   Map<String, dynamic> toDatabaseMap() => {
-    'name': _name,
-    'start_date': _startDate,
-    'due_date': _dueDate
+    'project_name': _name,
+    'start_date': _startDate?.toIso8601String(),
+    'due_date': _dueDate?.toIso8601String()
   };
 }

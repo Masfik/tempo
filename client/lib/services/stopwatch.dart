@@ -1,7 +1,9 @@
 class TempoStopwatch extends Stopwatch {
   Duration _initialDuration = Duration();
 
-  set initialDuration(Duration duration) => _initialDuration = duration;
+  set initialDuration(Duration duration) {
+    if (duration != null) _initialDuration = duration;
+  }
 
   @override
   void reset() {
@@ -11,6 +13,9 @@ class TempoStopwatch extends Stopwatch {
 
   @override
   Duration get elapsed => _initialDuration + super.elapsed;
+
+  @override
+  int get elapsedMilliseconds => elapsed.inMilliseconds;
 
   /// Returns a properly-formatted duration string
   String get formattedDuration {

@@ -37,10 +37,12 @@ class User extends ChangeNotifier with DatabaseModel {
     String firstName = 'Anonymous',
     String surname = 'User',
     String email = 'Not logged in',
+    List<Project> projects,
   }) {
     this._firstName = firstName;
     this._surname = surname;
     this._email = email;
+    this._projects = projects ?? <Project>[];
   }
 
   User.fromAuthUser({@required AuthUser authUser}) {
@@ -48,21 +50,34 @@ class User extends ChangeNotifier with DatabaseModel {
     this._email = authUser.email;
   }
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Map<String, dynamic> json) {
+    List<Project> projects = <Project>[];
+    if (json['projects'] != null)
+      for (var project in json['projects']) projects.add(Project.fromJson(project));
+
+    return User(
+      firstName: json['first_name'] ?? json['firstName'],
+      surname: json['surname'],
+      email: json['email'],
+      projects: projects,
+    );
+  }
 
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   loadFromJSON(Map<String, dynamic> json, {bool forceUpdate = false}) {
     if (!forceUpdate && _projects.isNotEmpty) return;
 
-    _firstName = json['first_name'];
+    _firstName = json['firstName'];
     _surname = json['surname'];
 
-    List<Project> projects = [];
-    for (dynamic project in json['projects']) projects.add(Project.fromJson(project));
-    _projects = projects;
-    // Sets the first project as default active (General)
-    _activeProject = _projects.first;
+    if (json['projects'] != null) {
+      List<Project> projects = [];
+      for (var project in json['projects']) projects.add(Project.fromJson(project));
+      _projects = projects;
+      // Sets the first project as default active (General)
+      _activeProject = _projects.first;
+    }
     _team = json['team'];
     if (forceUpdate) notifyListeners();
   }
@@ -73,13 +88,11 @@ class User extends ChangeNotifier with DatabaseModel {
 
   String get firstName => _firstName;
 
-  String get name => firstName;
-
   String get surname => _surname;
 
   String get fullName => '$_firstName $_surname';
 
-  String get email => _email.toLowerCase();
+  String get email => _email;
 
   UnmodifiableListView<Project> get projects => UnmodifiableListView(_projects);
 
@@ -97,17 +110,18 @@ class User extends ChangeNotifier with DatabaseModel {
     notifyListeners();
   }
 
-  /// Alias of the [firstName] setter
-  set name(String name) => firstName = name;
-
   /// Set surname
   set surname(String surname) {
     _surname = surname;
     notifyListeners();
   }
 
-  /// Alias of the [surname] setter
-  set lastName(String lastName) => surname = lastName;
+  set email(String email) => this._email = email.toLowerCase();
+
+  set projects(List<Project> projects) {
+    _projects = projects;
+    notifyListeners();
+  }
 
   /// Add a project to the [_projects] list
   addProject(Project project) {

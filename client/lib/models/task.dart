@@ -15,22 +15,20 @@ class Task with DatabaseModel, Identity {
     this.stopwatch.initialDuration = initialDuration ?? Duration();
   }
 
-  factory Task.fromJson(Map<String, dynamic> json) {
-    return Task(
-      id: json['task_id'],
-      name: json['task_name'],
-      initialDuration: Duration(milliseconds: json['elapsed']),
-      isDone: json['is_done'],
-      location: json['latitude'] != null ? Location(json['latitude'], json['longitude']) : null,
-    );
-  }
+  factory Task.fromJson(Map<String, dynamic> json) => Task(
+    id: json['task_id'],
+    name: json['task_name'],
+    initialDuration: json['elapsed'] != null ? Duration(milliseconds: json['elapsed']) : null,
+    isDone: json['is_done'],
+    location: json['latitude'] != null ? Location(json['latitude'], json['longitude']) : null,
+  );
 
   Map<String, dynamic> toJson() => {
     'task_name': _name,
     'is_done': isDone,
     'elapsed': stopwatch.elapsedMilliseconds,
-    'longitude': location.longitude,
-    'latitude': location.latitude
+    if (location != null) 'longitude': location.longitude,
+    if (location != null) 'latitude': location.latitude
   };
 
   /* GETTERS */

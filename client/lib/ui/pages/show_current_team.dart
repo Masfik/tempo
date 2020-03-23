@@ -29,7 +29,7 @@ class _ShowCurrentTeamState extends State<ShowCurrentTeam> {
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                shape: kRoundedRectangleShape,
+                shape: kRoundedTopRectangleShape,
                 builder: (context) => AddPeopleScreen()
               );
             },
