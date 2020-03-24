@@ -1,8 +1,6 @@
 import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/ui/misc/style.dart';
-import 'package:Tempo/ui/pages/meeting_list.dart';
-import 'package:Tempo/ui/widgets/meeting/meeting_list_view.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/ui/widgets/misc/time_tile.dart';
@@ -10,7 +8,7 @@ import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'add_people.dart';
+import '../add_people.dart';
 
 enum TimeType {
   start,
@@ -189,12 +187,6 @@ class _AddMeetingState extends State<AddMeetingScreen> {
 
          Provider.of<User>(context, listen: false).addMeeting(meeting);
          Navigator.pop(context);
-         Navigator.push(
-             context,
-             MaterialPageRoute(
-                 builder: (context) => MeetingListScreen()
-             )
-         );
        } catch (e) {
          showDialog(
            context: context,

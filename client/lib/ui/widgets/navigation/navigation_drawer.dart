@@ -59,14 +59,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 Navigator.pushNamed(context, '/team');
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.domain),
-              title: Text('Scheduled Meetings'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/meetings');
-              },
-            ),
             const Divider(color: Colors.black),
             Expanded(
               child: ListView.builder(
@@ -91,14 +83,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               title: const Text('ADD PROJECT'),
               onTap: () => Navigator.pushNamed(context, '/addproject'),
             ),
-            ListTile(
-              leading: const Icon(Icons.schedule),
-              title: const Text('ADD MEETING'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, '/addmeeting');
-              },
-            )
           ],
         ),
       ),

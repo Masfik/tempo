@@ -1,8 +1,8 @@
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:sqflite/sqflite.dart';
 
-class SQLiteUserRepository implements BaseRepository<User> {
+class SQLiteUserRepository implements Repository<User> {
   final Database _db;
 
   final String _tableName       = 'APP_USER';

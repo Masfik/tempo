@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../../utils/constants.dart';
+
 class RegisterScreen extends StatelessWidget {
   // FocusNode listeners -> changing the focus to next input field
   final FocusNode _firstNameFocus = FocusNode();
@@ -25,62 +27,66 @@ class RegisterScreen extends StatelessWidget {
     String surname;
 
     return Scaffold(
-      body: Form(
-        key: _formKey,
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 50, right: 50),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Tempo',
-                  style: GoogleFonts.firaSans(
-                    fontSize: 72,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 50, right: 50),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Tempo',
+                    style: GoogleFonts.firaSans(
+                      fontSize: 72,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  focusNode: _firstNameFocus,
-                  onFieldSubmitted: (value) {
-                    _fieldFocusChange(context, _firstNameFocus, _emailFocus);
-                  },
-                  onChanged:  (value) => firstName = value,
-                  decoration: kInputLoginDecoration.copyWith(
-                    hintText: 'First Name',
-                    prefixIcon: Icon(Icons.person)
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    textInputAction: TextInputAction.next,
+                    focusNode: _firstNameFocus,
+                    onFieldSubmitted: (value) {
+                      _fieldFocusChange(context, _firstNameFocus, _surnameFocus);
+                    },
+                    onChanged:  (value) => firstName = value,
+                    decoration: kInputLoginDecoration.copyWith(
+                      hintText: 'First Name',
+                      prefixIcon: Icon(Icons.person)
+                    ),
+                    validator: kValidator,
                   ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  textInputAction: TextInputAction.next,
-                  focusNode: _surnameFocus,
-                  onFieldSubmitted: (value) {
-                    _fieldFocusChange(context, _surnameFocus, _passFocus);
-                  },
-                  onChanged:  (value) => surname = value,
-                  decoration: kInputLoginDecoration.copyWith(
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    textInputAction: TextInputAction.next,
+                    focusNode: _surnameFocus,
+                    onFieldSubmitted: (value) {
+                      _fieldFocusChange(context, _surnameFocus, _emailFocus);
+                    },
+                    onChanged:  (value) => surname = value,
+                    decoration: kInputLoginDecoration.copyWith(
                       hintText: 'Surname',
                       prefixIcon: Icon(Icons.person)
+                    ),
+                    validator: kValidator,
                   ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
+                  const SizedBox(height: 10),
+                  TextFormField(
                     textInputAction: TextInputAction.next,
                     focusNode: _emailFocus,
                     onFieldSubmitted: (value) {
                       _fieldFocusChange(context, _emailFocus, _passFocus);
                     },
+                    keyboardType: TextInputType.emailAddress,
                     onChanged: (value) => email = value,
                     decoration: kInputLoginDecoration.copyWith(
-                        hintText: 'Email',
-                        prefixIcon: Icon(Icons.email)
+                      hintText: 'Email',
+                      prefixIcon: Icon(Icons.email)
                     ),
                     validator: kValidator
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
+                    textInputAction: TextInputAction.next,
                     focusNode: _passFocus,
                     onChanged: (value) => password = value,
                     onFieldSubmitted: (value) {
@@ -88,29 +94,29 @@ class RegisterScreen extends StatelessWidget {
                     },
                     obscureText: true,
                     decoration: kInputLoginDecoration.copyWith(
-                        hintText: 'Password',
-                        prefixIcon: Icon(Icons.vpn_key)
+                      hintText: 'Password',
+                      prefixIcon: Icon(Icons.vpn_key)
                     ),
                     validator: kValidator
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
+                  ),
+                  const SizedBox(height: 10),
+                  TextFormField(
                     focusNode: _confirmPassFocus,
                     onChanged: (value) => confirmPassword = value,
                     obscureText: true,
                     decoration: kInputLoginDecoration.copyWith(
-                        hintText: 'Confirm Password',
-                        prefixIcon: Icon(Icons.vpn_key)
+                      hintText: 'Confirm Password',
+                      prefixIcon: Icon(Icons.vpn_key)
                     ),
                     validator: (confirmPassword) {
-                      if(confirmPassword != password)
+                      if (confirmPassword != password)
                         return "Confirm password needs to be the same as password";
                       else
                         return null;
                     }
-                ),
-                const SizedBox(height: 10),
-                RaisedButton(
+                  ),
+                  const SizedBox(height: 10),
+                  RaisedButton(
                     color: Theme.of(context).accentColor,
                     child: Container(
                       child: Center(child: Text('Register')),
@@ -120,24 +126,27 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     elevation: 0,
                     onPressed: () async {
+                      if (!_formKey.currentState.validate()) return;
+
                       var user = await Provider.of<AuthService>(context, listen: false).signUp(email, password);
-                      if (user != null) Navigator.pushReplacementNamed(context, '/tasks');
+
+                      if (user != null) Navigator.pushReplacementNamed(context, '/home');
                       else print('Error!');
                     }
-                ),
-                FlatButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
-                  },
-                  child: Container(
-                    child: Center(child: Text('Already signed up?')),
                   ),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
+                  FlatButton(
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/login');
+                    },
+                    child: Container(
+                      child: Center(child: Text('Already signed up?')),
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(30)),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

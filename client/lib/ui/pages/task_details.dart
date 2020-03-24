@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/services/location_service.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
@@ -145,7 +145,7 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
 
     widget.task.name = taskName;
     widget.task.location = location;
-    Provider.of<BaseRepository<Task>>(context, listen: false).update(widget.task);
+    Provider.of<Repository<Task>>(context, listen: false).update(widget.task);
     Navigator.pop(context);
   }
 

@@ -1,9 +1,9 @@
 import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:sqflite/sqflite.dart';
 
-class SQLiteProjectRepository implements BaseRepository<Project> {
+class SQLiteProjectRepository implements Repository<Project> {
   final Database _db;
   final AuthUser _user;
 

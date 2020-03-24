@@ -1,7 +1,7 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
@@ -115,7 +115,7 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         /*project.people = people;
         project.team = team;*/
 
-        project = await Provider.of<BaseRepository<Project>>(context, listen: false).add(project);
+        project = await Provider.of<Repository<Project>>(context, listen: false).add(project);
         Provider.of<User>(context, listen: false).addProject(project);
         Navigator.pop(context);
       } catch(e) {

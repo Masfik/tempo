@@ -3,18 +3,19 @@ import 'package:Tempo/services/api/user_data_adapter.dart';
 import 'package:Tempo/services/authentication/auth_adapter.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/ui/misc/auth_stream_builder.dart';
-import 'package:Tempo/ui/pages/add_meeting.dart';
+import 'package:Tempo/ui/pages/home/add_meeting.dart';
 import 'package:Tempo/ui/pages/add_project.dart';
 import 'package:Tempo/ui/pages/authentication.dart';
 import 'package:Tempo/ui/pages/login.dart';
-import 'package:Tempo/ui/pages/home.dart';
-import 'package:Tempo/ui/pages/meeting_list.dart';
+import 'package:Tempo/ui/pages/home/home.dart';
+import 'package:Tempo/ui/pages/home/meeting_list.dart';
 import 'package:Tempo/ui/pages/scan_qr.dart';
 import 'package:Tempo/ui/pages/settings.dart';
 import 'package:Tempo/ui/pages/teams.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:Tempo/ui/pages/register.dart';
 
 class Tempo extends StatelessWidget {
   @override
@@ -31,11 +32,12 @@ class Tempo extends StatelessWidget {
             theme: kTempoThemeData,
             home: AuthenticationScreen(authUserSnapshot: snapshot),
             routes: {
-              '/tasks':       (context) => HomeScreen(),
+              '/home':        (context) => HomeScreen(),
               '/addproject':  (context) => AddProjectScreen(),
               '/team':        (context) => TeamsScreen(),
               '/scan':        (context) => ScanQrScreen(),
               '/login':       (context) => LoginScreen(),
+              '/register':    (context) => RegisterScreen(),
               '/settings':    (context) => SettingsScreen(),
               '/addmeeting':  (context) => AddMeetingScreen(),
               '/meetings':    (context) => MeetingListScreen()

@@ -1,6 +1,5 @@
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/ui/misc/style.dart';
-import 'package:Tempo/ui/pages/register.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +45,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   onFieldSubmitted: (term) {
                     _fieldFocusChange(context, _emailFocus, _passFocus);
                   },
+                  keyboardType: TextInputType.emailAddress,
                   onChanged: (value) => email = value,
                   decoration: kInputLoginDecoration.copyWith(
                     hintText: 'Email',
@@ -77,14 +77,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   onPressed: () async {
                     var user = await Provider.of<AuthService>(context, listen: false).signIn(email, password);
 
-                    if (user != null) Navigator.pushReplacementNamed(context, '/tasks');
+                    if (user != null) Navigator.pushReplacementNamed(context, '/home');
                     else print('Error!');
                   }
                 ),
                 FlatButton(
                   onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => RegisterScreen()));
+                    Navigator.pushReplacementNamed(context, '/register');
                   },
                   child: Container(
                     child: Center(child: Text('Create account')),

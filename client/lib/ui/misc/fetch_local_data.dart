@@ -1,7 +1,7 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/services/api/api.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +30,7 @@ class _FetchLocalDataBuilder extends State<FetchLocalDataBuilder> {
 
       /* USER REPO */
 
-      BaseRepository<User> userRepo = Provider.of<BaseRepository<User>>(context, listen: false);
+      Repository<User> userRepo = Provider.of<Repository<User>>(context, listen: false);
 
       if ((await userRepo.getOne(user.email)) == null)
         userRepo.add(user);
@@ -38,7 +38,7 @@ class _FetchLocalDataBuilder extends State<FetchLocalDataBuilder> {
 
       /* PROJECT REPO */
 
-      BaseRepository<Project> projectRepo = Provider.of<BaseRepository<Project>>(context, listen: false);
+      Repository<Project> projectRepo = Provider.of<Repository<Project>>(context, listen: false);
 
       if ((await projectRepo.getAll()).isEmpty) {
         // Adds general as the first Project
@@ -48,7 +48,7 @@ class _FetchLocalDataBuilder extends State<FetchLocalDataBuilder> {
 
       /* TASK REPO */
 
-      BaseRepository<Task> taskRepo = Provider.of<BaseRepository<Task>>(context, listen: false);
+      Repository<Task> taskRepo = Provider.of<Repository<Task>>(context, listen: false);
 
       List<Task> tasks = await taskRepo.getAll();
       if (tasks.isNotEmpty)

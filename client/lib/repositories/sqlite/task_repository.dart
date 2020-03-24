@@ -1,11 +1,11 @@
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/utils/sqlite_functions.dart';
 import 'package:sqflite/sqflite.dart';
 
-class SQLiteTaskRepository implements BaseRepository<Task> {
+class SQLiteTaskRepository implements Repository<Task> {
   final Database _db;
   final Project _project;
 

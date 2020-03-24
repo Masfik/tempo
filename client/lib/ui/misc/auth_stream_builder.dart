@@ -2,7 +2,7 @@ import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/repositories/local_repository.dart';
 import 'package:Tempo/repositories/sqlite/sqlite_local_repository.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
@@ -43,13 +43,13 @@ class AuthStreamBuilder extends StatelessWidget {
                   create: (context) => Project(name: 'Active Project'),
                   update: (context, user, project) => project..updateWith(user.activeProject)
                 ),
-                Provider<BaseRepository<User>>.value(
+                Provider<Repository<User>>.value(
                   value: localRepository.getUserRepository()
                 ),
-                Provider<BaseRepository<Project>>.value(
+                Provider<Repository<Project>>.value(
                   value: localRepository.getProjectRepository(authUser)
                 ),
-                ProxyProvider<Project, BaseRepository<Task>>(
+                ProxyProvider<Project, Repository<Task>>(
                   update: (context, project, _) => localRepository.getTaskRepository(project),
                 )
               ],

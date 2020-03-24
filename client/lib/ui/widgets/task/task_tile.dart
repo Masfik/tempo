@@ -1,6 +1,6 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/repositories/base_repository.dart';
+import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/pages/task_details.dart';
 import 'package:Tempo/ui/widgets/task/start_button.dart';
@@ -25,7 +25,7 @@ class _TaskTileState extends State<TaskTile> {
   // Required to disable the START button when the task is marked as completed
   bool canBeStarted = true;
   // TaskRepository
-  BaseRepository<Task> taskRepo;
+  Repository<Task> taskRepo;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +33,7 @@ class _TaskTileState extends State<TaskTile> {
     // Obtains the start status directly from the stopwatch
     started = task.stopwatch.isRunning;
     // TaskRepository
-    taskRepo = Provider.of<BaseRepository<Task>>(context, listen: false);
+    taskRepo = Provider.of<Repository<Task>>(context, listen: false);
 
     return Card(
       child: Slidable(
