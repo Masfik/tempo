@@ -6,27 +6,35 @@ final kTempoThemeData = ThemeData(
   primaryColor: Color(0xFF3b4252),
   canvasColor: Color(0xFF434c5e),
   backgroundColor: Color(0xFF434c5e),
-  dialogBackgroundColor: Color(0xFF3b4252),
   accentColor: Color(0xFF5E81AC),
   toggleableActiveColor: Color(0xFF5E81AC),
   buttonColor: Color(0xFF5E81AC),
 
   cardColor: Color(0xFF434c5e),
-  cardTheme: CardTheme(
+  cardTheme: const CardTheme(
     elevation: 6,
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(20))
-    )
+    shape: kRoundedAllRectangleShape
+  ),
+
+  dialogBackgroundColor: Color(0xFF3b4252),
+  dialogTheme: const DialogTheme(
+    shape: kRoundedAllRectangleShape
   ),
 
   errorColor: Color(0xFFBF616A),
   disabledColor: Color(0xFF767b86),
 );
 
-const kRoundedRectangleShape = RoundedRectangleBorder(
+const kCurvedEdgedRadius = Radius.circular(20);
+
+const kRoundedAllRectangleShape = RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(kCurvedEdgedRadius)
+);
+
+const kRoundedTopRectangleShape = RoundedRectangleBorder(
   borderRadius: BorderRadius.only(
-    topRight: Radius.circular(20),
-    topLeft: Radius.circular(20)
+    topRight: kCurvedEdgedRadius,
+    topLeft: kCurvedEdgedRadius
   )
 );
 

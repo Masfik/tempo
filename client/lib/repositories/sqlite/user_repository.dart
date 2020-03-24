@@ -26,7 +26,7 @@ class SQLiteUserRepository implements BaseRepository<User> {
   }
 
   @override
-  Future<List<User>> getAll() async {
+  Future<List<User>> getAll({id}) async {
     final List<Map<String, dynamic>> maps = await _db.query(_tableName);
 
     return List.generate(maps.length, (i) => User(

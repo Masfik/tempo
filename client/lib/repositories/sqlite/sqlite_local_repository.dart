@@ -8,18 +8,19 @@ import 'package:Tempo/repositories/sqlite/project_repository.dart';
 import 'package:Tempo/repositories/sqlite/task_repository.dart';
 import 'package:Tempo/repositories/sqlite/user_repository.dart';
 import 'package:Tempo/services/storage/sqlite_storage.dart';
+import 'package:sqflite/sqflite.dart';
 
 class SQLiteLocalRepository implements LocalRepository {
-  SQLiteStorageService _storage;
+  Database _db;
 
-  SQLiteLocalRepository(SQLiteStorageService storage) : this._storage = storage;
-
-  @override
-  BaseRepository<User> getUserRepository() => SQLiteUserRepository(_storage.database);
+  SQLiteLocalRepository(SQLiteStorageService storage) : this._db = storage.database;
 
   @override
-  BaseRepository<Project> getProjectRepository(AuthUser user) => SQLiteProjectRepository(_storage.database, user);
+  BaseRepository<User> getUserRepository() => SQLiteUserRepository(_db);
 
   @override
-  BaseRepository<Task> getTaskRepository(Project project) => SQLiteTaskRepository(_storage.database, project);
+  BaseRepository<Project> getProjectRepository(AuthUser user) => SQLiteProjectRepository(_db, user);
+
+  @override
+  BaseRepository<Task> getTaskRepository(Project project) => SQLiteTaskRepository(_db, project);
 }

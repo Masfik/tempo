@@ -19,7 +19,7 @@ class TaskListView extends StatelessWidget {
       itemBuilder: (context, index) =>
         TaskTile(
           task: tasks[index],
-          key: Key(tasks[index].name) // TODO switch to ID
+          key: Key(tasks[index].id.toString())
         ),
     );
   }

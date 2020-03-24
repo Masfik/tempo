@@ -32,14 +32,14 @@ class SQLiteProjectRepository implements BaseRepository<Project> {
   }
 
   @override
-  Future<List<Project>> getAll() async {
+  Future<List<Project>> getAll({id}) async {
     final List<Map<String, dynamic>> maps = await _db.query(_tableName);
 
     return List.generate(maps.length, (i) => Project(
       id: maps[i][_columnID],
       name: maps[i][_columnName],
-      startDate: maps[i][_columnStartDate],
-      dueDate: maps[i][_columnDueDate]
+      startDate: maps[i][_columnStartDate] != null ? DateTime.parse(maps[i][_columnStartDate]) : null,
+      dueDate: maps[i][_columnDueDate] != null ? DateTime.parse(maps[i][_columnDueDate]) : null,
     ));
   }
 

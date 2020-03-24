@@ -1,5 +1,6 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
+import 'package:Tempo/repositories/base_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -47,10 +48,11 @@ class AddTask extends StatelessWidget {
     );
   }
 
-  void submit(BuildContext context, Project project, String value) {
+  void submit(BuildContext context, Project project, String value) async {
     if (value == null || value.isEmpty) return;
 
-    project.addTask(Task(name: value));
+    Task task = await Provider.of<BaseRepository<Task>>(context, listen: false).add(Task(name: value));
+    project.addTask(task);
 
     // Closes BottomSheet (and keyboard)
     Navigator.pop(context);

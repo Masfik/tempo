@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            shape: kRoundedRectangleShape,
+            shape: kRoundedTopRectangleShape,
             builder: (context) => AddTask()
           );
         },

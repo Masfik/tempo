@@ -39,15 +39,19 @@ class SQLiteTaskRepository implements BaseRepository<Task> {
   }
 
   @override
-  Future<List<Task>> getAll() async {
-    final List<Map<String, dynamic>> maps = await _db.query(_tableName);
+  Future<List<Task>> getAll({id}) async {
+    List<Map<String, dynamic>> maps;
+    if (id == null) maps = await _db.query(_tableName);
+    else maps = await _db.query(_tableName, where: '$_columnProjectID = ?', whereArgs: [id]);
 
     return List.generate(maps.length, (i) => Task(
       id: maps[i][_columnID],
       name: maps[i][_columnName],
       isDone: fromSqlBool(maps[i][_columnIsDone]),
       initialDuration: Duration(milliseconds: maps[i]['elapsed']),
-      location: Location(maps[i][_columnLatitude], maps[i][_columnLongitude])
+      location: (maps[i][_columnLatitude] != null)
+          ? Location(maps[i][_columnLatitude], maps[i][_columnLongitude])
+          : null
     ));
   }
 

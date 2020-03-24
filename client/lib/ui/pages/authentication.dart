@@ -1,5 +1,6 @@
 import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/services/api/api.dart';
+import 'package:Tempo/ui/misc/fetch_local_data.dart';
 import 'package:Tempo/ui/misc/fetch_user_builder.dart';
 import 'package:Tempo/ui/pages/login.dart';
 import 'package:Tempo/ui/pages/home.dart';
@@ -25,7 +26,7 @@ class AuthenticationScreen extends StatelessWidget {
 
           Provider.of<ApiService>(context, listen: false).token = snapshot.data;
 
-          return FetchUserDataBuilder(
+          return FetchLocalDataBuilder(
             renderChild: HomeScreen(),
           );
         },
