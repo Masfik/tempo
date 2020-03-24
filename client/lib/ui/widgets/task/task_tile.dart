@@ -93,7 +93,7 @@ class _TaskTileState extends State<TaskTile> {
             color: Theme.of(context).errorColor,
             icon: Icons.delete_forever,
             onTap: () async {
-              Provider.of<Project>(context, listen: false).removeTask(task);
+              Provider.of<Project>(context, listen: false).deleteTask(task);
               await taskRepo.delete(task);
             },
           )

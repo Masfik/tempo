@@ -29,7 +29,7 @@ class FirebaseAuthService implements AuthService<AuthUser> {
       )).user;
 
       return _toAuthUserModel(firebaseUser);
-    } catch (e) { return null; }
+    } catch (e) { print(e); return null; }
   }
 
   @override

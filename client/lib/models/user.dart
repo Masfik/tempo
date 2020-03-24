@@ -129,6 +129,12 @@ class User extends ChangeNotifier with DatabaseModel {
     notifyListeners();
   }
 
+  /// Delete a project from the [_projects] list
+  deleteProject(Project project) {
+    _projects.remove(project);
+    notifyListeners();
+  }
+
   /// Set the active [project] (the current one being viewed by the user)
   set activeProject(Project project) {
     _activeProject = project;
@@ -139,7 +145,7 @@ class User extends ChangeNotifier with DatabaseModel {
   addMeeting(Meeting meeting) => _meetings.add(meeting);
 
   /// Remove an existing [Meeting] from the [meetings] list
-  removeMeeting(Meeting meeting) => _meetings.remove(meeting);
+  deleteMeeting(Meeting meeting) => _meetings.remove(meeting);
 
   /// Converts [User] object to a [Map] for Database usage
   @override

@@ -95,7 +95,7 @@ class Project extends ChangeNotifier with DatabaseModel, Identity {
     notifyListeners();
   }
 
-  void removeTask(Task task) {
+  void deleteTask(Task task) {
     _tasks.remove(task);
     notifyListeners();
   }
