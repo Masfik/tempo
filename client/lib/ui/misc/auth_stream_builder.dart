@@ -35,8 +35,8 @@ class AuthStreamBuilder extends StatelessWidget {
 
             return MultiProvider(
               providers: [
-                // Instantiates a User model based on the AuthUser obtained from the above StreamBuilder
                 ChangeNotifierProvider<User>(
+                  // Instantiates a User model based on the AuthUser obtained from the above StreamBuilder
                   create: (context) => User.fromAuthUser(authUser: authUser),
                 ),
                 ChangeNotifierProxyProvider<User, Project>(
@@ -63,7 +63,6 @@ class AuthStreamBuilder extends StatelessWidget {
 }
 
 class DatabaseBuilder extends StatefulWidget {
-  // Storage can be changed at a later stage
   final Storage storage;
   final Widget Function(BuildContext context, AsyncSnapshot<Storage> snapshot) builder;
 

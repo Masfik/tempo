@@ -20,8 +20,8 @@ class LocationService {
       }
     }
 
-    if (await location.hasPermission() == geo.PermissionStatus.DENIED) /* Checks if permission is denied */ {
-      if (await location.requestPermission() != geo.PermissionStatus.GRANTED) /* Requests permission */ {
+    if (await location.hasPermission() == geo.PermissionStatus.denied) /* Checks if permission is denied */ {
+      if (await location.requestPermission() != geo.PermissionStatus.granted) /* Requests permission */ {
         showDialog(
           context: context,
           builder: (context) => SimpleErrorDialog(

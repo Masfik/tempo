@@ -7,7 +7,7 @@ part 'location.g.dart';
 
 @JsonSerializable()
 class Location extends LatLng with DatabaseModel, Identity {
-  @override
+  @JsonKey(ignore: true)
   int id;
 
   @JsonKey(required: true)

@@ -4,7 +4,7 @@ import 'package:http/http.dart';
 
 class UserDataService implements ApiService<Map<String, dynamic>> {
   String token;
-  final _endpoint = 'http://ec2-3-8-78-118.eu-west-2.compute.amazonaws.com:8090/users';
+  final _endpoint = 'http://tempo.bartstasik.com:8090/users';
 
   UserDataService({this.token});
 

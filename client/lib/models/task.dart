@@ -27,15 +27,10 @@ class Task with DatabaseModel, Identity {
     'task_name': _name,
     'is_done': isDone,
     'elapsed': stopwatch.elapsedMilliseconds,
-    if (location != null) 'longitude': location.longitude,
-    if (location != null) 'latitude': location.latitude
+    if (location != null) ...location.toJson()
   };
 
-  /* GETTERS */
-
   String get name => _name;
-
-  /* SETTERS */
 
   set name(String value) {
     if (value != null && value.isNotEmpty)

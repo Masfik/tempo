@@ -28,34 +28,30 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     bool isProjectTab = _selectedTabIndex == 0;
-
     Project project = Provider.of<Project>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(isProjectTab ? project.name : 'Meetings'),
-        actions: [ ActionsMenu() ],
+        actions: [ActionsMenu()],
         bottom: TabBar(
           controller: _controller,
-          tabs: <Tab>[
-            Tab(text: 'TASKS'),
-            Tab(text: 'MEETINGS')
-          ],
+          tabs: <Tab>[Tab(text: 'TASKS'), Tab(text: 'MEETINGS')],
         ),
       ),
       drawer: const NavigationDrawer(),
       body: TabBarView(
         controller: _controller,
-        children: <Widget>[
-          TaskListScreen(project.tasks),
-          MeetingListScreen()
-        ],
+        children: <Widget>[TaskListScreen(project.tasks), MeetingListScreen()],
       ),
       floatingActionButton: FloatingActionButton(
         tooltip: isProjectTab ? 'Add Task' : 'Schedule Meeting',
         child: Icon(isProjectTab ? Icons.add : Icons.schedule),
         onPressed: () {
-          if (isProjectTab) TaskListScreen.addTask(context);
-          else Navigator.pushNamed(context, '/addmeeting');
+          if (isProjectTab)
+            TaskListScreen.addTask(context);
+          else
+            Navigator.pushNamed(context, '/addmeeting');
         },
       ),
     );

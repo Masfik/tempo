@@ -8,7 +8,6 @@ import 'package:Tempo/ui/pages/add_project.dart';
 import 'package:Tempo/ui/pages/authentication.dart';
 import 'package:Tempo/ui/pages/login.dart';
 import 'package:Tempo/ui/pages/home/home.dart';
-import 'package:Tempo/ui/pages/home/meeting_list.dart';
 import 'package:Tempo/ui/pages/scan_qr.dart';
 import 'package:Tempo/ui/pages/settings.dart';
 import 'package:Tempo/ui/pages/teams.dart';
@@ -34,13 +33,12 @@ class Tempo extends StatelessWidget {
             routes: {
               '/home':        (context) => HomeScreen(),
               '/addproject':  (context) => AddProjectScreen(),
+              '/addmeeting':  (context) => AddMeetingScreen(),
               '/team':        (context) => TeamsScreen(),
               '/scan':        (context) => ScanQrScreen(),
               '/login':       (context) => LoginScreen(),
               '/register':    (context) => RegisterScreen(),
               '/settings':    (context) => SettingsScreen(),
-              '/addmeeting':  (context) => AddMeetingScreen(),
-              '/meetings':    (context) => MeetingListScreen()
             },
           );
         },
