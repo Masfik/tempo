@@ -19,7 +19,7 @@ class _MeetingTileState extends State<MeetingTile> {
     meeting = widget.meeting;
     String date = DateFormat('E d MMM, y').format(meeting.dateFrom);
     String startTime = DateFormat('Hm').format(meeting.dateFrom);
-    String endTime = meeting.endTime.format(context);
+    String endTime = DateFormat('Hm').format(meeting.endTime);
 
     return Card(
       child: ListTile(

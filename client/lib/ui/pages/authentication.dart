@@ -23,7 +23,7 @@ class AuthenticationScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (!snapshot.hasData) return Scaffold(body: LoadingIndicator());
 
-          Provider.of<ApiService>(context, listen: false).token = snapshot.data;
+          // TODO: Provider.of<ApiService>(context, listen: false).token = snapshot.data;
 
           return FetchLocalDataBuilder(
             renderChild: HomeScreen(),
