@@ -51,7 +51,7 @@ public class AssignmentService extends HttpServlet {
             var map = check(request, response, "userEmail", "room", "dateFrom", "endTime");
             if (map == null) return;
 
-            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
             var timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             var rows = db.execute(sql -> sql.insertInto(ASSIGNMENT)
                     .set(ASSIGNMENT.USER_EMAIL, map.get("userEmail"))
