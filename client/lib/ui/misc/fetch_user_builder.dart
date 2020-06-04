@@ -1,5 +1,5 @@
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/services/api/api.dart';
+import 'package:Tempo/services/api/user_data.dart';
 import 'package:Tempo/ui/pages/home/home.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _FetchUserDataBuilderState extends State<FetchUserDataBuilder> {
 
   @override
   void initState() {
-    loadUserData = Provider.of<ApiService>(context, listen: false).fetchData();
+    loadUserData = Provider.of<UserDataService>(context, listen: false).fetchData();
     super.initState();
   }
 
@@ -39,7 +39,7 @@ class _FetchUserDataBuilderState extends State<FetchUserDataBuilder> {
               type: LoadingType.error,
               message: 'Failed to fetch user data.',
               onRetry: () => setState(() {
-                loadUserData = Provider.of<ApiService>(context, listen: false).fetchData();
+                loadUserData = Provider.of<UserDataService>(context, listen: false).fetchData();
               }),
             );
           }

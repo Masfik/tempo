@@ -1,13 +1,16 @@
+import 'dart:convert';
+
 import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/user.dart';
+import 'package:Tempo/repositories/api/meeting_repository.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/ui/widgets/misc/time_tile.dart';
 import 'package:Tempo/utils/constants.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:random_string/random_string.dart';
 import '../add_people.dart';
 
 enum TimeType {
@@ -154,55 +157,58 @@ class _AddMeetingState extends State<AddMeetingScreen> {
       if (time != null) endTime = time;
     });
   }
+  
+  void submit() {
+    if (_formKey.currentState.validate()) {
+      try {
+        if (startTime != null && endTime == null) {
+          showDialog(
+            context: context,
+            builder: (context) =>
+              SimpleErrorDialog(
+                title: 'Please, specify end Time',
+                message: 'When a start time is given, an end time must also be specified.'
+              )
+          );
+          return;
+        }
+        
+        meeting.name = name;
+        meeting.organiser = Provider.of<User>(context, listen: false);
+        meeting.dateFrom = DateTime(
+          dateFrom.year,
+          dateFrom.month,
+          dateFrom.day,
+          startTime.hour,
+          startTime.minute
+        );
+        meeting.endTime = DateTime(
+          dateFrom.year,
+          dateFrom.month,
+          dateFrom.day,
+          endTime.hour,
+          endTime.minute
+        );
+        meeting.people = people;
+        meeting.room = room;
+        meeting.qrHash = randomString(10);
 
-   void submit() {
-     if (_formKey.currentState.validate()) {
-       try {
-         if (startTime != null && endTime == null) {
-           showDialog(
-             context: context,
-             builder: (context) =>
-               SimpleErrorDialog(
-                 title: 'Please, specify end Time',
-                 message: 'When a start time is given, an end time must also be specified.'
-               )
-           );
-           return;
-         }
-
-         
-         meeting.name = name;
-         meeting.dateFrom = DateTime(
-           dateFrom.year,
-           dateFrom.month,
-           dateFrom.day,
-           startTime.hour,
-           startTime.minute
-         );
-         meeting.endTime = DateTime(
-           dateFrom.year,
-           dateFrom.month,
-           dateFrom.day,
-           endTime.hour,
-           endTime.minute
-         );
-         meeting.people = people;
-         meeting.room = room;
-         meeting.people = people;
-
-         Provider.of<User>(context, listen: false).addMeeting(meeting);
-         Navigator.pop(context);
-       } catch (e) {
-         showDialog(
-           context: context,
-           builder: (context) =>
-             SimpleErrorDialog(
-               title: 'Error!',
-               message: e.message
-             )
-         );
-       }
-     }
-   }
+        Provider.of<User>(context, listen: false).addMeeting(meeting);
+        // Posting meeting to back-end
+        print(jsonEncode(meeting.toJson()));
+        Provider.of<MeetingRepository>(context, listen: false).addMeeting(meeting);
+        Navigator.pop(context);
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) =>
+            SimpleErrorDialog(
+              title: 'Error!',
+              message: e.message
+            )
+        );
+      }
+    }
+  }
 }
 

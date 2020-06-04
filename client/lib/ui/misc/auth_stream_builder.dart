@@ -25,8 +25,8 @@ class AuthStreamBuilder extends StatelessWidget {
         AuthUser authUser = snapshot.data;
         if (authUser == null) return builder(context, snapshot);
 
-        // Storage can be changed at a later stage
         return DatabaseBuilder(
+          // Storage can be changed at a later stage
           storage: SQLiteStorageService('userdata.db'),
           builder: (BuildContext context, AsyncSnapshot<Storage> dbSnapshot) {
             Storage storage = dbSnapshot.data;

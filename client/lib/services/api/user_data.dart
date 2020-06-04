@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:Tempo/services/api/api.dart';
 import 'package:dio/dio.dart';
 
 // TODO: this class needs to be remade from scratch
-class UserDataService implements ApiService<Map<String, dynamic>> {
+class UserDataService {
   // HTTP Client
   final _dio = Dio();
 
@@ -35,7 +34,7 @@ class UserDataService implements ApiService<Map<String, dynamic>> {
       contentType: 'application/json'
     ),
     data: {
-      'userEmail': userEmail,
+      "userEmail": userEmail,
       "firstName": firstName,
       "surname": surname
     }

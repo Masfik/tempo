@@ -1,7 +1,6 @@
 import 'package:Tempo/models/database_model.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/utils/input_exception.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 class Meeting with DatabaseModel, Identity {
   int id;
@@ -11,6 +10,7 @@ class Meeting with DatabaseModel, Identity {
   User organiser;
   List<User> people;
   String room;
+  String qrHash;
 
   Meeting({
     this.id,
@@ -19,13 +19,13 @@ class Meeting with DatabaseModel, Identity {
     this.endTime,
     this.organiser,
     List<User> people,
-    this.room
+    this.room,
+    this.qrHash
   }) {
     this._name = name;
     this.people = people ?? <User>[];
   }
 
-  @JsonKey(name: 'meetingName')
   String get name => _name;
 
   set name(String value) {
@@ -36,18 +36,20 @@ class Meeting with DatabaseModel, Identity {
   factory Meeting.fromJson(Map<String, dynamic> json) => Meeting(
     id: json['id'],
     name: json['meetingName'],
-    dateFrom: json['meetingName'],
-    endTime: json['meetingName'],
+    dateFrom: DateTime.parse(json['dateFrom']),
+    endTime: DateTime.parse(json['endTime']),
     organiser: User(email: json['organiser']),
-    room: json['room']
+    room: json['room'],
+    qrHash: json['qrHash']
   );
 
   Map<String, dynamic> toJson() => {
-    'meetingName': this._name,
-    'dateFrom': this.dateFrom.toIso8601String(),
-    'endTime': this.endTime.toIso8601String(),
-    'organiser': organiser.email,
-    'room': this.room
+    "meetingName": this._name,
+    "dateFrom": this.dateFrom.toIso8601String(),
+    "endTime": this.endTime.toIso8601String(),
+    "organiser": organiser.email,
+    "room": this.room,
+    "qrHash": this.qrHash
   };
 
   @override

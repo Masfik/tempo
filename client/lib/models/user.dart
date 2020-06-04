@@ -100,7 +100,7 @@ class User extends ChangeNotifier with DatabaseModel {
 
   Team get team => _team;
 
-  List<Meeting> get meetings => _meetings;
+  List<Meeting> get meetings => UnmodifiableListView(_meetings);
 
   /* SETTERS */
 
@@ -138,6 +138,11 @@ class User extends ChangeNotifier with DatabaseModel {
   /// Set the active [project] (the current one being viewed by the user)
   set activeProject(Project project) {
     _activeProject = project;
+    notifyListeners();
+  }
+
+  set meetings(List<Meeting> meetings) {
+    this._meetings = meetings;
     notifyListeners();
   }
 

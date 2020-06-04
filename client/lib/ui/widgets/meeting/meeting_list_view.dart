@@ -16,9 +16,9 @@ class MeetingListView extends StatelessWidget {
     return ListView.builder(
       itemCount: meetingCounter,
       itemBuilder: (context, index) =>
-          MeetingTile(
-            meeting: meetings[index],
-          )
+        MeetingTile(
+          meeting: meetings[index],
+        )
     );
   }
 }

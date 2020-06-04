@@ -35,6 +35,8 @@ dependencies:
   google_fonts: ^1.1.0
   # Directional slide actions that can be dismissed
   flutter_slidable: ^0.5.4
+  # Generate random Strings
+  random_string: ^2.0.1
 
 dev_dependencies:
   flutter_test:

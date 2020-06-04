@@ -1,11 +1,9 @@
 import 'package:Tempo/models/auth_user.dart';
-import 'package:Tempo/services/api/api.dart';
 import 'package:Tempo/ui/misc/fetch_local_data.dart';
 import 'package:Tempo/ui/pages/login.dart';
 import 'package:Tempo/ui/pages/home/home.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class AuthenticationScreen extends StatelessWidget {
   final AsyncSnapshot<AuthUser> authUserSnapshot;

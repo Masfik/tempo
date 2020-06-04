@@ -1,4 +1,5 @@
 import 'package:Tempo/models/meeting.dart';
+import 'package:Tempo/ui/pages/meeting_details.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -25,6 +26,10 @@ class _MeetingTileState extends State<MeetingTile> {
       child: ListTile(
         title: Text(meeting.name + '\n' + meeting.room),
         trailing: Text('$date \n $startTime - $endTime'),
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MeetingDetailsPage(meeting))
+        ),
       ),
     );
   }

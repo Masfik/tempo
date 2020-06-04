@@ -24,7 +24,7 @@ class Tempo extends StatelessWidget {
       providers: [
         Provider<AuthService>(create: (context) => AuthServiceAdapter()),
         Provider<UserDataService>(create: (context) => UserDataService()), // <- TODO: create a layer of abstraction
-        Provider<MeetingRepository>(create: (context) => MeetingRepository(Dio()))
+        Provider<MeetingRepository>(create: (context) => MeetingRepository())
       ],
       child: AuthStreamBuilder(
         builder: (context, snapshot) {

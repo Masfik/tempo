@@ -16,17 +16,18 @@ class RegisterScreen extends StatelessWidget {
   final FocusNode _passFocus = FocusNode();
   final FocusNode _confirmPassFocus = FocusNode();
 
+  // Details
+  String email;
+  String password;
+  String confirmPassword;
+  String firstName;
+  String surname;
+
   // Key for identifying the form itself
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    String email;
-    String password;
-    String confirmPassword;
-    String firstName;
-    String surname;
-
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -126,19 +127,7 @@ class RegisterScreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(30)),
                     ),
                     elevation: 0,
-                    onPressed: () async {
-                      if (!_formKey.currentState.validate()) return;
-
-                      var user = await Provider.of<AuthService>(context, listen: false).signUp(email, password);
-
-                      if (user != null) {
-                        await Provider.of<UserDataService>(context, listen: false)
-                            .sendRegisterData(email, firstName, surname);
-
-                        Navigator.pushReplacementNamed(context, '/home');
-                      }
-                      else print('Error!');
-                    }
+                    onPressed: _register(context)
                   ),
                   FlatButton(
                     onPressed: () {
@@ -158,6 +147,20 @@ class RegisterScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _register(BuildContext context) async {
+    if (!_formKey.currentState.validate()) return;
+
+    var user = await Provider.of<AuthService>(context, listen: false).signUp(email, password);
+
+    if (user != null) {
+      await Provider.of<UserDataService>(context, listen: false)
+          .sendRegisterData(email, firstName, surname);
+
+      Navigator.pushReplacementNamed(context, '/home');
+    }
+    else print('Error!');
   }
 
   _fieldFocusChange(BuildContext context, FocusNode currentFocus,FocusNode nextFocus) {
