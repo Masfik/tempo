@@ -43,7 +43,7 @@ public class MeetingService extends HttpServlet {
                     "endTime", "organiser");
             if (map == null) return;
 
-            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS");
             var timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
             var rows = db.execute(sql -> sql.insertInto(MEETING)
                     .set(MEETING.QR_HASH, map.get("qrHash"))
