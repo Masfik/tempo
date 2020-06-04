@@ -2,7 +2,11 @@ import 'dart:convert';
 import 'package:Tempo/services/api/api.dart';
 import 'package:dio/dio.dart';
 
+// TODO: this class needs to be remade from scratch
 class UserDataService implements ApiService<Map<String, dynamic>> {
+  // HTTP Client
+  final _dio = Dio();
+
   String token;
   final _endpoint = 'http://tempo.bartstasik.com:8090/users';
 
@@ -11,7 +15,7 @@ class UserDataService implements ApiService<Map<String, dynamic>> {
   Future<Map<String, dynamic>> fetchData() async {
     if (token == null) throw 'A token is required to perform this request!';
 
-    Response response = await Dio().get(
+    Response response = await _dio.get(
       _endpoint,
       //headers: <String, String>{}
     );
@@ -24,4 +28,16 @@ class UserDataService implements ApiService<Map<String, dynamic>> {
 
     return userBody;
   }
+
+  Future<Response> sendRegisterData(String userEmail, String firstName, String surname) => _dio.post(
+    _endpoint,
+    options: Options(
+      contentType: 'application/json'
+    ),
+    data: {
+      'userEmail': userEmail,
+      "firstName": firstName,
+      "surname": surname
+    }
+  );
 }

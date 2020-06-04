@@ -3,7 +3,7 @@ import 'package:Tempo/services/api/details/check_in_details.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 
-part 'meeting_data.g.dart';
+part 'meeting_repository.g.dart';
 
 @RestApi(baseUrl: 'http://tempo.bartstasik.com:8090/meetings/')
 abstract class MeetingRepository {

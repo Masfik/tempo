@@ -1,3 +1,4 @@
+import 'package:Tempo/services/api/user_data.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/utils/constants.dart';
@@ -130,7 +131,12 @@ class RegisterScreen extends StatelessWidget {
 
                       var user = await Provider.of<AuthService>(context, listen: false).signUp(email, password);
 
-                      if (user != null) Navigator.pushReplacementNamed(context, '/home');
+                      if (user != null) {
+                        await Provider.of<UserDataService>(context, listen: false)
+                            .sendRegisterData(email, firstName, surname);
+
+                        Navigator.pushReplacementNamed(context, '/home');
+                      }
                       else print('Error!');
                     }
                   ),

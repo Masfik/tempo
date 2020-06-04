@@ -160,27 +160,32 @@ class _AddMeetingState extends State<AddMeetingScreen> {
        try {
          if (startTime != null && endTime == null) {
            showDialog(
-               context: context,
-               builder: (context) =>
-                   SimpleErrorDialog(
-                       title: 'Please, specify end Time',
-                       message: 'When a start time is given, an end time must also be specified.'
-                   )
+             context: context,
+             builder: (context) =>
+               SimpleErrorDialog(
+                 title: 'Please, specify end Time',
+                 message: 'When a start time is given, an end time must also be specified.'
+               )
            );
            return;
          }
 
-         dateFrom = DateTime(
-             dateFrom.year,
-             dateFrom.month,
-             dateFrom.day,
-             startTime.hour,
-             startTime.minute
-         );
          
          meeting.name = name;
-         meeting.dateFrom = dateFrom;
-         meeting.endTime = endTime;
+         meeting.dateFrom = DateTime(
+           dateFrom.year,
+           dateFrom.month,
+           dateFrom.day,
+           startTime.hour,
+           startTime.minute
+         );
+         meeting.endTime = DateTime(
+           dateFrom.year,
+           dateFrom.month,
+           dateFrom.day,
+           endTime.hour,
+           endTime.minute
+         );
          meeting.people = people;
          meeting.room = room;
          meeting.people = people;
@@ -192,8 +197,8 @@ class _AddMeetingState extends State<AddMeetingScreen> {
            context: context,
            builder: (context) =>
              SimpleErrorDialog(
-                 title: 'Error!',
-                 message: e.message
+               title: 'Error!',
+               message: e.message
              )
          );
        }

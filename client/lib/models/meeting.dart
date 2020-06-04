@@ -21,7 +21,7 @@ class Meeting with DatabaseModel, Identity {
     List<User> people,
     this.room
   }) {
-    this.name = name;
+    this._name = name;
     this.people = people ?? <User>[];
   }
 

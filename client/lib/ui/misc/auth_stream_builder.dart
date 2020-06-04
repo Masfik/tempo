@@ -5,7 +5,7 @@ import 'package:Tempo/models/user.dart';
 import 'package:Tempo/repositories/repository.dart';
 import 'package:Tempo/repositories/local_repository.dart';
 import 'package:Tempo/repositories/sqlite/sqlite_local_repository.dart';
-import 'package:Tempo/services/api/api.dart';
+import 'package:Tempo/services/api/user_data.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/services/storage/sqlite_storage.dart';
 import 'package:Tempo/services/storage/storage.dart';
@@ -34,7 +34,7 @@ class AuthStreamBuilder extends StatelessWidget {
 
             LocalRepository localRepository = SQLiteLocalRepository(storage);
             // TODO: temporary for the POC
-            Provider.of<ApiService>(context, listen: false).token = authUser.email;
+            Provider.of<UserDataService>(context, listen: false).token = authUser.email;
 
             return MultiProvider(
               providers: [

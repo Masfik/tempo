@@ -1,5 +1,5 @@
-import 'package:Tempo/services/api/api.dart';
-import 'package:Tempo/services/api/user_data_adapter.dart';
+import 'package:Tempo/repositories/api/meeting_repository.dart';
+import 'package:Tempo/services/api/user_data.dart';
 import 'package:Tempo/services/authentication/auth_adapter.dart';
 import 'package:Tempo/services/authentication/authentication.dart';
 import 'package:Tempo/ui/misc/auth_stream_builder.dart';
@@ -12,6 +12,7 @@ import 'package:Tempo/ui/pages/scan_qr.dart';
 import 'package:Tempo/ui/pages/settings.dart';
 import 'package:Tempo/ui/pages/teams.dart';
 import 'package:Tempo/ui/misc/style.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Tempo/ui/pages/register.dart';
@@ -22,7 +23,8 @@ class Tempo extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<AuthService>(create: (context) => AuthServiceAdapter()),
-        Provider<ApiService>(create:  (context) => UserDataServiceAdapter())
+        Provider<UserDataService>(create: (context) => UserDataService()), // <- TODO: create a layer of abstraction
+        Provider<MeetingRepository>(create: (context) => MeetingRepository(Dio()))
       ],
       child: AuthStreamBuilder(
         builder: (context, snapshot) {

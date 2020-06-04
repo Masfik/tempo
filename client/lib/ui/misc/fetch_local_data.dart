@@ -2,7 +2,7 @@ import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/repositories/repository.dart';
-import 'package:Tempo/services/api/api.dart';
+import 'package:Tempo/services/api/user_data.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class _FetchLocalDataBuilder extends State<FetchLocalDataBuilder> {
   void initState() {
     // TODO: temporary spaghetti code. This part will be heavily changed at some point.
     // (the Database setup will be moved elsewhere and an appropriate widget will be created)
-    loadUserData = Provider.of<ApiService>(context, listen: false).fetchData().then((value) async {
+    loadUserData = Provider.of<UserDataService>(context, listen: false).fetchData().then((value) async {
       User user = Provider.of<User>(context, listen: false);
       user.firstName = value['firstName'];
       user.surname = value['surname'];
@@ -81,7 +81,7 @@ class _FetchLocalDataBuilder extends State<FetchLocalDataBuilder> {
               type: LoadingType.error,
               message: 'Failed to fetch user data.\n${snapshot.error.toString()}',
               onRetry: () => setState(() {
-                loadUserData = Provider.of<ApiService>(context, listen: false).fetchData();
+                loadUserData = Provider.of<UserDataService>(context, listen: false).fetchData();
               }),
             );
           }
