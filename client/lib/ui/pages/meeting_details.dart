@@ -53,7 +53,7 @@ class _MeetingDetailsPageState extends State<MeetingDetailsPage> {
                 ListTile(
                   leading: Icon(Icons.access_time),
                   title: Text('Time'),
-                  subtitle: Text(DateFormat('Hm').format(widget.meeting.endTime)),
+                  subtitle: Text(widget.meeting.endTime.format(context)),
                 ),
                 ListTile(
                   leading: Icon(Icons.location_city),

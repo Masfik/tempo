@@ -12,7 +12,6 @@ import 'package:Tempo/ui/pages/scan_qr.dart';
 import 'package:Tempo/ui/pages/settings.dart';
 import 'package:Tempo/ui/pages/teams.dart';
 import 'package:Tempo/ui/misc/style.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Tempo/ui/pages/register.dart';

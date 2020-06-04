@@ -182,16 +182,10 @@ class _AddMeetingState extends State<AddMeetingScreen> {
           startTime.hour,
           startTime.minute
         );
-        meeting.endTime = DateTime(
-          dateFrom.year,
-          dateFrom.month,
-          dateFrom.day,
-          endTime.hour,
-          endTime.minute
-        );
+        meeting.endTime = endTime;
         meeting.people = people;
         meeting.room = room;
-        meeting.qrHash = randomString(10);
+        meeting.qrHash = 'L-' + randomString(10);
 
         Provider.of<User>(context, listen: false).addMeeting(meeting);
         // Posting meeting to back-end
