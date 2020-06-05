@@ -85,7 +85,7 @@ class _ScanQrScreenState extends State<ScanQrScreen> {
                 CircleAvatar(
                   child: Image.asset('images/user.png'),
                 ),
-                SizedBox(height: 10),
+                SizedBox(height: 5),
                 Text(name, style: kTextTitle),
                 Text('Added successfully 🤝', style: kTextNormal)
               ],

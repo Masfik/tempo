@@ -24,8 +24,9 @@ class _MeetingTileState extends State<MeetingTile> {
 
     return Card(
       child: ListTile(
-        title: Text(meeting.name + '\n' + meeting.room),
-        trailing: Text('$date \n $startTime - $endTime'),
+        title: Text(meeting.name),
+        subtitle: Text(meeting.room),
+        trailing: Text('$date\n$startTime - $endTime'),
         onTap: () => Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => MeetingDetailsPage(meeting))

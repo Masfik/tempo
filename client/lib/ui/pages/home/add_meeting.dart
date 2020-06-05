@@ -8,6 +8,7 @@ import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/ui/widgets/misc/time_tile.dart';
 import 'package:Tempo/utils/constants.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../add_people.dart';
@@ -53,20 +54,31 @@ class _AddMeetingState extends State<AddMeetingScreen> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 10),
             Padding(
-              padding: const EdgeInsets.all(5),
-              child: TextFormField(
-                autofocus: true,
-                onChanged: (value) => name = value,
-                decoration: kInputAddDecoration.copyWith(
-                  labelText: 'Subject of the Meeting',
-                  prefixIcon: Icon(Icons.local_offer)
-                ),
-                validator: kValidator,
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              child: Column(
+                children: <Widget>[
+                  TextFormField(
+                    autofocus: true,
+                    onChanged: (value) => name = value,
+                    decoration: kRoundedInputDecoration.copyWith(
+                      hintText: 'Subject of the Meeting',
+                      prefixIcon: Icon(Icons.local_offer, color: Colors.white70)
+                    ),
+                    validator: kValidator,
+                  ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    onChanged: (value) => room = value,
+                    decoration: kRoundedInputDecoration.copyWith(
+                      hintText: 'Meeting Room',
+                      prefixIcon: Icon(Icons.location_city, color: Colors.white70)
+                    ),
+                    validator: kValidator,
+                  ),
+                ],
               ),
             ),
-            const SizedBox(height: 10),
             Expanded(
               child: ListView(
                 children: <Widget>[
@@ -85,17 +97,6 @@ class _AddMeetingState extends State<AddMeetingScreen> {
                     time: endTime,
                     onTap: () => showClock(timeType: TimeType.end),
                     enabled: startTime != null ? true : false,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: TextFormField(
-                      onChanged: (value) => room = value,
-                      decoration: kInputAddDecoration.copyWith(
-                        labelText: 'Meeting Room',
-                        prefixIcon: Icon(Icons.room)
-                      ),
-                      validator: kValidator,
-                    ),
                   ),
                   ListTile(
                     leading: const Icon(Icons.group_add),

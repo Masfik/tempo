@@ -28,7 +28,7 @@ final kTempoThemeData = ThemeData(
 const kCurvedEdgedRadius = Radius.circular(20);
 
 const kRoundedAllRectangleShape = RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(kCurvedEdgedRadius)
+  borderRadius: BorderRadius.all(kCurvedEdgedRadius)
 );
 
 const kRoundedTopRectangleShape = RoundedRectangleBorder(
@@ -48,15 +48,16 @@ const kTextNormal = TextStyle(
   height: 1.5
 );
 
-const kInputLoginDecoration = InputDecoration(
+const kRoundedInputDecoration = InputDecoration(
   border: OutlineInputBorder(
     borderSide: BorderSide(width: 0, style: BorderStyle.none),
       borderRadius: BorderRadius.all(
         Radius.circular(30)
       )
   ),
-  fillColor: Color(0xFF4c566a),
+  fillColor: Color(0xFF434C5E),
   filled: true,
+  counterText: '', // Disables characters counter label
 );
 
 const kInputAddDecoration = InputDecoration(

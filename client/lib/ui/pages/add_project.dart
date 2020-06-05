@@ -8,6 +8,7 @@ import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';
 import 'package:Tempo/ui/widgets/misc/simple_error_dialog.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:provider/provider.dart';
 
 enum CalendarType {
@@ -50,19 +51,20 @@ class _AddProjectScreenState extends State<AddProjectScreen> {
         key: _formKey,
         child: Column(
           children: <Widget>[
-            const SizedBox(height: 10),
-            TextFormField(
-              autofocus: true,
-              onChanged: (value) => name = value,
-              decoration: kInputAddDecoration.copyWith(
-                labelText: 'Project Name',
-                prefixIcon: Icon(Icons.local_offer)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+              child: TextFormField(
+                autofocus: true,
+                onChanged: (value) => name = value,
+                decoration: kRoundedInputDecoration.copyWith(
+                  hintText: 'Project Name',
+                  prefixIcon: Icon(Icons.local_offer, color: Colors.white70)
+                ),
+                maxLines: 1,
+                maxLength: 30,
+                validator: kValidator,
               ),
-              maxLines: 1,
-              maxLength: 30,
-              validator: kValidator,
             ),
-            const SizedBox(height: 10),
             Expanded(
               child: ListView(
                 children: <Widget>[

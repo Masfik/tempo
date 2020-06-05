@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   keyboardType: TextInputType.emailAddress,
                   onChanged: (value) => email = value,
-                  decoration: kInputLoginDecoration.copyWith(
+                  decoration: kRoundedInputDecoration.copyWith(
                     hintText: 'Email',
                     prefixIcon: Icon(Icons.email, color: Colors.white70)
                   ),
@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   focusNode: _passFocus,
                   onChanged: (value) => password = value,
                   obscureText: true,
-                  decoration: kInputLoginDecoration.copyWith(
+                  decoration: kRoundedInputDecoration.copyWith(
                     hintText: 'Password',
                     prefixIcon: Icon(Icons.vpn_key, color: Colors.white70)
                   ),

@@ -51,7 +51,7 @@ class RegisterScreen extends StatelessWidget {
                       _fieldFocusChange(context, _firstNameFocus, _surnameFocus);
                     },
                     onChanged:  (value) => firstName = value,
-                    decoration: kInputLoginDecoration.copyWith(
+                    decoration: kRoundedInputDecoration.copyWith(
                       hintText: 'First Name',
                       prefixIcon: Icon(Icons.person)
                     ),
@@ -65,7 +65,7 @@ class RegisterScreen extends StatelessWidget {
                       _fieldFocusChange(context, _surnameFocus, _emailFocus);
                     },
                     onChanged:  (value) => surname = value,
-                    decoration: kInputLoginDecoration.copyWith(
+                    decoration: kRoundedInputDecoration.copyWith(
                       hintText: 'Surname',
                       prefixIcon: Icon(Icons.person)
                     ),
@@ -80,7 +80,7 @@ class RegisterScreen extends StatelessWidget {
                     },
                     keyboardType: TextInputType.emailAddress,
                     onChanged: (value) => email = value,
-                    decoration: kInputLoginDecoration.copyWith(
+                    decoration: kRoundedInputDecoration.copyWith(
                       hintText: 'Email',
                       prefixIcon: Icon(Icons.email)
                     ),
@@ -95,7 +95,7 @@ class RegisterScreen extends StatelessWidget {
                       _fieldFocusChange(context, _passFocus, _confirmPassFocus);
                     },
                     obscureText: true,
-                    decoration: kInputLoginDecoration.copyWith(
+                    decoration: kRoundedInputDecoration.copyWith(
                       hintText: 'Password',
                       prefixIcon: Icon(Icons.vpn_key)
                     ),
@@ -106,7 +106,7 @@ class RegisterScreen extends StatelessWidget {
                     focusNode: _confirmPassFocus,
                     onChanged: (value) => confirmPassword = value,
                     obscureText: true,
-                    decoration: kInputLoginDecoration.copyWith(
+                    decoration: kRoundedInputDecoration.copyWith(
                       hintText: 'Confirm Password',
                       prefixIcon: Icon(Icons.vpn_key)
                     ),

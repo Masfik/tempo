@@ -70,72 +70,67 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  SizedBox(height: 10),
-                  TextFormField(
+      body: ListView(
+        children: <Widget>[
+          Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                  child: TextFormField(
                     initialValue: widget.task.name,
                     onChanged: (value) => setState(() => taskName = value),
                     onFieldSubmitted: (value) => taskName = value,
-                    decoration: InputDecoration(
-                      labelText: 'Task Name',
-                      contentPadding: EdgeInsets.only(left: 20, right: 20),
-                      counterText: '', // Disables characters counter label
+                    decoration: kRoundedInputDecoration.copyWith(
+                      hintText: 'Task Name',
+                      prefixIcon: Icon(Icons.playlist_add, color: Colors.white70)
                     ),
                     maxLines: 1,
                     maxLength: 30,
                     validator: kValidator,
-                  )
-                ],
-              ),
+                  ),
+                )
+              ],
             ),
-            SizedBox(height: 10),
-            Card(
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    height: 250,
-                    child: location == null
-                      ? isLoading ? LoadingIndicator(type: LoadingType.loading) : NoLocation()
-                      : GoogleMap(
-                          mapType: MapType.normal,
-                          markers: markers,
-                          indoorViewEnabled: true,
-                          initialCameraPosition: CameraPosition(
-                            target: location,
-                            zoom: 18,
-                            tilt: 50
-                          ),
-                          onMapCreated: (controller) => _controller.complete(controller)
-                        ),
-                  ),
-                  Text(
-                    'Location',
-                    style: kTextTitle.copyWith(fontSize: 30),
-                  ),
-                  RaisedButton(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: const <Widget>[
-                        Icon(Icons.map),
-                        SizedBox(width: 10),
-                        Text('Update location')
-                      ],
+          ),
+          Card(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 250,
+                  child: location == null
+                    ? isLoading ? LoadingIndicator(type: LoadingType.loading) : NoLocation()
+                    : GoogleMap(
+                      mapType: MapType.normal,
+                      markers: markers,
+                      indoorViewEnabled: true,
+                      initialCameraPosition: CameraPosition(
+                        target: location,
+                        zoom: 18,
+                        tilt: 50
+                      ),
+                      onMapCreated: (controller) => _controller.complete(controller)
                     ),
-                    onPressed: updateLocation
+                ),
+                SizedBox(height: 15),
+                RaisedButton(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: const <Widget>[
+                      Icon(Icons.map),
+                      SizedBox(width: 10),
+                      Text('Update location')
+                    ],
                   ),
-                ],
-              ),
-            )
-          ]
-        ),
+                  onPressed: updateLocation
+                ),
+                SizedBox(height: 15),
+              ],
+            ),
+          )
+        ]
       )
     );
   }
