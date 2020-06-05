@@ -1,6 +1,6 @@
 import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
-import 'package:Tempo/repositories/repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
 import 'package:sqflite/sqflite.dart';
 
 class SQLiteProjectRepository implements Repository<Project> {

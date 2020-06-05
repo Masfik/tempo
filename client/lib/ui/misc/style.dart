@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 final kTempoThemeData = ThemeData(
   brightness: Brightness.dark,
 
-  primaryColor: Color(0xFF3b4252),
-  canvasColor: Color(0xFF434c5e),
-  backgroundColor: Color(0xFF434c5e),
+  primaryColor: Color(0xFF2E3440),
+  canvasColor: Color(0xFF3B4252),
+  backgroundColor: Color(0xFF3B4252),
   accentColor: Color(0xFF5E81AC),
   toggleableActiveColor: Color(0xFF5E81AC),
   buttonColor: Color(0xFF5E81AC),
 
-  cardColor: Color(0xFF434c5e),
+  cardColor: Color(0xFF3B4252),
   cardTheme: const CardTheme(
     elevation: 6,
     shape: kRoundedAllRectangleShape

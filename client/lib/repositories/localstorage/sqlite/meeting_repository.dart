@@ -1,5 +1,5 @@
 import 'package:Tempo/models/meeting.dart';
-import 'package:Tempo/repositories/repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
 import 'package:sqflite/sqflite.dart';
 
 class MeetingRepository implements Repository<Meeting> {

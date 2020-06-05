@@ -1,7 +1,7 @@
 import 'package:Tempo/models/location.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/repositories/repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
 import 'package:Tempo/utils/sqlite_functions.dart';
 import 'package:sqflite/sqflite.dart';
 

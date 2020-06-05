@@ -2,8 +2,8 @@ import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/repository.dart';
-import 'package:Tempo/repositories/local_repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
+import 'package:Tempo/repositories/localstorage/local_repository.dart';
 
 class LocalRepositoryAdapter implements LocalRepository {
   LocalRepository _localRepository;

@@ -1,6 +1,6 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
-import 'package:Tempo/repositories/repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/pages/task_details.dart';
 import 'package:Tempo/ui/widgets/task/start_button.dart';

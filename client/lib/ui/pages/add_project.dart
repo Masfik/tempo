@@ -1,7 +1,7 @@
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/team.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
 import 'package:Tempo/ui/pages/add_people.dart';
 import 'package:Tempo/ui/misc/style.dart';
 import 'package:Tempo/ui/widgets/misc/calendar_tile.dart';

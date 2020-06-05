@@ -1,14 +1,10 @@
-import 'dart:convert';
-
-import 'package:Tempo/models/meeting.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/user.dart';
 import 'package:Tempo/repositories/api/meeting_repository.dart';
-import 'package:Tempo/repositories/repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
 import 'package:Tempo/services/api/user_data.dart';
 import 'package:Tempo/ui/widgets/misc/loading.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -67,7 +63,7 @@ class _FetchLocalDataBuilder extends State<FetchLocalDataBuilder> {
       user.activeProject = user.projects.first;
 
       // Getting meetings from backend
-      Provider.of<MeetingRepository>(context, listen: false).getMeetings();
+      user.meetings = await Provider.of<MeetingRepository>(context, listen: false).getMeetings();
 
       return value;
     });

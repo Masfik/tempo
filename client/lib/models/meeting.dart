@@ -11,7 +11,6 @@ class Meeting with DatabaseModel, Identity {
   User organiser;
   List<User> people;
   String room;
-  String qrHash;
 
   Meeting({
     this.id,
@@ -20,8 +19,7 @@ class Meeting with DatabaseModel, Identity {
     this.endTime,
     this.organiser,
     List<User> people,
-    this.room,
-    this.qrHash
+    this.room
   }) {
     this._name = name;
     this.people = people ?? <User>[];
@@ -38,13 +36,12 @@ class Meeting with DatabaseModel, Identity {
     List<String> endTime = (json['endTime'] as String).split(':'); // <- TODO: pretty hackish. Change it at some point.
 
     return Meeting(
-        id: json['id'],
-        name: json['meetingName'],
-        dateFrom: DateTime.parse(json['dateFrom']),
-        endTime: TimeOfDay(hour: int.parse(endTime[0]), minute: int.parse(endTime[1])),
-        organiser: User(email: json['organiser']),
-        room: json['room'],
-        qrHash: json['qrHash']
+      id: json['id'],
+      name: json['meetingName'],
+      dateFrom: DateTime.parse(json['dateFrom']),
+      endTime: TimeOfDay(hour: int.parse(endTime[0]), minute: int.parse(endTime[1])),
+      organiser: User(email: json['organiser']),
+      room: json['room']
     );
   }
 
@@ -54,7 +51,7 @@ class Meeting with DatabaseModel, Identity {
     "endTime": "${endTime.hour}:${endTime.minute}:00", // <- TODO: use a more generic way
     "organiser": organiser.email,
     "room": this.room,
-    "qrHash": this.qrHash
+    "qrHash": 'L-$room'
   };
 
   @override

@@ -1,11 +1,8 @@
 import 'dart:convert';
-
 import 'package:Tempo/models/meeting.dart';
-import 'package:Tempo/services/api/details/check_in_details.dart';
 import 'package:dio/dio.dart';
-import 'package:retrofit/http.dart';
 
-part 'meeting_repository.g.dart';
+//part 'meeting_repository.g.dart';
 
 /*@RestApi(baseUrl: 'http://tempo.bartstasik.com:8090/meetings')*/
 class MeetingRepository {
@@ -26,6 +23,13 @@ class MeetingRepository {
   });
 
   Future<void> addMeeting(Meeting meeting) => _dio.post('', data: meeting.toJson());
+
+
+
+  Future<void> checkIn(String email, String qrHash) => _dio.post('/checkin', data: {
+    'userEmail': email,
+    'qrHash': qrHash
+  });
 
   /*@GET('')
   Future<List<Meeting>> getMeetings();*/

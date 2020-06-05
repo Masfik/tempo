@@ -22,52 +22,33 @@ class _MeetingDetailsPageState extends State<MeetingDetailsPage> {
       appBar: AppBar(
         title: Text(widget.meeting.name)
       ),
-      body: Column(
+      body: ListView(
         children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(20),
-            child: Center(
-              child: bytes == null
-                ? RaisedButton(
-                  color: Theme.of(context).accentColor,
-                  child: Text("Show QR"),
-                  onPressed: () async => scanner.generateBarCode(widget.meeting.qrHash)
-                      .then((value) => setState(() => bytes = value))
-                )
-                : Image.memory(bytes, scale: 2,),
-            )
+          ListTile(
+            leading: Icon(Icons.info),
+            title: Text('Meeting Name'),
+            subtitle: Text(widget.meeting.name),
           ),
-          Expanded(
-            child: ListView(
-              children: <Widget>[
-                ListTile(
-                  leading: Icon(Icons.info),
-                  title: Text('Meeting Name'),
-                  subtitle: Text(widget.meeting.name),
-                ),
-                ListTile(
-                  leading: Icon(Icons.date_range),
-                  title: Text('Date'),
-                  subtitle: Text(DateFormat('E d MMM, y').format(widget.meeting.dateFrom)),
-                ),
-                ListTile(
-                  leading: Icon(Icons.access_time),
-                  title: Text('Time'),
-                  subtitle: Text(widget.meeting.endTime.format(context)),
-                ),
-                ListTile(
-                  leading: Icon(Icons.location_city),
-                  title: Text('Room'),
-                  subtitle: Text(widget.meeting.room),
-                ),
-                ListTile(
-                  leading: Icon(Icons.email),
-                  title: Text('Organiser'),
-                  subtitle: Text(widget.meeting.organiser.email),
-                ),
-              ],
-            ),
-          )
+          ListTile(
+            leading: Icon(Icons.date_range),
+            title: Text('Date'),
+            subtitle: Text(DateFormat('E d MMM, y').format(widget.meeting.dateFrom)),
+          ),
+          ListTile(
+            leading: Icon(Icons.access_time),
+            title: Text('Time'),
+            subtitle: Text(widget.meeting.endTime.format(context)),
+          ),
+          ListTile(
+            leading: Icon(Icons.location_city),
+            title: Text('Room'),
+            subtitle: Text(widget.meeting.room),
+          ),
+          ListTile(
+            leading: Icon(Icons.email),
+            title: Text('Organiser'),
+            subtitle: Text(widget.meeting.organiser.email),
+          ),
         ],
       )
     );

@@ -2,11 +2,11 @@ import 'package:Tempo/models/auth_user.dart';
 import 'package:Tempo/models/project.dart';
 import 'package:Tempo/models/task.dart';
 import 'package:Tempo/models/user.dart';
-import 'package:Tempo/repositories/repository.dart';
-import 'package:Tempo/repositories/local_repository.dart';
-import 'package:Tempo/repositories/sqlite/project_repository.dart';
-import 'package:Tempo/repositories/sqlite/task_repository.dart';
-import 'package:Tempo/repositories/sqlite/user_repository.dart';
+import 'package:Tempo/repositories/localstorage/repository.dart';
+import 'package:Tempo/repositories/localstorage/local_repository.dart';
+import 'package:Tempo/repositories/localstorage/sqlite/project_repository.dart';
+import 'package:Tempo/repositories/localstorage/sqlite/task_repository.dart';
+import 'package:Tempo/repositories/localstorage/sqlite/user_repository.dart';
 import 'package:Tempo/services/storage/sqlite_storage.dart';
 import 'package:sqflite/sqflite.dart';
 

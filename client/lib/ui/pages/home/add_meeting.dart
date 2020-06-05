@@ -10,7 +10,6 @@ import 'package:Tempo/ui/widgets/misc/time_tile.dart';
 import 'package:Tempo/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:random_string/random_string.dart';
 import '../add_people.dart';
 
 enum TimeType {
@@ -92,8 +91,8 @@ class _AddMeetingState extends State<AddMeetingScreen> {
                     child: TextFormField(
                       onChanged: (value) => room = value,
                       decoration: kInputAddDecoration.copyWith(
-                          labelText: 'Meeting Room',
-                          prefixIcon: Icon(Icons.room)
+                        labelText: 'Meeting Room',
+                        prefixIcon: Icon(Icons.room)
                       ),
                       validator: kValidator,
                     ),
@@ -117,7 +116,6 @@ class _AddMeetingState extends State<AddMeetingScreen> {
   }
 
   Future showCalendar() async {
-
     DateTime now = DateTime.now();
     now = DateTime(now.year, now.month, now.day);
     DateTime initialDate = now;
@@ -185,7 +183,6 @@ class _AddMeetingState extends State<AddMeetingScreen> {
         meeting.endTime = endTime;
         meeting.people = people;
         meeting.room = room;
-        meeting.qrHash = 'L-' + randomString(10);
 
         Provider.of<User>(context, listen: false).addMeeting(meeting);
         // Posting meeting to back-end
@@ -195,11 +192,10 @@ class _AddMeetingState extends State<AddMeetingScreen> {
       } catch (e) {
         showDialog(
           context: context,
-          builder: (context) =>
-            SimpleErrorDialog(
-              title: 'Error!',
-              message: e.message
-            )
+          builder: (context) => SimpleErrorDialog(
+            title: 'Error!',
+            message: e.message
+          )
         );
       }
     }

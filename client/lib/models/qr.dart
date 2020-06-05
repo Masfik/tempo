@@ -10,12 +10,17 @@ class QR {
 
   get data => _data;
 
-  get type => _type;
+  QRType get type => _type;
 
   Future<bool> scan() async {
     String query = await scanner.scan();
 
-    if (query.length == 7) {
+    if (query.length >= 3 && query.startsWith('L-')) {
+      _data = query.substring(2);
+      _type = QRType.location;
+
+      return true;
+    } else if (query.length == 7) {
       // Checks if the QR code scanned is an integer
       try {
         int.parse(query);
@@ -23,14 +28,7 @@ class QR {
         _type = QRType.invitation;
 
         return true;
-      } catch (e) {
-        return false;
-      }
-    } else if (query.length == 9 && query.startsWith('L-')) {
-      _data = query.substring(2);
-      _type = QRType.location;
-
-      return true;
+      } catch (e) { }
     }
     return false;
   }
