@@ -95,40 +95,38 @@ class _TaskDetailsScreenState extends State<TaskDetailsScreen> {
               ],
             ),
           ),
-          Card(
-            child: Column(
-              children: <Widget>[
-                Container(
-                  height: 250,
-                  child: location == null
-                    ? isLoading ? LoadingIndicator(type: LoadingType.loading) : NoLocation()
-                    : GoogleMap(
-                      mapType: MapType.normal,
-                      markers: markers,
-                      indoorViewEnabled: true,
-                      initialCameraPosition: CameraPosition(
-                        target: location,
-                        zoom: 18,
-                        tilt: 50
-                      ),
-                      onMapCreated: (controller) => _controller.complete(controller)
+          Column(
+            children: <Widget>[
+              Container(
+                height: 250,
+                child: location == null
+                  ? isLoading ? LoadingIndicator(type: LoadingType.loading) : NoLocation()
+                  : GoogleMap(
+                    mapType: MapType.normal,
+                    markers: markers,
+                    indoorViewEnabled: true,
+                    initialCameraPosition: CameraPosition(
+                      target: location,
+                      zoom: 18,
+                      tilt: 50
                     ),
-                ),
-                SizedBox(height: 15),
-                RaisedButton(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: const <Widget>[
-                      Icon(Icons.map),
-                      SizedBox(width: 10),
-                      Text('Update location')
-                    ],
+                    onMapCreated: (controller) => _controller.complete(controller)
                   ),
-                  onPressed: updateLocation
+              ),
+              SizedBox(height: 15),
+              RaisedButton(
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: const <Widget>[
+                    Icon(Icons.map),
+                    SizedBox(width: 10),
+                    Text('Update location')
+                  ],
                 ),
-                SizedBox(height: 15),
-              ],
-            ),
+                onPressed: updateLocation
+              ),
+              SizedBox(height: 15),
+            ],
           )
         ]
       )
