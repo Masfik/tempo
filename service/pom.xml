@@ -22,7 +22,7 @@
         <jooq.version>3.11.9</jooq.version>
         <jsr205.version>1.0</jsr205.version>
         <jetty.version>9.4.14.v20181114</jetty.version>
-        <postgres.version>42.2.25</postgres.version>
+        <postgres.version>42.3.3</postgres.version>
         <flyway.version>5.0.2</flyway.version>
         <google.version>1.1</google.version>
         <jackson.version>2.9.10.8</jackson.version>
